@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+{{-- @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -70,4 +70,37 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 ads">
+          <h1><span id="fl">Laboratorio</span><span id="sl">Diseño Gráfico</span></h1>
+        </div>
+        <div class="col-md-6 login-form">
+          <div class="profile-img">
+            <h3>Bienvenido!</h3>
+          </div>
+          <h3>Iniciar Sesión</h3>
+          <p><small>Utilice sus credenciales de Intranet</small></p>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" name="username" placeholder="Ingrese su usuario">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="password" placeholder="Ingrese su contraseña">
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-primary btn-lg btn-block">Ingresar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
