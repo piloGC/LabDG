@@ -15,6 +15,10 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    
+                    <a href="{{ url('equipos')}}">
+                        <button type="button" class="btn btn-primary mr-2" > Ver Equipo </button>
+                    </a>
                 </div>
             </div>
         </div>
