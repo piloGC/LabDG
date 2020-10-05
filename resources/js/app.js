@@ -26,7 +26,7 @@ window.moment=require('moment');
 
 Vue.use(VueSweetAlert2);
 Vue.config.ignoredElements=['trix-editor'];
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('eliminar-sala', require('./components/EliminarSala.vue').default);
 Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
 Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 

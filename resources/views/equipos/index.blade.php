@@ -49,7 +49,7 @@
 
         <a href="{{route('equipos.create')}}"class="btn btn-primary mr-2">Agregar Equipo</a>
             <!--button type="button" class="btn btn-primary mr-2" > Agregar Equipo </!--button-->
-
+            <a href="{{route('home')}}"class="btn btn-primary mr-2">Volver a Inicio</a>
 
     </div>
 

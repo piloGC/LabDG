@@ -19,6 +19,9 @@
                     <a href="{{ url('equipos')}}">
                         <button type="button" class="btn btn-primary mr-2" > Ver Equipo </button>
                     </a>
+                    <a href="{{ url('salas')}}">
+                        <button type="button" class="btn btn-primary mr-2" > Ver Salas </button>
+                    </a>
                 </div>
             </div>
         </div>
