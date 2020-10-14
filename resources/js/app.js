@@ -29,6 +29,7 @@ Vue.config.ignoredElements=['trix-editor'];
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
 Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
+Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
 
 
 /**

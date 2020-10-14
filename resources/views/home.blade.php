@@ -19,6 +19,10 @@
                     <a href="{{ url('equipos')}}">
                         <button type="button" class="btn btn-primary mr-2" > Ver Equipo </button>
                     </a>
+
+                    <a href="{{ url('sanciones')}}">
+                        <button type="button" class="btn btn-primary mr-2" > Ver Sanciones </button>
+                    </a>
                 </div>
             </div>
         </div>
