@@ -174,7 +174,7 @@ class EquipoController extends Controller
      */
     public function destroy(Equipo $equipo)
     {
-        //Storage::delete('public/'.$equipo->Imagen);
+        Storage::delete('public/'.$equipo->imagen);
         $equipo->delete();
         return redirect()->action('EquipoController@index');
     }
