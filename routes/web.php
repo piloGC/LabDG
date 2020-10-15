@@ -27,5 +27,16 @@ Route::put('/equipos/{equipo}','EquipoController@update')->name('equipos.update'
 Route::delete('/equipos/{equipo}','EquipoController@destroy')->name('equipos.destroy'); */
 Auth::routes();
 
+Route::resource('existencia', 'ExistenciaController');
+
+
+Route::get('/sanciones','SancionController@index')->name('equipos.index');
+Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create');
+Route::post('/sanciones','SancionController@store')->name('sanciones.store');
+Route::get('/sanciones/{sancion}','SancionController@show')->name('sanciones.show');
+Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit');
+Route::put('/sancioness/{sancion}','SancionController@update')->name('sanciones.update');
+Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
