@@ -27,7 +27,7 @@ Route::put('/equipos/{equipo}','EquipoController@update')->name('equipos.update'
 Route::delete('/equipos/{equipo}','EquipoController@destroy')->name('equipos.destroy'); */
 Auth::routes();
 
-Route::resource('existencia', 'ExistenciaController');
+Route::resource('existencias', 'ExistenciaController');
 
 
 Route::get('/sanciones','SancionController@index')->name('equipos.index');

@@ -13,13 +13,13 @@ class CreateExistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('estado_existencias',function(Blueprint $table){
+        Schema::create('existencia_estados',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
             $table->timestamps();
         });
 
-        Schema::create('disponibilidads',function(Blueprint $table){
+        Schema::create('existencia_disponibilidads',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
             $table->timestamps();
@@ -30,8 +30,8 @@ class CreateExistenciasTable extends Migration
             $table->id();
             $table->string('codigo');
             $table->datetime('fecha_adquisicion');
-            $table->foreignId('estado_id')->references('id')->on('estado_existencias')->comment('Bueno o malo');
-            $table->foreignId('disponibilidad_id')->references('id')->on('disponibilidads')->comment('disponible para prestamo o no');
+            $table->foreignId('estado_id')->references('id')->on('existencia_estados')->comment('Bueno o malo');
+            $table->foreignId('disponibilidad_id')->references('id')->on('existencia_disponibilidads')->comment('disponible para prestamo o no');
             $table->foreignId('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });
@@ -44,8 +44,17 @@ class CreateExistenciasTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('existencias');
-        Schema::dropIfExists('disponibilidads');
-        Schema::dropIfExists('estado_existencias');
+        Schema::enableForeignKeyConstraints();
+
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('existencia_disponibilidads');
+        Schema::enableForeignKeyConstraints();
+
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('existencia_estados');
+        Schema::enableForeignKeyConstraints();
+        
     }
 }

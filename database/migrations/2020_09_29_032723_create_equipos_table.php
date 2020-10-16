@@ -48,16 +48,16 @@ class CreateEquiposTable extends Migration
      */
     public function down()
     {
-        //Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('catalogo_equipos');
-        //Schema::enableForeignKeyConstraints();
+        Schema::enableForeignKeyConstraints();
 
-        //Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('categoria_equipos');
-        //Schema::enableForeignKeyConstraints();
+        Schema::enableForeignKeyConstraints();
 
-        //Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('equipos');
-        //Schema::enableForeignKeyConstraints();
+        Schema::enableForeignKeyConstraints();
     }
 }
