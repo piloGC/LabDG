@@ -12,18 +12,18 @@ class ExistenciaEstadoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('existencia_disponibilidads')->insert([
-            'nombre' => 'Disponible',
+        DB::table('existencia_estados')->insert([
+            'nombre' => 'Bueno',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        DB::table('existencia_disponibilidads')->insert([
-            'nombre' => 'Ocupado',
+        DB::table('existencia_estados')->insert([
+            'nombre' => 'Malo',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        DB::table('existencia_disponibilidads')->insert([
-            'nombre' => 'en Laboratorio',
+        DB::table('existencia_estados')->insert([
+            'nombre' => 'Otro',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

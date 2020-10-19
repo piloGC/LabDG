@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class ExistenciaController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth','admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +24,7 @@ class ExistenciaController extends Controller
     {
         //
         $datos ['existencias']=Existencia::paginate(10);
-        return view ('existencias.index',$datos);
+        return view ('encargado.existencias.index',$datos);
     }
 
     /**
@@ -34,7 +37,7 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('existencias.create')->with('estados',$estados)->with('disponibilidads',$disponibilidads)->with('equipos',$equipos);
+        return view('encargado.existencias.create')->with('estados',$estados)->with('disponibilidads',$disponibilidads)->with('equipos',$equipos);
     }
 
     /**
@@ -74,7 +77,7 @@ class ExistenciaController extends Controller
      */
     public function show(Existencia $existencia)
     {
-        return view('existencias.show',compact('existencia'));
+        return view('encargado.existencias.show',compact('existencia'));
     }
 
     /**
@@ -88,7 +91,7 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('existencias.edit',compact('estados','disponibilidads','equipos','existencia'));
+        return view('encargado.existencias.edit',compact('estados','disponibilidads','equipos','existencia'));
     }
 
     /**

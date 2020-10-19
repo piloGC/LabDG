@@ -39,5 +39,5 @@ Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vu
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#app', 
 });

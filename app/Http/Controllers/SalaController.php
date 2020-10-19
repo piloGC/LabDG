@@ -16,12 +16,12 @@ class SalaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware(['auth','admin']);
     }
     public function index()
     {
         $datos ['salas']=Sala::paginate(10);
-        return view ('salas.index',$datos);
+        return view ('encargado.salas.index',$datos);
     }
 
     /**
@@ -31,7 +31,7 @@ class SalaController extends Controller
      */
     public function create()
     {
-        return view('salas.create');
+        return view('encargado.salas.create');
     }
 
     /**
@@ -75,7 +75,7 @@ class SalaController extends Controller
      */
     public function show(Sala $sala)
     {
-        return view('salas.show',compact('sala'));
+        return view('encargado.salas.show',compact('sala'));
     }
 
     /**
@@ -86,7 +86,7 @@ class SalaController extends Controller
      */
     public function edit(Sala $sala)
     {
-        return view('salas.edit',compact('sala'));
+        return view('encargado.salas.edit',compact('sala'));
     }
 
     /**

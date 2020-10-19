@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Auth::routes();
 Route::resource('existencias', 'ExistenciaController');
 
 
-Route::get('/sanciones','SancionController@index')->name('equipos.index');
+Route::get('/sanciones','SancionController@index')->name('sanciones.index');
 Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create');
 Route::post('/sanciones','SancionController@store')->name('sanciones.store');
 Route::get('/sanciones/{sancion}','SancionController@show')->name('sanciones.show');
@@ -39,4 +40,10 @@ Route::put('/sancioness/{sancion}','SancionController@update')->name('sanciones.
 Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//index de admin
+Route::get('/admin','AdminController@index')->name('admin');
+
+//index de user
+Route::get('/user','UserController@index')->name('user');
 

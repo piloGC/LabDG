@@ -15,7 +15,7 @@ use Intervention\Image\Facades\Image;
 class EquipoController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware(['auth','admin']);
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class EquipoController extends Controller
     public function index()
     {
         $datos ['equipos']=Equipo::paginate(10);
-        return view ('equipos.index',$datos);
+        return view ('encargado.equipos.index',$datos);
     }
 
 
@@ -45,7 +45,7 @@ class EquipoController extends Controller
         $catalogos = CatalogoEquipo::all(['id','disponible']);
         
 
-        return view('equipos.create')->with('categorias',$categorias)->with('catalogos',$catalogos);
+        return view('encargado.equipos.create')->with('categorias',$categorias)->with('catalogos',$catalogos);
     }
 
     /**
@@ -107,7 +107,7 @@ class EquipoController extends Controller
      */
     public function show(Equipo $equipo)
     {
-        return view('equipos.show',compact('equipo'));
+        return view('encargado.equipos.show',compact('equipo'));
     }
 
     /**
@@ -121,7 +121,7 @@ class EquipoController extends Controller
         $categorias = CategoriaEquipo::all(['id','nombre']);
         $catalogos = CatalogoEquipo::all(['id','disponible']);
 
-        return view('equipos.edit',compact('categorias','catalogos','equipo'));
+        return view('encargado.equipos.edit',compact('categorias','catalogos','equipo'));
     }
 
     /**

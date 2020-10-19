@@ -8,6 +8,7 @@
 
     <h1 class="text-center mb-5">Sanciones</h1>
     <div class="col-md-10 mx-auto bg-white p-3">
+        <div class="table-responsive">
         <table class="table table-light">
             <thead class="bg-primary text-white">
                 <tr>
@@ -38,6 +39,7 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
     </div>
 
 

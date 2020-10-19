@@ -18,6 +18,6 @@ class Existencia extends Model
         return $this->belongsTo(ExistenciaEstado::class);
     }
     public function equipo(){
-        return $this->belongsTo(Equipo::class,'nombre');
+        return $this->belongsTo(Equipo::class);
     }
 }
