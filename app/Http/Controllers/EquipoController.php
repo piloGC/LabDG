@@ -76,7 +76,7 @@ class EquipoController extends Controller
 
         //resize image
         //$img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
-        $image = $request->file('image');
+        $image = $request->file('imagen');
         $filename = time() . '.' . $image->getClientOriginalExtension();
         Image::make($image)->resize(300, 300)->save( public_path("storage/{$ruta_imagen}". $filename) );
         $img->save();
