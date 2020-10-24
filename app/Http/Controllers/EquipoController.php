@@ -75,7 +75,8 @@ class EquipoController extends Controller
         $ruta_imagen= $request['imagen']->store('uploads','public');
 
         //resize image
-        $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
+        //$img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
+        $img = Image::make($image->getRealPath())->fit(400,400);
         $img->save();
 
 
