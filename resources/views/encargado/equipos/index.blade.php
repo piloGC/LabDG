@@ -39,7 +39,13 @@
                       {{--  <form action="{{ route('equipos.destroy',['equipo' => $equipo->id])}}"  method="post"> --}}
                         <a href="{{ route('equipos.edit', ['equipo'=> $equipo->id]) }}" class="btn btn-primary  mb-2">Editar</a>
                         <a href="{{ route('equipos.show', ['equipo'=> $equipo->id]) }}" class="btn btn-success  mb-2">Ver</a>
-                        <eliminar-equipo equipo-id={{$equipo->id}}></eliminar-equipo>
+                        {{-- <eliminar-equipo equipo-id={{$equipo->id}}></eliminar-equipo> --}}
+                        <a href=""><form action="{{ route('equipos.destroy', ['equipo'=> $equipo->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger mb-2" type="submit">Eliminar</button>
+                          </form>
+                        </a>
                                                 
                     </td>
                 </tr>

@@ -10,7 +10,7 @@
     <div class="container login-container">
       <div class="row ">
         <div class="col-md-6 ads">
-          <h1><span id="fl">Laboratorio </span><span id="sl">DiseñoGráfico</span></h1>
+          <h1><span id="fl">Laboratorio </span><span id="sl">Diseño Gráfico</span></h1>
         </div>
         <div class="col-md-6 login-form">
             <h3>Bienvenido!</h3>

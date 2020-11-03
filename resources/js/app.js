@@ -31,6 +31,7 @@ Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
 Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
 Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
+Vue.component('enviar-solicitud', require('./components/EnviarSolicitud.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

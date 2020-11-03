@@ -45,7 +45,7 @@
                             <a class="nav-link" href="/user"><b>CATÁLOGO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link" href="{{ route('prestamos.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="/user"><b>HORARIOS</b></a>
@@ -79,7 +79,7 @@
                                     <a class="dropdown-item" href="#">
                                         {{ __('Mi Perfil') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('prestamos.index') }}">
                                         {{ __('Mis Solicitudes') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('sanciones.index') }}">
@@ -101,7 +101,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>

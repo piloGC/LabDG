@@ -172,10 +172,14 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Equipo $equipo)
+    public function destroy($id)
     {
-        Storage::delete('public/'.$equipo->imagen);
+        //Storage::delete('public/uploads'.$equipo->imagen);
+        // $equipo->delete();
+        // return redirect()->action('EquipoController@index');
+        $equipo = Equipo::find($id);
         $equipo->delete();
-        return redirect()->action('EquipoController@index');
+        return redirect('/equipos');
+        ;
     }
 }

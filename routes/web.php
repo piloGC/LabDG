@@ -14,23 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
 Route::get('/', function () {
     return view('auth.login');
 });
+
+//rutas de equipos
 Route::resource('equipos','EquipoController');
+
+//rutas de sala
 Route::resource('salas','SalaController');
-/*Route::get('/equipos','EquipoController@index')->name('equipos.index');
-Route::get('/equipos/equipo','EquipoController@create')->name('equipos.create');
-Route::post('/equipos','EquipoController@store')->name('equipos.store');
-Route::get('/equipos/{equipo}','EquipoController@show')->name('equipos.show');
-Route::get('/equipos/{equipo}/edit','EquipoController@edit')->name('equipos.edit');
-Route::put('/equipos/{equipo}','EquipoController@update')->name('equipos.update');
-Route::delete('/equipos/{equipo}','EquipoController@destroy')->name('equipos.destroy'); */
+
+//rutas de pretamos
+Route::resource('prestamos','PrestamoController');
+
+
+//rutas de autenticacion
 Auth::routes();
 
+//rutas de existencia
 Route::resource('existencias', 'ExistenciaController');
 
-
+//rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');
 Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create');
 Route::post('/sanciones','SancionController@store')->name('sanciones.store');
@@ -39,7 +46,8 @@ Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sancione
 Route::put('/sancioness/{sancion}','SancionController@update')->name('sanciones.update');
 Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//rutas de home
+ Route::get('/home', 'HomeController@index')->name('home');
 
 //index de admin
 Route::get('/admin','AdminController@index')->name('admin');
