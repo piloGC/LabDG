@@ -10,7 +10,7 @@ class PrestamoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','user']);
+        $this->middleware(['auth','admin']);
     }
     /**
      * Display a listing of the resource.
@@ -19,14 +19,7 @@ class PrestamoController extends Controller
      */
     public function index()
     {
-        //
-        $usuario =auth()->user();
-
-        //prestamos CON paginacion
-        $prestamos = Prestamo::where('user_id', $usuario->id)->paginate(5);
-
-
-        return view('alumno.prestamos.index')->with('prestamos',$prestamos)->with('usuario',$usuario);
+      
     }
 
     /**
@@ -36,10 +29,6 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        //
-        $asignaturas = Asignatura::all(['id', 'nombre']);
-
-        return view('alumno.prestamos.create',compact('asignaturas'));
     }
 
     /**
@@ -50,30 +39,7 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-         //validacion
-         $datosSolicitud = $request->validate([
-            'motivo' => 'required|max:200',
-            'fecha_inicio'=> 'required|date',
-            'fecha_fin'=> 'required|date',
-            // 'fecha_devolucion' => 'date',
-            // 'fecha_solicitud' => 'date',
-            'asignatura' =>'required',
-            
-        ]);
-
-        //inserta en la bdd con modelo
-        auth()->user()->prestamo()->create([
-            'motivo'=> $datosSolicitud['motivo'],
-            'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
-            'fecha_fin'=> $datosSolicitud['fecha_fin'],
-            // 'fecha_devolucion' => $datosSolicitud['fecha_devolucion'],
-            // 'fecha_solicitud' => $datosSolicitud['fecha_solicitud'],
-            'asignatura_id' =>$datosSolicitud['asignatura'],
-        ]);
-
-        //return
-        return redirect()->action('PrestamoController@index');
+        
 
     }
 
@@ -85,8 +51,7 @@ class PrestamoController extends Controller
      */
     public function show(Prestamo $prestamo)
     {
-        //
-        return view('alumno.prestamos.show', compact('prestamo'));
+       
     }
 
     /**

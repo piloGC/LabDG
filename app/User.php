@@ -80,4 +80,9 @@ class User extends Authenticatable
         //tiene relacion 1:n con prestamo ::class importa el modelo
         return $this->hasMany(Prestamo::class);
     }
+    /** Relacion de 1:n de usuario a solicitudes*/
+    public function solicitud(){
+        //tiene relacion 1:n con solicitud ::class importa el modelo
+        return $this->hasMany(Solicitud::class);
+    }
 }

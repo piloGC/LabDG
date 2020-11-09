@@ -27,9 +27,17 @@ Route::resource('equipos','EquipoController');
 //rutas de sala
 Route::resource('salas','SalaController');
 
-//rutas de pretamos
+//rutas de prestamos
 Route::resource('prestamos','PrestamoController');
 
+//rutas de solicitudes
+Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index');
+Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create');
+Route::post('/solicitudes','SolicitudController@store')->name('solicitud.store');
+Route::get('/solicitudes/{solicitud}','SolicitudController@show')->name('solicitud.show');
+Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('solicitud.edit');
+Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update');
+Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
 
 //rutas de autenticacion
 Auth::routes();
@@ -43,7 +51,7 @@ Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.cre
 Route::post('/sanciones','SancionController@store')->name('sanciones.store');
 Route::get('/sanciones/{sancion}','SancionController@show')->name('sanciones.show');
 Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit');
-Route::put('/sancioness/{sancion}','SancionController@update')->name('sanciones.update');
+Route::put('/sanciones/{sancion}','SancionController@update')->name('sanciones.update');
 Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
 
 //rutas de home
@@ -55,3 +63,7 @@ Route::get('/admin','AdminController@index')->name('admin');
 //index de user
 Route::get('/user','UserController@index')->name('user');
 
+//rutas para dropdown dependiente
+Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
+Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
+Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');

@@ -39,13 +39,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>INICIO</b></a>
+                            <a class="nav-link border-button" href="/user"><b>INICIO</b></a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="/user"><b>CATÁLOGO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('prestamos.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="/user"><b>HORARIOS</b></a>
@@ -79,7 +79,7 @@
                                     <a class="dropdown-item" href="#">
                                         {{ __('Mi Perfil') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('prestamos.index') }}">
+                                    <a class="dropdown-item" href="{{ route('solicitud.index') }}">
                                         {{ __('Mis Solicitudes') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('sanciones.index') }}">

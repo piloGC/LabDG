@@ -1,12 +1,11 @@
 import Vue from 'vue';
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
- import VueSweetAlert2 from 'vue-sweetalert2';
+import VueSweetAlert2 from 'vue-sweetalert2';
 
 require('./bootstrap');
 
@@ -31,7 +30,7 @@ Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
 Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
 Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
-Vue.component('enviar-solicitud', require('./components/EnviarSolicitud.vue').default);
+Vue.component('dropdown-solicitud', require('./components/Dropdown.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -40,5 +39,5 @@ Vue.component('enviar-solicitud', require('./components/EnviarSolicitud.vue').de
  */
 
 const app = new Vue({
-    el: '#app', 
+    el: '#app',
 });

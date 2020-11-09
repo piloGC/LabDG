@@ -13,22 +13,9 @@ class CreatePrestamosTable extends Migration
      */
     public function up()
     {
-        Schema::create('asignaturas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('codigo');
-            $table->timestamps();
-        });
 
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
-            $table->string('motivo');
-            // $table->datetime('fecha_solicitud');
-            $table->datetime('fecha_inicio');
-            $table->datetime('fecha_fin');
-            // $table->datetime('fecha_devolucion');
-            $table->foreignId('asignatura_id')->references('id')->on('asignaturas')->onDelete('cascade');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

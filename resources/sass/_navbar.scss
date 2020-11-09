@@ -1,0 +1,9 @@
+.border-button {
+    // border-bottom: solid 5px;
+    transition:  border-color red;
+  }
+  
+  .border-button:hover { 
+    border-color: red !important; 
+    border-bottom: solid 3px;
+    }
