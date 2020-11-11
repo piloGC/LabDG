@@ -41,17 +41,17 @@
                         <li class="nav-item ">
                             <a class="nav-link border-button" href="/user"><b>INICIO</b></a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>CATÁLOGO</b></a>
+                        <li class="nav-item border-button2">
+                            <a class="nav-link " href="/user"><b>CATÁLOGO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link border-button3" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>HORARIOS</b></a>
+                            <a class="nav-link border-button4" href="/user"><b>HORARIOS</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>REGLAMENTO</b></a>
+                            <a class="nav-link border-button5" href="/user"><b>REGLAMENTO</b></a>
                         </li>
 
                           

@@ -13,28 +13,27 @@
     <div class="col-md-8">
         <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
             @csrf
-              
-            {{-- <div class="form-group">
+             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" 
                     type="text" 
                     name="nombre" 
                     class="form-control @error('nombre') is-invalid @enderror" 
-                    value='Pilar' readonly
+                    value="{{$usuario->name}}" readonly
                 >
                 @error('nombre')
                     <span class="invalid_feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
                     </span>
                 @enderror
-            </div>
+            </div>             
             <div class="form-group">
-                <label for="apellido">Apellido</label>
-                <input id="apellido" 
+                <label for="apellido">Apellidos</label>
+                <input 
                     type="text" 
                     name="apellido" 
                     class="form-control @error('apellido') is-invalid @enderror" 
-                    value='González' readonly
+                    value="{{$usuario->lastname}}" readonly
                 >
                 @error('apellido')
                     <span class="invalid_feedback d-block" role="alert">
@@ -44,18 +43,19 @@
             </div>
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input id="telefono" 
+                <input 
                     type="text" 
                     name="telefono" 
                     class="form-control @error('telefono') is-invalid @enderror" 
-                    value='956943632' readonly
+                    value="{{$usuario->phone}}" readonly
                 >
                 @error('telefono')
                     <span class="invalid_feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
                     </span>
                 @enderror
-            </div> --}}
+            </div> 
+            <dropdown-solicitud ></dropdown-solicitud>
             {{-- <div class="form-group">
                 <label for="categoria">Categoría</label>
                 <select name="categoria" id="categoria" class="form-control @error('categoria') is-invalid @enderror">
@@ -70,9 +70,9 @@
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-            </div>--}}
-            <dropdown-solicitud></dropdown-solicitud>
-             {{-- <div class="form-group">
+            </div>
+            
+              <div class="form-group">
                 <label for="existencia">Equipo</label>
                 <select name="existencia" id="existencia" class="form-control @error('existencia') is-invalid @enderror">
                     <option value="">-- Seleccione una opcion --</option>

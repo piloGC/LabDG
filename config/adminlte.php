@@ -258,7 +258,7 @@ return [
             'submenu' => [
                 [
                     'text'    => 'Solicitudes entrantes',
-                    'url'     => '#',
+                    'url'     => '/prestamos',
                 ],
                 [
                     'text' => 'Solicitudes aprobadas',

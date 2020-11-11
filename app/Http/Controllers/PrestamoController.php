@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Prestamo;
+use App\Solicitud;
+use Carbon\Carbon;
 use App\Asignatura;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,10 @@ class PrestamoController extends Controller
      */
     public function index()
     {
-      
+        // $solicitudes = Solicitud::all('id')->paginate(5);
+
+        $solicitudes = Solicitud::paginate(15);
+        return view('encargado.prestamos.index',compact('solicitudes'));
     }
 
     /**
