@@ -9,13 +9,12 @@
     <table class="table">
         <thead class="bg-info text-light">
            <tr>
-            <th scole="col">Código</th>
+            <th scole="col">#</th>
             <th scole="col">Equipo</th>
             <th scole="col">N° de equipo</th>
             <th scole="col">Asignatura</th>   
             <th scole="col">Desde</th>  
             <th scole="col">Hasta</th>
-            <th scole="col">VUE</th>
             <th scole="col">Acción</th>
             </tr> 
         </thead>
@@ -26,9 +25,9 @@
                 <td>{{$solicitud->existencia->equipo->nombre}}</td>
                 <td>{{$solicitud->existencia->codigo}}</td>
                 <td>{{$solicitud->asignatura->nombre}}</td>
-                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->format('d/m/Y')}}</td>
-                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->format('d/m/Y')}}</td>
-                <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}"></fecha-equipo></td>
+                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}</td>
+                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}</td>
+                {{-- <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>  --}}
                 {{-- <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>  --}}
 
                  <td >
@@ -44,10 +43,7 @@
 <div class="col-12 mt-4 justify-content-center d-flex">
     {{$solicitudes->links()}}
 </div>
-@section('js')
-<script src="./app.js"></script>
-@endsection
+
 
 @endsection
-
 
