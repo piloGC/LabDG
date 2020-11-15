@@ -30,9 +30,9 @@ class CreateExistenciasTable extends Migration
             $table->id();
             $table->string('codigo');
             $table->datetime('fecha_adquisicion');
-            $table->foreignId('estado_id')->references('id')->on('existencia_estados')->comment('Bueno o malo');
-            $table->foreignId('disponibilidad_id')->references('id')->on('existencia_disponibilidads')->comment('disponible para prestamo o no');
-            $table->foreignId('equipo_id')->references('id')->on('equipos');
+            $table->foreignId('estado_id')->references('id')->on('existencia_estados')->onDelete('cascade')->comment('Bueno o malo');
+            $table->foreignId('disponibilidad_id')->references('id')->on('existencia_disponibilidads')->onDelete('cascade')->comment('disponible para prestamo o no');
+            $table->foreignId('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@ class CreateSancionsTable extends Migration
             $table->text('descripcion');
             $table->datetime('fecha_inicio');
             $table->datetime('fecha_fin');
-            $table->foreignId('categoria_id')->references('id')->on('categoria_sancions');
+            $table->foreignId('categoria_id')->references('id')->on('categoria_sancions')->onDelete('cascade');
             $table->timestamps();
         });
     }

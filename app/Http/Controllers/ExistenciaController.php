@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Equipo;
+use Carbon\Carbon;
 use App\Existencia;
 use App\ExistenciaEstado;
-use App\ExistenciaDisponibilidad;
-use App\Equipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\ExistenciaDisponibilidad;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ExistenciaController extends Controller
 {
@@ -37,7 +38,8 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('encargado.existencias.create')->with('estados',$estados)->with('disponibilidads',$disponibilidads)->with('equipos',$equipos);
+        $hoy = Carbon::now();
+        return view('encargado.existencias.create',compact('estados','disponibilidads','equipos','hoy'));
     }
 
     /**

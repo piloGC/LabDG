@@ -74,4 +74,15 @@ class User extends Authenticatable
     public function adminlte_desc(){
         return "Encargado de Reservas del Laboratorio";
     }
+
+    /** Relacion de 1:n de usuario a prestamos*/
+    public function prestamo(){
+        //tiene relacion 1:n con prestamo ::class importa el modelo
+        return $this->hasMany(Prestamo::class);
+    }
+    /** Relacion de 1:n de usuario a solicitudes*/
+    public function solicitud(){
+        //tiene relacion 1:n con solicitud ::class importa el modelo
+        return $this->hasMany(Solicitud::class);
+    }
 }

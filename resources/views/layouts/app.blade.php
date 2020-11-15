@@ -39,19 +39,19 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>INICIO</b></a>
+                            <a class="nav-link border-button" href="/user"><b>INICIO</b></a>
+                        </li>
+                        <li class="nav-item border-button2">
+                            <a class="nav-link " href="/user"><b>CATÁLOGO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>CATÁLOGO</b></a>
+                            <a class="nav-link border-button3" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link border-button4" href="/user"><b>HORARIOS</b></a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>HORARIOS</b></a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/user"><b>REGLAMENTO</b></a>
+                            <a class="nav-link border-button5" href="/user"><b>REGLAMENTO</b></a>
                         </li>
 
                           
@@ -79,7 +79,7 @@
                                     <a class="dropdown-item" href="#">
                                         {{ __('Mi Perfil') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('solicitud.index') }}">
                                         {{ __('Mis Solicitudes') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('sanciones.index') }}">
@@ -101,7 +101,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
