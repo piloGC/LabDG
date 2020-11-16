@@ -7,13 +7,15 @@
 @endsection
 
 @section('content')
-<div class="container">
-<h1 class="text-center mb-5">Formulario de Solicitud</h1>
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8">
+<div class="container py-4">
+<h1 class="text-center mb-3">Formulario de Solicitud</h1>
+<hr>
+<div class="row justify-content-center mt-4">
+    <div class="col-md-12">
         <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
             @csrf
-             <div class="form-group">
+            <div class="row">
+             <div class="form-group col-md-4">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" 
                     type="text" 
@@ -27,7 +29,7 @@
                     </span>
                 @enderror
             </div>             
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="apellido">Apellidos</label>
                 <input 
                     type="text" 
@@ -41,7 +43,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="telefono">Teléfono</label>
                 <input 
                     type="text" 
@@ -55,7 +57,9 @@
                     </span>
                 @enderror
             </div> 
-            <dropdown-solicitud ></dropdown-solicitud>
+        </div>
+        
+             <dropdown-solicitud></dropdown-solicitud> 
             {{-- <div class="form-group">
                 <label for="categoria">Categoría</label>
                 <select name="categoria" id="categoria" class="form-control @error('categoria') is-invalid @enderror">
@@ -87,8 +91,9 @@
                 </span>
                 @enderror
             </div>             --}}
-             <div class="form-group">
-                <label for="asignatura">Asignatura</label>
+            <div class="row">
+             <div class="form-group col-md-4 mt-3">
+                <label for="asignatura">Asignatura:</label>
                 <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
                     <option value="">-- Seleccione una opcion --</option>
                     @foreach ($asignaturas as $asignatura)
@@ -102,20 +107,9 @@
                 </span>
                 @enderror
             </div> 
-            <div class="form-group">
-                <label for="motivo">Motivo solicitud</label>
-                <input type="hidden" name="motivo" value="{{old('motivo')}}" id="motivo">
-                <trix-editor class="form-control @error ('motivo') is-invalid @enderror"
-                placeholder="Breve descripción del motivo de la solicitud" input="motivo"></trix-editor>
-                @error('motivo')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-             <div class="form-group">
-                <label for="fecha_inicio">Desde</label>
+            
+             <div class="form-group col-md-4 mt-3">
+                <label for="fecha_inicio">Desde:</label>
                 <input type="date"  value="{{old('fecha_inicio')}}"
                 name="fecha_inicio" id="fecha_inicio" min="{{$hoy->format('Y-m-d')}}"
                 class="form-control @error ('fecha_inicio') is-invalid @enderror">
@@ -125,8 +119,8 @@
                 </span>
                 @enderror
             </div> 
-            <div class="form-group">
-                <label for="fecha_fin">Hasta</label>
+            <div class="form-group col-md-4 mt-3">
+                <label for="fecha_fin">Hasta:</label>
                 <input type="date"  value="{{old('fecha_fin')}}"
                 name="fecha_fin" id="fecha_fin" min="{{$hoy->format('Y-m-d')}}"
                 class="form-control @error ('fecha_fin') is-invalid @enderror">
@@ -136,10 +130,23 @@
                 </span>
                 @enderror
             </div> 
-
-            <div class="form-group">
-                {{-- <enviar-solicitud solicitud></enviar-solicitud> --}}
-                <input type="submit" class="btn btn-primary" value="Enviar solicitud" >
+        </div>
+            <div class="form-group mt-3">
+                <label for="motivo">Motivo solicitud:</label>
+                <input type="hidden" name="motivo" value="{{old('motivo')}}" id="motivo">
+                <trix-editor class="form-control @error ('motivo') is-invalid @enderror"
+                placeholder="Breve descripción del motivo de la solicitud" input="motivo"></trix-editor>
+                @error('motivo')
+                <span class="invalid_feedback d-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group float-right mt-3">
+                 {{-- <enviar-solicitud solicitud></enviar-solicitud>  --}}
+                 <a href="{{ url('/')}}"  class="btn btn-secondary"> Cancelar </a>
+                 <input type="submit" class="btn btn-success" value="Enviar solicitud" > 
+                </div>
             </div>
         </form>
     </div></div></div>
@@ -149,4 +156,4 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
  integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
-@endsection
+ @endsection

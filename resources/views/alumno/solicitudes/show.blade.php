@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
 
         <h1 class="text-center mb-4">Solicitud #{{$solicitud->id}}</h1>
@@ -54,7 +53,7 @@
                  <fecha-equipo fecha="{{$fecha}}"></fecha-equipo>
             </p> 
             <p>
-                <span class="font-weight-bold text-primary">Hasta:</span>
+                <h4 class="text-primary">Hasta:</h4>
                 
                 @php
                     $fecha = $solicitud->fecha_fin

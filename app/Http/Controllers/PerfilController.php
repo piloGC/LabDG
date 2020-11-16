@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Prestamo;
-use App\Solicitud;
-use Carbon\Carbon;
-use App\Asignatura;
+use App\User;
+use App\Perfil;
 use Illuminate\Http\Request;
 
-class PrestamoController extends Controller
+class PerfilController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','admin']);
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( )
+    public function index()
     {
+        //        
+         $usuario =auth()->user();
+         if ($usuario->role_id == 1){
+             return view('encargado.perfil',compact('usuario'));
+         }else{
+             return view('alumno.perfil',compact('usuario'));
+         }
 
-        
     }
 
     /**
@@ -32,6 +36,7 @@ class PrestamoController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -42,29 +47,27 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-        
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function show(Solicitud $prestamo)
+    public function show(Perfil $perfil)
     {
         //
-        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prestamo $prestamo)
+    public function edit(Perfil $perfil)
     {
         //
     }
@@ -73,10 +76,10 @@ class PrestamoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+    public function update(Request $request, Perfil $perfil)
     {
         //
     }
@@ -84,10 +87,10 @@ class PrestamoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prestamo $prestamo)
+    public function destroy(Perfil $perfil)
     {
         //
     }

@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', function () {
     return view('auth.login');
 });
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 
 //rutas de equipos
 Route::resource('equipos','EquipoController');
@@ -38,6 +38,11 @@ Route::get('/solicitudes/{solicitud}','SolicitudController@show')->name('solicit
 Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('solicitud.edit');
 Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update');
 Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
+
+//rutas para dropdown dependiente formulario solicitud
+Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
+Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
+Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
 
 //rutas de autenticacion
 Auth::routes();
@@ -61,9 +66,10 @@ Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sancion
 Route::get('/admin','AdminController@index')->name('admin');
 
 //index de user
-Route::get('/user','UserController@index')->name('user');
+Route::get('/','UserController@index')->name('user');
 
-//rutas para dropdown dependiente
-Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
-Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
-Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
+//rutas de listarSolicitudes
+Route::resource('listarSolicitud', 'ListarSolicitudController');
+
+//ruta de perfil
+Route::resource('perfil','PerfilController');

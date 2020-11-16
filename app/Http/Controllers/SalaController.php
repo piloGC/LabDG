@@ -48,7 +48,7 @@ class SalaController extends Controller
             'nombre' => 'required|max:40',
             'estado' => 'required|max:40',
             'capacidad' => 'required',       
-            'internett' => 'required', 
+            'internet' => 'required', 
             'aire_acondicionado' => 'required',   
         ]);
 
@@ -58,7 +58,7 @@ class SalaController extends Controller
             'nombre' => $datos['nombre'],
             'estado' => $datos['estado'],
             'capacidad' => $datos['capacidad'],
-            'internett' => $datos['internett'],
+            'internet' => $datos['internet'],
             'aire_acondicionado' => $datos['aire_acondicionado'],            
         ]);
 

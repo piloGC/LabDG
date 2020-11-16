@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin::page')
 
 @section('content')
   
@@ -9,7 +9,7 @@
     <h1 class="text-center mb-5">Sanciones</h1>
     <div class="col-md-10 mx-auto bg-white p-3">
         <div class="table-responsive">
-        <table class="table table-light">
+        <table class="table table-hover table-light">
             <thead class="bg-primary text-white">
                 <tr>
                     <th scole="col">#</th>

@@ -37,9 +37,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //rol del usuario
     public function roles()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    //perfil del usuario relacion 1:1
+    public function perfil(){
+        return $this->hasOne(Perfil::class);
     }
 
     public function authorizeRoles($roles)
@@ -71,16 +77,20 @@ class User extends Authenticatable
         return false;
     }
 
+    //descripcion en panel administrador
     public function adminlte_desc(){
         return "Encargado de Reservas del Laboratorio";
     }
+    public function adminlte_profile_url(){
+         return '/perfil';
+    }
 
-    /** Relacion de 1:n de usuario a prestamos*/
+    /* Relacion de 1:n de usuario a prestamos*/
     public function prestamo(){
         //tiene relacion 1:n con prestamo ::class importa el modelo
         return $this->hasMany(Prestamo::class);
     }
-    /** Relacion de 1:n de usuario a solicitudes*/
+    /* Relacion de 1:n de usuario a solicitudes*/
     public function solicitud(){
         //tiene relacion 1:n con solicitud ::class importa el modelo
         return $this->hasMany(Solicitud::class);

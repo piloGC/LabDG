@@ -34,10 +34,10 @@ class LoginController extends Controller
                 return $this->redirectTo= '/admin';
                 break;
             case 2:
-               return $this->redirectTo= '/user';
+               return $this->redirectTo= '/';
            break;
             default:
-                return $this->redirectTo= '/';
+                return $this->redirectTo= '/login';
                 break;
         }
     }
@@ -51,5 +51,10 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    //para iniciar sesion con run
+    public function username(){
+        return 'run';
     }
 }

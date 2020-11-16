@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Prestamo;
 use App\Solicitud;
-use Carbon\Carbon;
-use App\Asignatura;
+use App\ListarSolicitud;
 use Illuminate\Http\Request;
 
-class PrestamoController extends Controller
+class ListarSolicitudController extends Controller
 {
     public function __construct()
     {
@@ -19,10 +17,11 @@ class PrestamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( )
+    public function index()
     {
-
-        
+        //
+        $solicitudes = Solicitud::paginate(15);
+        return view('encargado.solicitudes.index',compact('solicitudes'));
     }
 
     /**
@@ -32,6 +31,7 @@ class PrestamoController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -42,29 +42,28 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-        
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Solicitud $prestamo)
+    public function show(Solicitud $listarSolicitud)
     {
         //
-        
+         return view('encargado.solicitudes.show', compact('listarSolicitud'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prestamo $prestamo)
+    public function edit(ListarSolicitud $listarSolicitud)
     {
         //
     }
@@ -73,10 +72,10 @@ class PrestamoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+    public function update(Request $request, ListarSolicitud $listarSolicitud)
     {
         //
     }
@@ -84,10 +83,10 @@ class PrestamoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Prestamo  $prestamo
+     * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prestamo $prestamo)
+    public function destroy(ListarSolicitud $listarSolicitud)
     {
         //
     }

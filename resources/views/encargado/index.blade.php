@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    
+    <p>[podrían ir las notificaciones aqui]</p>
 @endsection
 
 @section('content')

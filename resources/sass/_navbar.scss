@@ -8,32 +8,33 @@
     border-bottom: solid 3px;
     }
 
-.border-button2 {
-  // border-bottom: solid 5px;
-  transition:  border-color green;
-}
-    
-  .border-button2:hover { 
-    border-color: green !important; 
-    border-bottom: solid 3px;
-  }
-
-  .border-button3 {
+  .border-button2 {
     // border-bottom: solid 5px;
     transition:  border-color #A569BD;
   }
       
-    .border-button3:hover { 
+    .border-button2:hover { 
       border-color: #A569BD !important; 
       border-bottom: solid 3px;
     }
+  
+.border-button3 {
+  // border-bottom: solid 5px;
+  transition:  border-color green;
+}
+    
+  .border-button3:hover { 
+    border-color: green !important; 
+    border-bottom: solid 3px;
+  }
+
     .border-button4 {
       // border-bottom: solid 5px;
-      transition:  border-color blue;
+      transition:  border-color #3379FF;
     }
         
       .border-button4:hover { 
-        border-color: blue !important; 
+        border-color: #3379FF !important; 
         border-bottom: solid 3px;
       }
       .border-button5 {

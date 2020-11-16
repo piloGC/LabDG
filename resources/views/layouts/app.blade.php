@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white " >
             <div class="container">
                 <a class="navbar-brand" href="/user">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
@@ -38,20 +38,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item ">
-                            <a class="nav-link border-button" href="/user"><b>INICIO</b></a>
+                        <li class="nav-item  ">
+                            <a class="nav-link border-button text-dark" href="/"><b>INICIO</b></a>
                         </li>
-                        <li class="nav-item border-button2">
-                            <a class="nav-link " href="/user"><b>CATÁLOGO</b></a>
+                        <li class="nav-item  ">
+                            <a class="nav-link border-button2 text-dark" href="#"><b>CATÁLOGO</b></a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link border-button3" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                        <li class="nav-item  ">
+                            <a class="nav-link border-button3 text-dark" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link border-button4" href="/user"><b>HORARIOS</b></a>
+                        <li class="nav-item  ">
+                            <a class="nav-link border-button4 text-dark" href="#"><b>HORARIOS</b></a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link border-button5" href="/user"><b>REGLAMENTO</b></a>
+                        <li class="nav-item  ">
+                            <a class="nav-link border-button5 text-dark" href="#"><b>REGLAMENTO</b></a>
                         </li>
 
                           
@@ -76,13 +76,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/perfil">
                                         {{ __('Mi Perfil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('solicitud.index') }}">
                                         {{ __('Mis Solicitudes') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('sanciones.index') }}">
+                                    <a class="dropdown-item" href="#">
                                         {{ __('Mis Sanciones') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main >
             @yield('content')
         </main>
     </div>
