@@ -1,0 +1,39 @@
+
+   .border-card {
+    border-bottom: solid 5px;
+     transition:  border-color green;
+   }
+   .border-card:hover { 
+     border-bottom-color: green !important; 
+     border-bottom: solid 5px;
+     }
+
+     .border-card2 {
+        border-bottom: solid 5px;
+         transition:  border-color #A569BD;
+       }
+       .border-card2:hover { 
+         border-bottom-color: #A569BD !important; 
+         border-bottom: solid 5px;
+         }
+
+         .border-card3 {
+            border-bottom: solid 5px;
+             transition:  border-color #3379FF;
+           }
+           .border-card3:hover { 
+             border-bottom-color: #3379FF !important; 
+             border-bottom: solid 5px;
+             }
+
+.color-texto{
+  color: #A569BD !important;
+}
+.color-texto2{
+    color: green;
+}
+
+.color-texto3{
+    color: #3379FF !important;
+}
+

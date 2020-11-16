@@ -38,7 +38,7 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        $hoy = Carbon::now();
+        $hoy = Carbon::now()->format('Y-m-d');
         return view('encargado.existencias.create',compact('estados','disponibilidads','equipos','hoy'));
     }
 
@@ -93,7 +93,8 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('encargado.existencias.edit',compact('estados','disponibilidads','equipos','existencia'));
+        $fecha = Carbon::parse($existencia->fecha_adquisicion);
+        return view('encargado.existencias.edit',compact('estados','disponibilidads','equipos','existencia','fecha'));
     }
 
     /**

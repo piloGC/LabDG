@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    
-<h1 class="text-center mb-5">Mis solicitudes</h1>
 
-<div class="col-md-10 mx-auto bg-white p-3">
+<div class="container py-4">
+<h1 class="text-center mb-3">Mis solicitudes</h1>
+<hr>
+<div class="row justify-content-center mt-4">
+    <div class="container mx-auto bg-white">
     <div class="table-responsive">
-    <table class="table">
-        <thead class="bg-primary text-light">
-           <tr>
+    <table class="table table-hover">
+        <thead class="bg-success text-light">
+           <tr class="table-active">
             <th scole="col">Código</th>
             <th scole="col">Equipo</th>
             <th scole="col">Asignatura</th>   
@@ -27,7 +29,7 @@
                 <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>
 
                 <td >
-                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-info text-white mr-1">Ver</a>
+                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-primary text-white mb-2">Ver</a>
                 </td>
             </tr>
             @endforeach

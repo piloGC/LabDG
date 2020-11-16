@@ -6,16 +6,17 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-5">Ingresar Existencia</h1>
-
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+<div class="container py-2">
+    <h1 class="text-center mb-3">Ingresar Existencia</h1>
+    <hr>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
             <form action="{{ route('existencias.store')}}" method="POST" enctype="multipart/form-data" novalidate>
                 <!--csrf_field()}}  token de acceso unico para -->
                 @csrf
-
-                <div class="form-group">
-                    <label for="codigo">Codigo</label>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="codigo">Codigo</label>
                     <input id="codigo" 
                         type="text" 
                         name="codigo" 
@@ -28,21 +29,19 @@
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="fecha_adquisicion">Fecha Adquisicion</label>
-                    <input type="date"  name="fecha_adquisicion" value="{{old('fecha_adquisicion')}}"
-                     id="fecha_adquisicion" class="form-control @error ('fecha_adquisicion') is-invalid @enderror">
-                    @error('fecha_adquisicion')
-                    <span class="invalid_feedback d-block" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="estado">Estado</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="fecha_adquisicion">Fecha Adquisicion</label>
+                        <input type="date"  name="fecha_adquisicion" value={{ $hoy }} min="{{$hoy}}"
+                         id="fecha_adquisicion" class="form-control @error ('fecha_adquisicion') is-invalid @enderror">
+                        @error('fecha_adquisicion')
+                        <span class="invalid_feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="estado">Estado</label>
                     <select
                         name="estado" 
                         class="form-control @error('estado') is-invalid @enderror" 
@@ -61,55 +60,56 @@
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="disponibilidad">Disponibilidad</label>
+                        <select
+                            name="disponibilidad" 
+                            class="form-control @error('disponibilidad') is-invalid @enderror" 
+                            id="disponibilidad"            
+                        >
+                            <option value="">-- Seleccione una Opcion --</option>
+                            @foreach($disponibilidads as $disponibilidad)
+                                <option value="{{ $disponibilidad->id }}"  
+                                {{ old('disponibilidad') == $disponibilidad->id ? 'selected' : '' }}
+                                >{{$disponibilidad->nombre}}</option>
+                            @endforeach
+                        </select>
+    
+                        @error('disponibilidad')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="equipo">Equipo</label>
+                        <select
+                            name="equipo" 
+                            class="form-control @error('equipo') is-invalid @enderror" 
+                            id="equipo"            
+                        >
+                            <option value="">-- Seleccione una Opcion --</option>
+                            @foreach($equipos as $equipo)
+                                <option value="{{ $equipo->id }}"  
+                                {{ old('equipo') == $equipo->id ? 'selected' : '' }}
+                                >{{$equipo->nombre}}</option>
+                            @endforeach
+                        </select>
+    
+                        @error('equipo')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="disponibilidad">Disponibilidad</label>
-                    <select
-                        name="disponibilidad" 
-                        class="form-control @error('disponibilidad') is-invalid @enderror" 
-                        id="disponibilidad"            
-                    >
-                        <option value="">-- Seleccione una Opcion --</option>
-                        @foreach($disponibilidads as $disponibilidad)
-                            <option value="{{ $disponibilidad->id }}"  
-                            {{ old('disponibilidad') == $disponibilidad->id ? 'selected' : '' }}
-                            >{{$disponibilidad->nombre}}</option>
-                        @endforeach
-                    </select>
-
-                    @error('disponibilidad')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="equipo">Equipo</label>
-                    <select
-                        name="equipo" 
-                        class="form-control @error('equipo') is-invalid @enderror" 
-                        id="equipo"            
-                    >
-                        <option value="">-- Seleccione una Opcion --</option>
-                        @foreach($equipos as $equipo)
-                            <option value="{{ $equipo->id }}"  
-                            {{ old('equipo') == $equipo->id ? 'selected' : '' }}
-                            >{{$equipo->nombre}}</option>
-                        @endforeach
-                    </select>
-
-                    @error('equipo')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Agregar Existencia">
-                    <a href="{{ url('existencias')}}"  class="btn btn-primary"> Cancelar </a>
+                <div class="form-group float-right mt-3">
+                    <a href="{{ url('existencias')}}"  class="btn btn-secondary"> Cancelar </a>
+                    <input type="submit" class="btn btn-success" value="Agregar Existencia">
                 </div>
             </form>
         </div>

@@ -29,10 +29,9 @@
                         </span>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="fecha_adquisicion">Fecha Adquisicion</label>
-                    <input type="date"  name="fecha_adquisicion" value="{{$existencia->fecha_adquisicion}}"
+                    <input type="date"  name="fecha_adquisicion" value="{{$fecha->format('Y-m-d')}}"
                      id="fecha_adquisicion" class="form-control @error ('fecha_adquisicion') is-invalid @enderror">
                     @error('fecha_adquisicion')
                     <span class="invalid_feedback d-block" role="alert">
@@ -107,7 +106,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Agregar Existencia">
+                    <input type="submit" class="btn btn-primary" value="Actualizar Existencia">
                     <a href="{{ url('existencias')}}"  class="btn btn-primary"> Cancelar </a>
                 </div>
             </form>

@@ -12,6 +12,9 @@ class UserController extends Controller
         $this->middleware(['auth','user']);
     }
     public function index(){
-        return view('alumno.index');
+        
+        $usuario =auth()->user();
+
+        return view('alumno.index',compact('usuario'));
     }
 }
