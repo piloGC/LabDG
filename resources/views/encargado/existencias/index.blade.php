@@ -3,7 +3,7 @@
 @section('content')
 
     <h1 class="text-center  mb-5">Equipos</h1>
-    {{-- <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar ítem</a> --}}
+     <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar ítem</a> 
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
         <table class="table table-hover">
