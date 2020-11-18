@@ -300,7 +300,7 @@ return [
                 ],
                 
                 [
-                    'text'    => 'Agregar ítem',
+                    'text'    => 'Agregar ítem ',
                     'url'     => 'existencias/create',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
