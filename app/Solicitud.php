@@ -8,7 +8,7 @@ class Solicitud extends Model
 {
     //datos a insertar
     protected $fillable = [
-        'motivo' ,'fecha_inicio' ,'fecha_fin'  ,'asignatura_id','existencia_id'
+        'motivo' ,'fecha_inicio' ,'fecha_fin'  ,'asignatura_id','existencia_id','estado_id',
     ];
 
 
@@ -16,6 +16,9 @@ class Solicitud extends Model
         return $this->belongsTo(Asignatura::class);
     }
 
+    public function estado(){
+        return $this->belongsTo(SolicitudEstado::class);
+    }
     //obtine la info del usuario via FK
     public function usuario(){
         return $this->belongsTo(User::class, 'user_id');

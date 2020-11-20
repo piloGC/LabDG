@@ -142,6 +142,21 @@
                 </span>
                 @enderror
             </div>
+            <div class="row">
+                <div class="form-group col-md-4 mt-3">
+                   <select type="hidden" name="estado" hidden id="estado" class="form-control 
+                   @error('estado') is-invalid @enderror">
+                       @foreach ($estados as $estado)
+                           <option value="{{ $estado->id }}"  {{ old('estado') == $estado->id ? 'selected' : '' }}>
+                               {{ $estado->nombre }}</option>   
+                       @endforeach
+                   </select>
+                   @error('estado')
+                   <span class="invalid_feedback d-block" role="alert">
+                       <strong>{{ $message }}</strong>
+                   </span>
+                   @enderror
+               </div> 
             <div class="form-group float-right mt-3">
                  {{-- <enviar-solicitud solicitud></enviar-solicitud>  --}}
                  <a href="{{ url('/')}}"  class="btn btn-secondary"> Cancelar </a>

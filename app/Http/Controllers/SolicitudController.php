@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SolicitudEstado;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Asignatura;
@@ -12,7 +13,7 @@ class SolicitudController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','user']);
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -40,11 +41,12 @@ class SolicitudController extends Controller
     {
         //
         $asignaturas = Asignatura::all(['id', 'nombre']);
+        $estados = SolicitudEstado::all(['id', 'nombre']);
         $existencias = Existencia::all(['id','codigo','equipo_id']);
         $usuario =auth()->user();
         $hoy = Carbon::now();
 
-        return view('alumno.solicitudes.create',compact('asignaturas','hoy','existencias','usuario'));
+        return view('alumno.solicitudes.create',compact('asignaturas','estados','hoy','existencias','usuario'));
     }
 
     /**
@@ -62,7 +64,7 @@ class SolicitudController extends Controller
             'fecha_fin'=> 'required|date',
             'asignatura' =>'required',
             'existencia'=>'required',
-            
+            'estado'=>'required',
         ]);
 
         //inserta en la bdd con modelo
@@ -72,9 +74,9 @@ class SolicitudController extends Controller
             'fecha_fin'=> $datosSolicitud['fecha_fin'],
             'asignatura_id' =>$datosSolicitud['asignatura'],
             'existencia_id'=> $datosSolicitud['existencia'],
+            'estado_id'=>$datosSolicitud['estado'],
         ]);
 
-        //return
         return redirect()->action('SolicitudController@index');
     }
 
@@ -108,9 +110,20 @@ class SolicitudController extends Controller
      * @param  \App\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Solicitud $solicitud)
+    public function updateA( Solicitud $solicitud)
     {
-        //
+        $solicitud->estado_id = "Aprobada" ;
+
+        $solicitud->save();
+        return view('alumno.solicitudes.index', compact('solicitud'));
+    }
+
+    public function updateR( Solicitud $solicitud)
+    {
+        $solicitud->estado_id = "Rechazada";
+
+        $solicitud->save();
+        return view('alumno.solicitudes.index', compact('solicitud'));
     }
 
     /**

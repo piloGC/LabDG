@@ -20,6 +20,12 @@ class CreateSolicitudsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('solicitud_estados', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->timestamps();
+        });
+
         Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
             $table->string('motivo');
@@ -27,6 +33,7 @@ class CreateSolicitudsTable extends Migration
             $table->datetime('fecha_inicio');
             $table->datetime('fecha_fin');
             $table->foreignId('asignatura_id')->references('id')->on('asignaturas')->onDelete('cascade');
+            $table->foreignId('estado_id')->references('id')->on('solicitud_estados')->onDelete('cascade');
             $table->foreignId('existencia_id')->references('id')->on('existencias')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -42,5 +49,6 @@ class CreateSolicitudsTable extends Migration
     {
         Schema::dropIfExists('asignaturas');
         Schema::dropIfExists('solicituds');
+        Schema::dropIfExists('solicitud_estados');
     }
 }

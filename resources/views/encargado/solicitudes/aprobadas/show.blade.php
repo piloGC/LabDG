@@ -53,13 +53,13 @@
         </div>
         <div class="form-group col-md-4">
             <label>Desde</label>
-            <input class="form-control" type="date" value="{{ \Carbon\Carbon::parse($listarSolicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}" readonly>
+            <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($listarSolicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}" readonly>
         </div>
         <div class="form-group col-md-4">
             <label>Hasta</label>
-            <input class="form-control" type="date" value="{{ \Carbon\Carbon::parse($listarSolicitud->fecha_fin)->isoFormat('DD [de] MMMM [del] YYYY')}}" readonly>
+            <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($listarSolicitud->fecha_fin)->isoFormat('DD [de] MMMM [del] YYYY')}}" readonly>
         </div>
     </div>
 </div>
 
-@endsection
+@endsection 
