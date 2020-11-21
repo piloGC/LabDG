@@ -258,17 +258,17 @@ return [
             'submenu' => [
                 [
                     'text'    => 'Solicitudes entrantes',
-                    'url'     => '/listarSolicitud',
+                    'url'     => '/listarSolicitud/entrantes',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
                     'text' => 'Solicitudes aprobadas',
-                    'url'  => '#',
+                    'url'  => 'listarSolicitud/aprobadas',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
                     'text'    => 'Solicitudes rechazadas',
-                    'url'     => '#',
+                    'url'     => 'listarSolicitud/rechazadas',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
             ],

@@ -69,9 +69,16 @@ Route::get('/admin','AdminController@index')->name('admin');
 Route::get('/','UserController@index')->name('user');
 
 //rutas de listarSolicitudes
-Route::resource('listarSolicitud', 'ListarSolicitudController');
+Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->name('entrantes.index');
+Route::get('/listarSolicitud/aprobadas','ListarSolicitudController@aprobadas')->name('aprobadas.index');
+Route::get('/listarSolicitud/rechazadas','ListarSolicitudController@rechazadas')->name('rechazadas.index');
 
-Route::get('/listarSolicitud','ListarSolicitudController@indexA')->name('aprobadas.index');
+Route::get('/listarSolicitud/{listarSolicitud}/Aprobar','ListarSolicitudController@cambiarEstadoAprobada')->name('cambiarEstadoAprobada.index');
+Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
+
+Route::get('/listarSolicitud/{listarSolicitud}/Prestamo','ListarSolicitudController@generarPrestamo')->name('generarPrestamo.index');
+
+Route::resource('listarSolicitud', 'ListarSolicitudController');
 
 //ruta de perfil
 Route::resource('perfil','PerfilController');
