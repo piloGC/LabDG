@@ -34,8 +34,8 @@
                  <td >
                      <div class="btn-group mr-1" role="group">
                         <a href="{{action ('ListarSolicitudController@show',['listarSolicitud' => $solicitud->id])}} " class="btn btn-info text-white" >Detalle</a>
-                        <a href="#" class="btn btn-success text-white">Aprobar</a>
-                        <a href="#" class="btn btn-danger text-white">Rechazar</a>
+                        {{--  <a href="{{action ('ListarSolicitudController@generarPrestamo',['listarSolicitud' => $solicitud->id])}} " class="btn btn-success text-white">Generar Prestamo</a>  --}}
+                        <a href="#" class="btn btn-danger text-white">Generar Prestamo</a>
                       </div> 
                 </td> 
             </tr>

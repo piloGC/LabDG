@@ -4,7 +4,13 @@
 @section('content')
 
 <div class="container">
-    <h1 class="text-center mb-4">Solicitud #{{$listarSolicitud->id}}</h1>
+    <h1 class="text-center mb-4">Solicitud Rechazada #{{$listarSolicitud->id}}</h1>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label>Estado</label>
+            <input class="form-control" type="text" value="{{$listarSolicitud->estado->nombre}} "readonly>
+        </div>
+        </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label>Nombre</label>

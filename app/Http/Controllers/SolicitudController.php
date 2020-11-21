@@ -110,20 +110,9 @@ class SolicitudController extends Controller
      * @param  \App\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function updateA( Solicitud $solicitud)
+    public function update( Solicitud $solicitud)
     {
-        $solicitud->estado_id = "Aprobada" ;
-
-        $solicitud->save();
-        return view('alumno.solicitudes.index', compact('solicitud'));
-    }
-
-    public function updateR( Solicitud $solicitud)
-    {
-        $solicitud->estado_id = "Rechazada";
-
-        $solicitud->save();
-        return view('alumno.solicitudes.index', compact('solicitud'));
+        //
     }
 
     /**

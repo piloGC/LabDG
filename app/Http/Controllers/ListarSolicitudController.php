@@ -20,20 +20,6 @@ class ListarSolicitudController extends Controller
     public function index()
     {
         //
-        $solicitudes = Solicitud::paginate(15);
-        return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
-    }
-    public function indexA()
-    {
-        //
-        $solicitudes = Solicitud::paginate(15);
-        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes'));
-    }
-    public function indexR()
-    {
-        //
-        $solicitudes = Solicitud::paginate(15);
-        return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
     }
 
     /**
@@ -66,17 +52,15 @@ class ListarSolicitudController extends Controller
     public function show(Solicitud $listarSolicitud)
     {
         //
-         return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
-    }
-    public function showA(Solicitud $listarSolicitud)
-    {
-        //
-         return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
-    }
-    public function showR(Solicitud $listarSolicitud)
-    {
-        //
-         return view('encargado.solicitudes.rechazadas.show', compact('listarSolicitud'));
+        // dd($listarSolicitud);
+        if($listarSolicitud->estado_id == 1){
+            return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
+        }elseif ($listarSolicitud->estado_id == 2) {
+            return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
+        }elseif ($listarSolicitud->estado_id == 3) {
+            return view('encargado.solicitudes.rechazadas.show', compact('listarSolicitud'));
+        }
+        
     }
 
     /**
@@ -97,15 +81,7 @@ class ListarSolicitudController extends Controller
      * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ListarSolicitud $listarSolicitud)
-    {
-        //
-    }
-    public function updateA(Request $request, ListarSolicitud $listarSolicitud)
-    {
-        //
-    }
-    public function updateR(Request $request, ListarSolicitud $listarSolicitud)
+    public function update( ListarSolicitud $listarSolicitud)
     {
         //
     }
@@ -116,8 +92,46 @@ class ListarSolicitudController extends Controller
      * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ListarSolicitud $listarSolicitud)
+    public function destroy($id)
     {
         //
     }
+
+    public function entrantes(){ 
+        $solicitudes = Solicitud::where('estado_id',1)->paginate(15);
+        return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
+
+    }
+
+    public function aprobadas(){
+        $solicitudes = Solicitud::where('estado_id',2)->paginate(15);
+        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes'));
+    }
+
+    public function rechazadas(){
+        $solicitudes = Solicitud::where('estado_id',3)->paginate(15);
+        return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
+    }
+    
+
+    public function cambiarEstadoAprobada(Solicitud $listarSolicitud)
+    {
+        $listarSolicitud->estado_id = 2;
+        $listarSolicitud->save();
+        //dd($listarSolicitud);
+        return redirect()->action('ListarSolicitudController@entrantes');
+    }
+
+    public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
+    {
+        $listarSolicitud->estado_id = 3;
+        $listarSolicitud->save();
+        return redirect()->action('ListarSolicitudController@rechazadas');
+    }
+
+    
+    public function generarPrestamo(){
+
+    }
+    
 }
