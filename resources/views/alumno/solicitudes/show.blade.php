@@ -6,6 +6,10 @@
 
 
         <div class="container mt-2">
+            <p> 
+                <h4 class="text-primary">Estado:</h4>
+                <span class="font-weight-bold text-primary"></span>{{$solicitud->estado->nombre}}
+            </p>
             <p>
                 <h4 class=" text-primary">Equipo:</h4>
                 {{-- <a class="text-dark" href="{{route('perfiles.show',['perfil' => $receta->autor->id])}}">

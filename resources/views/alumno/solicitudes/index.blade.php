@@ -16,6 +16,7 @@
             <th scole="col">Asignatura</th>   
             <th scole="col">Desde</th>  
             <th scole="col">Hasta</th>
+            <th scole="col">Estado</th>
             <th scole="col">Acción</th>
             </tr> 
         </thead>
@@ -27,7 +28,7 @@
                 <td>{{$solicitud->asignatura->nombre}}</td>
                 <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>
                 <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>
-
+                <td>{{$solicitud->estado->nombre}}</td>
                 <td >
                     <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-primary text-white mb-2">Ver</a>
                 </td>

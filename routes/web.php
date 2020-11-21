@@ -31,12 +31,12 @@ Route::resource('salas','SalaController');
 Route::resource('prestamos','PrestamoController');
 
 //rutas de solicitudes
-Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index');
-Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create');
-Route::post('/solicitudes','SolicitudController@store')->name('solicitud.store');
-Route::get('/solicitudes/{solicitud}','SolicitudController@show')->name('solicitud.show');
-Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('solicitud.edit');
-Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update');
+Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index')->middleware('user');
+Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create')->middleware('user');
+Route::post('/solicitudes','SolicitudController@store')->name('solicitud.store')->middleware('user');
+Route::get('/solicitudes/{solicitud}','SolicitudController@show')->name('solicitud.show')->middleware('user');
+Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('solicitud.edit')->middleware('admin');
+Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update')->middleware('admin');
 Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
 
 //rutas para dropdown dependiente formulario solicitud
@@ -70,6 +70,8 @@ Route::get('/','UserController@index')->name('user');
 
 //rutas de listarSolicitudes
 Route::resource('listarSolicitud', 'ListarSolicitudController');
+
+Route::get('/listarSolicitud','ListarSolicitudController@indexA')->name('aprobadas.index');
 
 //ruta de perfil
 Route::resource('perfil','PerfilController');

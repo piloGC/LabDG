@@ -2,7 +2,7 @@
 
 @section('content')
     
-<h1 class="text-center mb-5">Solicitudes de préstamo</h1>
+<h1 class="text-center mb-5">Solicitudes de préstamo Rechazadas</h1>
 
 <div class="container mx-auto bg-white">
     <div class="table-responsive">
@@ -26,15 +26,13 @@
                 <td>{{$solicitud->existencia->equipo->nombre}}</td>
                 <td>{{$solicitud->existencia->codigo}}</td>
                 <td>{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}</td>
-                <td>{{ \Carbon\Carbon::parse($solicitud->fin)->isoFormat('DD [de] MMMM [del] YYYY')}}</td>
+                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_fin)->isoFormat('DD [de] MMMM [del] YYYY')}}</td>
                 {{-- <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>  --}}
                 {{-- <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>  --}}
 
                  <td >
                      <div class="btn-group mr-1" role="group">
                         <a href="{{action ('ListarSolicitudController@show',['listarSolicitud' => $solicitud->id])}} " class="btn btn-info text-white" >Detalle</a>
-                        <a href="#" class="btn btn-success text-white">Aprobar</a>
-                        <a href="#" class="btn btn-danger text-white">Rechazar</a>
                       </div> 
                 </td> 
             </tr>

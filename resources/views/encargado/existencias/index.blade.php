@@ -3,7 +3,7 @@
 @section('content')
 
     <h1 class="text-center  mb-5">Equipos</h1>
-    {{-- <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar ítem</a> --}}
+     <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar ítem</a> 
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
         <table class="table table-hover">
@@ -32,6 +32,11 @@
                     {{-- <td>{{$existencia->equipo->nombre}}</td>  --}}
                     <td>
                         <a href="{{ route('existencias.edit', ['existencia'=> $existencia->id]) }}" class="btn btn-primary  mb-2">Editar</a>
+                        <a href=""><form action="{{ route('existencias.destroy', ['existencia'=> $existencia->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger text-white" style="border-top-left-radius: 0;border-bottom-left-radius: 0" type="submit">Eliminar</button>
+                          </form></a>
                         {{-- <a href="{{ route('existencias.show', ['existencia'=> $existencia->id]) }}" class="btn btn-success  mb-2">Ver</a> --}}
                         <eliminar-existencia existencia-id={{$existencia->id}}></eliminar-existencia>
                                                 

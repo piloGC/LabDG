@@ -21,7 +21,19 @@ class ListarSolicitudController extends Controller
     {
         //
         $solicitudes = Solicitud::paginate(15);
-        return view('encargado.solicitudes.index',compact('solicitudes'));
+        return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
+    }
+    public function indexA()
+    {
+        //
+        $solicitudes = Solicitud::paginate(15);
+        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes'));
+    }
+    public function indexR()
+    {
+        //
+        $solicitudes = Solicitud::paginate(15);
+        return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
     }
 
     /**
@@ -54,7 +66,17 @@ class ListarSolicitudController extends Controller
     public function show(Solicitud $listarSolicitud)
     {
         //
-         return view('encargado.solicitudes.show', compact('listarSolicitud'));
+         return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
+    }
+    public function showA(Solicitud $listarSolicitud)
+    {
+        //
+         return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
+    }
+    public function showR(Solicitud $listarSolicitud)
+    {
+        //
+         return view('encargado.solicitudes.rechazadas.show', compact('listarSolicitud'));
     }
 
     /**
@@ -76,6 +98,14 @@ class ListarSolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ListarSolicitud $listarSolicitud)
+    {
+        //
+    }
+    public function updateA(Request $request, ListarSolicitud $listarSolicitud)
+    {
+        //
+    }
+    public function updateR(Request $request, ListarSolicitud $listarSolicitud)
     {
         //
     }
