@@ -4,16 +4,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css"
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
+
 @endsection
 
 @section('content')
-<body style="background-image:url('../images/fondo2.png')">
 <div class="container py-4">
+     
 <h1 class="text-center mb-3">Formulario de Solicitud</h1>
 <hr>
+
 <div class="row justify-content-center mt-4">
     <div class="col-md-12">
-        <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
+        <form method="POST" action="{{ route('catalogo.store') }}"  novalidate>
             @csrf
             <div class="row">
              <div class="form-group col-md-4">
@@ -59,39 +61,23 @@
                 @enderror
             </div> 
         </div>
-        
-             <dropdown-solicitud></dropdown-solicitud> 
-            {{-- <div class="form-group">
-                <label for="categoria">Categoría</label>
-                <select name="categoria" id="categoria" class="form-control @error('categoria') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('categoria')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+        <div class="row">
+            <div class="form-group col-md-4 mt-3">
+                <label >Categoria</label>
+                <input type="text"  class="form-control" value="{{$existencia->equipo->categoria->nombre}}" readonly>
             </div>
-            
-              <div class="form-group">
-                <label for="existencia">Equipo</label>
-                <select name="existencia" id="existencia" class="form-control @error('existencia') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($existencias as $existencia)
-                        <option value="{{ $existencia->id }}" {{ old('existencia') == $existencia->id ? 'selected' : '' }}>
-                            {{ $existencia->equipo->categoria->nombre}}</option>
-                    @endforeach
-                </select>
-                @error('existencia')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>             --}}
+            <div class="form-group col-md-4 mt-3">
+                <label >Equipo</label>
+                <input type="text" class="form-control" value="{{$existencia->equipo->nombre}}" readonly>
+            </div>
+            <div class="form-group col-md-4 mt-3">
+                <label for="existencia">Número de equipo</label>
+                <input type="text" id="existencia" name="existencia" class="form-control" value="{{$existencia->id}}" hidden>
+                <input type="text" class="form-control" value="{{$existencia->codigo}}" readonly>
+                
+            </div>
+        </div>
+              
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
@@ -170,7 +156,6 @@
         </form>
     </div></div></div>
 </div>
-</body>
 @endsection
 
 @section('scripts')

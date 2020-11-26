@@ -30,6 +30,19 @@ Route::resource('salas','SalaController');
 //rutas de prestamos
 Route::resource('prestamos','PrestamoController');
 
+//index de user
+Route::get('/','UserController@index')->name('user');
+Route::get('/catalogo', 'UserController@catalogo')->name('catalogo.categorias');
+Route::get('/catalogo/todos-los-equipos', 'UserController@todosEquipos')->name('catalogo.equipos');
+Route::get('/catalogo/camaras-fotograficas', 'UserController@camarasFot')->name('catalogo.fotograficas');
+Route::get('/catalogo/camaras-video', 'UserController@camarasVid')->name('catalogo.videos');
+Route::get('/catalogo/tripodes', 'UserController@tripode')->name('catalogo.tripodes');
+Route::get('/catalogo/tabletas', 'UserController@tableta')->name('catalogo.tabletas');
+Route::get('/catalogo/lectores-dvd', 'UserController@lector')->name('catalogo.lectores');
+Route::get('/catalogo/{existencia}/create','UserController@create')->name('catalogo.create');
+Route::post('/catalogo','UserController@store')->name('catalogo.store');
+Route::get('/catalogo/{existencia}','UserController@show')->name('catalogo.show');
+
 //rutas de solicitudes
 Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index')->middleware('user');
 Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create')->middleware('user');
@@ -65,8 +78,7 @@ Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sancion
 //index de admin
 Route::get('/admin','AdminController@index')->name('admin');
 
-//index de user
-Route::get('/','UserController@index')->name('user');
+
 
 //rutas de listarSolicitudes
 Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->name('entrantes.index');

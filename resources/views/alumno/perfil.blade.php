@@ -1,11 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container py-4">
+<body style="background-image:url('../images/fondo9.png')">
+<div class="container py-4" >
     <h1 class="text-center mb-3">Información de Usuario</h1>
     <hr>
-    <div class="row justify-content-center">
+        {{-- <div class="row ">
+            <div class="col">
+                <h1 class="text-center">Nombres</h1>
+            </div>
+            <div class=" col">
+                <h3 class="text-center font-weight-bold mt-2">-></h3>
+            </div>
+            <div class="col mt-2">
+                <h3 class="text-center">{{$usuario->name}}</h3>
+            </div>
+            <div class=" col"></div>
+            <div class=" col"></div>
+        </div> --}}
+     <div class="row justify-content-center">
             
         <div class="form-group col-md-4">
             <label>Nombres</label>
@@ -51,7 +64,8 @@
             <input class="form-control" type="text" value=" {{$usuario->campus}}" readonly>
         </div>
         
-    </div>
+    </div> 
 
 </div>
+</body>
 @endsection

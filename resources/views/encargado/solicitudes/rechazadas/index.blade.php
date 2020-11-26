@@ -7,7 +7,7 @@
 <div class="container mx-auto bg-white">
     <div class="table-responsive">
     <table class="table table-hover ">
-        <thead class="bg-olive text-light ">
+        <thead class="bg-danger text-light ">
            <tr class="table-active">
             <th scole="col" >#</th>
             <th scole="col">Fecha de Rechazo</th>

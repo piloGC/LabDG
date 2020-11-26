@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white " >
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
             <div class="container">
                 <a class="navbar-brand" href="/user">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
@@ -39,19 +39,31 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item  ">
-                            <a class="nav-link border-button text-dark" href="/"><b>INICIO</b></a>
+                            <a class="nav-link1 text-dark" href="/"><b>INICIO</b></a>
+                        </li>
+                        <li class="nav-item  dropdown">
+                            <a class="nav-link2 text-dark" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <b>CATÁLOGO</b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
+                                <a class="dropdown-item" href="{{route('catalogo.fotograficas')}}">Cámaras fotográficas</a>
+                                <a class="dropdown-item" href="{{route('catalogo.videos')}}">Cámaras de video</a>
+                                <a class="dropdown-item" href="{{route('catalogo.tripodes')}}">Trípodes</a>
+                                <a class="dropdown-item" href="{{route('catalogo.tabletas')}}">Tabletas</a>
+                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de DVD</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{route('catalogo.equipos')}}">Todos los equipos</a>
+                              </div>
+                            
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link border-button2 text-dark" href="#"><b>CATÁLOGO</b></a>
+                            <a class="nav-link3 text-dark" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link border-button3 text-dark" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link4 text-dark" href="#"><b>HORARIOS</b></a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link border-button4 text-dark" href="#"><b>HORARIOS</b></a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a class="nav-link border-button5 text-dark" href="#"><b>REGLAMENTO</b></a>
+                            <a class="nav-link5 text-dark" href="#"><b>REGLAMENTO</b></a>
                         </li>
 
                           
