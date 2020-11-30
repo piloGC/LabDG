@@ -289,6 +289,11 @@ return [
             'icon'    => 'fas fa-fw fa-cog',
             'submenu' => [
                 [
+                    'text' => 'Prestamos',
+                    'url'  => 'prestamos',
+                    'icon' => 'fas fa-fw fa-angle-right'
+                ],
+                [
                     'text' => 'Equipos',
                     'url'  => 'equipos',
                     'icon' => 'fas fa-fw fa-angle-right'

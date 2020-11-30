@@ -11,3 +11,13 @@
 @section('footer')
     <p class="text-center">Footer de prueba</p>
 @stop --}}
+
+@section('js')
+     {{-- <script>
+      Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+        )
+ </script>  --}}
+@endsection
