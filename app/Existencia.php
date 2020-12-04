@@ -21,5 +21,9 @@ class Existencia extends Model
         return $this->belongsTo(Equipo::class);
     }
 
+    //  public function solicitud(){
+    //      return $this->belongsTo(Solicitud::class);
+    //  }
+
     
 }
