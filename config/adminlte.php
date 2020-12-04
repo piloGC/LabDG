@@ -258,27 +258,43 @@ return [
         //     'url'  => 'admin/settings',
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
-        [
-            'text'    => 'Solicitudes',
-            'icon'    => 'far fa-fw fa-file-alt',
-            'submenu' => [
-                [
-                    'text'    => 'Solicitudes entrantes',
-                    'url'     => '/listarSolicitud/entrantes',
-                    'icon' => 'fas fa-fw fa-angle-right'
-                ],
-                [
-                    'text' => 'Solicitudes aprobadas',
-                    'url'  => 'listarSolicitud/aprobadas',
-                    'icon' => 'fas fa-fw fa-angle-right'
-                ],
-                [
-                    'text'    => 'Solicitudes rechazadas',
-                    'url'     => 'listarSolicitud/rechazadas',
-                    'icon' => 'fas fa-fw fa-angle-right'
-                ],
-            ],
+          ['header' => 'Solicitudes'],
+          [
+            'text'    => 'Solicitudes entrantes',
+            'url'     => '/listarSolicitud/entrantes',
+            'icon' => 'fas fa-fw fa-angle-right'
         ],
+        [
+            'text' => 'Solicitudes aprobadas',
+            'url'  => 'listarSolicitud/aprobadas',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
+        [
+            'text'    => 'Solicitudes rechazadas',
+            'url'     => 'listarSolicitud/rechazadas',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
+        // [
+        //     'text'    => 'Solicitudes',
+        //     'icon'    => 'far fa-fw fa-file-alt',
+        //     'submenu' => [
+        //         [
+        //             'text'    => 'Solicitudes entrantes',
+        //             'url'     => '/listarSolicitud/entrantes',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //         [
+        //             'text' => 'Solicitudes aprobadas',
+        //             'url'  => 'listarSolicitud/aprobadas',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //         [
+        //             'text'    => 'Solicitudes rechazadas',
+        //             'url'     => 'listarSolicitud/rechazadas',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //     ],
+        // ],
         //  ['header' => 'Equipos'],
          [
              'text'       => 'Reserva equipo',
@@ -294,6 +310,11 @@ return [
             'text'    => 'Administración',
             'icon'    => 'fas fa-fw fa-cog',
             'submenu' => [
+                [
+                    'text' => 'Prestamos',
+                    'url'  => 'prestamos',
+                    'icon' => 'fas fa-fw fa-angle-right'
+                ],
                 [
                     'text' => 'Equipos',
                     'url'  => 'equipos',

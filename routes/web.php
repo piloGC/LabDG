@@ -29,6 +29,8 @@ Route::resource('salas','SalaController');
 
 //rutas de prestamos
 Route::resource('prestamos','PrestamoController');
+Route::get('/prestamos/{prestamo}','PrestamoController@generar')->name('prestamo.generar');
+
 
 //index de user
 Route::get('/','UserController@index')->name('user');
@@ -40,7 +42,6 @@ Route::get('/catalogo/tripodes', 'UserController@tripode')->name('catalogo.tripo
 Route::get('/catalogo/tabletas', 'UserController@tableta')->name('catalogo.tabletas');
 Route::get('/catalogo/lectores-dvd', 'UserController@lector')->name('catalogo.lectores');
 Route::get('/catalogo/{existencia}/create','UserController@create')->name('catalogo.create');
-Route::post('/catalogo','UserController@store')->name('catalogo.store');
 Route::get('/catalogo/{existencia}','UserController@show')->name('catalogo.show');
 
 //rutas de solicitudes
@@ -68,7 +69,12 @@ Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
 Auth::routes();
 
 //rutas de existencia
+
+Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencia.devolver');
+Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencia.devolverUpdate');
 Route::resource('existencias', 'ExistenciaController');
+Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencia.prestar');
+Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
 
 //rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');

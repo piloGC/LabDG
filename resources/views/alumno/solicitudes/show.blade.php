@@ -2,12 +2,21 @@
 
 
 @section('content')
-
+<body style="background-image:url('../images/fondo17.jpg') ">
 <div class="container py-4">
             <div >
                 <h1 class="text-center">Solicitud #{{$solicitud->id}}</h1>
                 <div class="row justify-content-end mr-5">
-                    <h5 class="mr-2">Estado: </h5>{{$solicitud->estado->nombre}}
+                     <h5 class="">Estado: @if ($solicitud->estado->nombre == 'Pendiente')
+                        <span class="badge badge-pill badge-warning display-4">{{$solicitud->estado->nombre}}</span>
+                        @endif
+                        @if ($solicitud->estado->nombre == 'Aprobada')
+                        <span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span>
+                        @endif
+                        @if ($solicitud->estado->nombre == 'Rechazada')
+                        <span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span>
+                        @endif </h5> 
+                    
                 </div>
                  
             </div>
@@ -81,7 +90,7 @@
             
 
             
-    </div>
+    </div></body>
 
 @endsection
 {{-- <p>

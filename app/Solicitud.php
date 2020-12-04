@@ -26,6 +26,9 @@ class Solicitud extends Model
     public function existencia(){
         return $this->belongsTo(Existencia::class);
     }
+    public function prestamo(){
+        return $this->belongsTo(Prestamo::class);
+    }
 
 
 }

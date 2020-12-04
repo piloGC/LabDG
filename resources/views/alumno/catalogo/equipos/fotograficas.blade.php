@@ -10,13 +10,13 @@
         @foreach ($existencias as $key => $grupo)
         
         <div class="container">
-            <h2 class="titulo-categoria text-uppercase mt-5 mb-4">
+            <h2 class="titulo-categoria text-uppercase mb-4">
                 {{str_replace('-',' ',$key)}}
             </h2>
-            <div class="row">
+            <div class="row justify-content-cente">
                 @foreach ($grupo as $existencias)
                     @foreach ($existencias as $existencia)
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 mb-3">
                             <div class="card shadow">
                                 <img src="https://source.unsplash.com/lfRlv3nuf78/200x125" alt="imagen categoria" >
                                 <div class="card-body">

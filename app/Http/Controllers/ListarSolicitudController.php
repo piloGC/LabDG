@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Solicitud;
+use Carbon\Carbon;
 use App\ListarSolicitud;
 use Illuminate\Http\Request;
 
@@ -52,11 +53,11 @@ class ListarSolicitudController extends Controller
     public function show(Solicitud $listarSolicitud)
     {
         //
-        // dd($listarSolicitud);
+         dd($listarSolicitud);
         if($listarSolicitud->estado_id == 1){
             return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
         }elseif ($listarSolicitud->estado_id == 2) {
-            return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
+             return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
         }elseif ($listarSolicitud->estado_id == 3) {
             return view('encargado.solicitudes.rechazadas.show', compact('listarSolicitud'));
         }
@@ -104,12 +105,14 @@ class ListarSolicitudController extends Controller
     }
 
     public function aprobadas(){
-        $solicitudes = Solicitud::where('estado_id',2)->paginate(15);
-        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes'));
+        $hoy= Carbon::today();
+        $solicitudes = Solicitud::where('estado_id',2)->orderBy('id','DESC')->paginate(15);
+
+        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes','hoy'));
     }
 
     public function rechazadas(){
-        $solicitudes = Solicitud::where('estado_id',3)->paginate(15);
+        $solicitudes = Solicitud::where('estado_id',3)->orderBy('id','DESC')->paginate(15);
         return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
     }
     
