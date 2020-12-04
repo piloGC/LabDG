@@ -44,6 +44,9 @@ Route::get('/catalogo/lectores-dvd', 'UserController@lector')->name('catalogo.le
 Route::get('/catalogo/{existencia}/create','UserController@create')->name('catalogo.create');
 Route::get('/catalogo/{existencia}','UserController@show')->name('catalogo.show');
 
+//rutas de reglamento
+Route::get('/reglamentos','ReglamentoController@index')->name('reglamentos.index')->middleware('user');
+
 //rutas de solicitudes
 Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index')->middleware('user');
 Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create')->middleware('user');
