@@ -8,8 +8,10 @@ use App\Asignatura;
 use App\Existencia;
 use App\CategoriaEquipo;
 use App\SolicitudEstado;
+use App\Notifications\SolicitudNotificacion;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -55,6 +57,9 @@ class UserController extends Controller
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);
+
+        $NotificarEncargado = User::find(1);
+        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
 
         return redirect()->action('SolicitudController@index');
     }

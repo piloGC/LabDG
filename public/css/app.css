@@ -82,49 +82,173 @@ body {
   font-size: 14px;
 }
 
-.border-button {
-  transition: border-color red;
+.nav-link {
+  margin-bottom: 0.4rem;
 }
 
-.border-button:hover {
-  border-color: red !important;
-  border-bottom: solid 3px;
+.nav-link1 {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.border-button2 {
-  transition: border-color #A569BD;
+.nav-link1:before,
+.nav-link1:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
 }
 
-.border-button2:hover {
-  border-color: #A569BD !important;
-  border-bottom: solid 3px;
+.nav-link1:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: red;
+  transform: translateX(-100%);
 }
 
-.border-button3 {
-  transition: border-color green;
+.nav-link1:hover:before {
+  transform: translateX(0);
 }
 
-.border-button3:hover {
-  border-color: green !important;
-  border-bottom: solid 3px;
+.nav-link2 {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.border-button4 {
-  transition: border-color #3379FF;
+.nav-link2:before,
+.nav-link2:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
 }
 
-.border-button4:hover {
-  border-color: #3379FF !important;
-  border-bottom: solid 3px;
+.nav-link2:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #3379FF;
+  transform: translateX(-100%);
 }
 
-.border-button5 {
-  transition: border-color orange;
+.nav-link2:hover:before {
+  transform: translateX(0);
 }
 
-.border-button5:hover {
-  border-color: orange !important;
-  border-bottom: solid 3px;
+.nav-link3 {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav-link3:before,
+.nav-link3:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+.nav-link3:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: green;
+  transform: translateX(-100%);
+}
+
+.nav-link3:hover:before {
+  transform: translateX(0);
+}
+
+.nav-link4 {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav-link4:before,
+.nav-link4:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+.nav-link4:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #A569BD;
+  transform: translateX(-100%);
+}
+
+.nav-link4:hover:before {
+  transform: translateX(0);
+}
+
+.nav-link5 {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav-link5:before,
+.nav-link5:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+.nav-link5:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: orange;
+  transform: translateX(-100%);
+}
+
+.nav-link5:hover:before {
+  transform: translateX(0);
 }
 
 .border-card {
@@ -167,6 +291,16 @@ body {
 
 .color-texto3 {
   color: #3379FF !important;
+}
+
+.titulo-categoria {
+  font-family: "Cabin", sans-serif;
+  color: #333;
+  font-size: 1.3rem;
+  border-bottom: 3px solid salmon !important;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  padding-right: 2rem;
 }
 
 /*!

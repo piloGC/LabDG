@@ -57,5 +57,20 @@ class UserSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        $user2 = User::create([
+            'name' => 'Nicholas ',
+            'lastname'=>'Espinoza Hasler',
+            'run' =>"19.416.735-0",
+            'phone' =>'123456789',
+            'email' => 'nicholas.espinoza1501@alumnos.ubiobio.com',
+            'role_id'=>2,
+            'password' => Hash::make('83avbogo'),
+            'carrera'=>'Diseño Gráfico',
+            'anio_ingreso'=>'2015',
+            'campus'=>'Fernando May',
+            'activo'=>'Si',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }

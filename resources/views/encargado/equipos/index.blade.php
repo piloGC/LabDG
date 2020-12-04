@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@section('plugins.Sweetalert2', true)
 @section('content')
     
     <h1 class="text-center ">Control de Equipos</h1>
@@ -70,8 +71,39 @@
 
 
 </div>
-@endsection
+@stop
+
+
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-@endsection
+{{--  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>  --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    @if(session('eliminar') == 'ok')
+    <script>
+        Swal.fire('Equipo eliminada', 'Se eliminó el equipo', 'success')
+    </script>
+@endif
+<script>
+$('.formulario-eliminar').submit(function(e)){
+    e.preventDefault();
+
+    Swal.fire({
+        title: "¿Desea eliminar esta equipo?",
+        text: "Una vez eliminada no se puede recuperar",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+            this.submit();
+
+        }
+      })
+    }
+</script>    
+   
+@stop
+

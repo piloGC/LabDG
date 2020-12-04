@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\SolicitudEstado;
+use App\User;
+use App\Role;
+use App\Equipo;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Asignatura;
 use App\Existencia;
+use App\Events\SolicitudEvent;
+use App\Notifications\SolicitudNotificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SolicitudController extends Controller
 {
+    public $name;
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -66,9 +73,14 @@ class SolicitudController extends Controller
             'existencia'=>'required',
             'estado'=>'required',
         ]);
-
-        //inserta en la bdd con modelo
-        auth()->user()->solicitud()->create([
+        $datosSolicitud['user_id'] = Auth::id();
+        $datosSolicitud['user_name'] =Auth::User()->name;
+        // $user_id = Auth::id();
+        // $role1= User::find($user_id)->role_id;
+        // $role2 = auth()->user()->role_id;
+        // $role3 = Auth::User()->role_id;
+        // dd($solicitud);
+        $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
             'fecha_fin'=> $datosSolicitud['fecha_fin'],
@@ -76,7 +88,19 @@ class SolicitudController extends Controller
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);
-
+        //Nos notificamos a nosotros mismos
+        //auth()->user()->notify(new SolicitudNotificacion($solicitud));
+        // User::all()
+        //     ->except($solicitud->user_id)
+        //     ->each(function(User $user) use ($solicitud){
+        //         user()->notify(new SolicitudNotificacion($solicitud));
+        //     });
+        $NotificarEncargado = User::find(1);
+        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
+        
+        //metodo Notificacion con Evento y Listener  -> para todos
+        // event (new SolicitudEvent($solicitud));
+        
         return redirect()->action('SolicitudController@index');
     }
 
@@ -125,7 +149,20 @@ class SolicitudController extends Controller
     {
         //
     }
+    public function NotificationNoLeidas()
+    {
+        //$todoEquipo = Equipo::all(['id','nombre','imagen']);
+        $postNotifications = auth()->user()->unreadNotifications;
+        return view('encargado.index', compact('postNotifications'));
+    }
+    public function markNotification(Request $request)
+    {
+        auth()->user()->unreadNotifications
+                ->when($request->input('id'), function($query) use ($request){
+                    return $query->where('id', $request->input('id'));
+                })->markAsRead();
+        return response()->noContent();
 
-
-
+        
+    }
 }

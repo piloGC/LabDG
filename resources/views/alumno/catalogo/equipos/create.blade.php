@@ -15,7 +15,7 @@
 
 <div class="row justify-content-center mt-4">
     <div class="col-md-12">
-        <form method="POST" action="{{ route('catalogo.store') }}"  novalidate>
+        <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
             @csrf
             <div class="row">
              <div class="form-group col-md-4">

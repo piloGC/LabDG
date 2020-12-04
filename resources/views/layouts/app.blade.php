@@ -117,7 +117,7 @@
             @yield('content')
         </main>
     </div>
-
+    <script src="/us/app.js"></script>
     @yield('scripts')
 </body>
 </html>

@@ -52,6 +52,13 @@ Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('so
 Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update')->middleware('admin');
 Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
 
+
+Route::get('markAsRead', function(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markAsRead');
+Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
+
 //rutas para dropdown dependiente formulario solicitud
 Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
 Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
