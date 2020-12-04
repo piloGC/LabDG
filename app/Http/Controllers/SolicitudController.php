@@ -26,7 +26,7 @@ class SolicitudController extends Controller
         $usuario =auth()->user();
 
         //prestamos CON paginacion
-        $solicitudes = Solicitud::where('user_id', $usuario->id)->paginate(5);
+        $solicitudes = Solicitud::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(5);
 
 
         return view('alumno.solicitudes.index',compact('solicitudes','usuario'));
@@ -77,7 +77,7 @@ class SolicitudController extends Controller
             'estado_id'=>$datosSolicitud['estado'],
         ]);
 
-        return redirect()->action('SolicitudController@index');
+        return redirect()->action('SolicitudController@index')->with('mensaje','Solicitud enviada!');
     }
 
     /**

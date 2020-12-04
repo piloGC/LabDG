@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<body style="background-image:url('../images/fondo10.png') ">
 <div class="container py-4">
 <h1 class="text-center mb-3">Mis solicitudes</h1>
 <hr>
@@ -12,8 +12,7 @@
         <thead class="bg-success text-light">
            <tr class="table-active">
             <th scole="col">Código</th>
-            <th scole="col">Equipo</th>
-            <th scole="col">Asignatura</th>   
+            <th scole="col">Equipo</th>  
             <th scole="col">Desde</th>  
             <th scole="col">Hasta</th>
             <th scole="col">Estado</th>
@@ -25,12 +24,24 @@
             <tr>
                 <td>{{$solicitud->id}}</td>
                 <td>{{$solicitud->existencia->codigo}}</td>
-                <td>{{$solicitud->asignatura->nombre}}</td>
                 <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>
                 <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>
-                <td>{{$solicitud->estado->nombre}}</td>
+                <td>
+                    @if ($solicitud->estado->nombre == 'Pendiente')
+                   <h5> <span class="badge badge-pill badge-warning">{{$solicitud->estado->nombre}}</span> </h5>
+                    @endif
+                    @if ($solicitud->estado->nombre == 'Aprobada')
+                   <h5><span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span></h5>
+                    @endif
+                    @if ($solicitud->estado->nombre == 'Rechazada')
+                   <h5><span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span></h5>
+                    @endif
+                    
                 <td >
-                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-primary text-white mb-2">Ver</a>
+                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-outline-info mb-2">Detalle</a>
+                    <a href="# " class="btn btn-outline-success mb-2" id="edit" 
+                    {{-- onclick="ocultar()" value="ocultar" --}}
+                    >Editar</a>  
                 </td>
             </tr>
             @endforeach
@@ -42,5 +53,14 @@
 <div class="col-12 mt-4 justify-content-center d-flex">
     {{$solicitudes->links()}}
 </div>
+</body>
     
 @endsection
+
+ {{-- @section('scripts')
+    <script>
+        function ocultar(){
+            document.getElementById('edit').style.display="none";
+        }
+    </script>
+@endsection --}}

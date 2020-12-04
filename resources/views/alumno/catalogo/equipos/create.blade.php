@@ -4,18 +4,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css"
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
-
 @endsection
 
 @section('content')
+ <body style="background-image:url('/images/fondo2.png')"> 
 <div class="container py-4">
      
 <h1 class="text-center mb-3">Formulario de Solicitud</h1>
 <hr>
-
 <div class="row justify-content-center mt-4">
     <div class="col-md-12">
-        <form method="POST" action="{{ route('catalogo.store') }}"  novalidate>
+        <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
             @csrf
             <div class="row">
              <div class="form-group col-md-4">
@@ -156,6 +155,7 @@
         </form>
     </div></div></div>
 </div>
+</body>
 @endsection
 
 @section('scripts')

@@ -10,12 +10,12 @@
             <div class="card-body">
                 <img src="https://source.unsplash.com/lfRlv3nuf78/225x200"> 
             </div>
-            <div class="card-footer"><h5 class="text-center color-texto" >VER TODO</h5></div> 
+            <div class="card-footer"><h5 class="text-center color-texto3" >VER TODO</h5></div> 
         </a>
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.fotograficas')}}">
             <div class="card-body">
                 <img src="https://source.unsplash.com/lfRlv3nuf78/225x200">             </div>
-            <div class="card-footer"><h5 class="text-center color-texto" >CÁMARA FOTOGRÁFICA</h5></div> 
+            <div class="card-footer"><h5 class="text-center color-texto2" >CÁMARA FOTOGRÁFICA</h5></div> 
         </a> 
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.videos')}}">
             <div class="card-body">
@@ -29,13 +29,13 @@
             <div class="card-body">
                 <img src="https://source.unsplash.com/lfRlv3nuf78/225x200"> 
             </div>
-            <div class="card-footer"><h5 class="text-center color-texto" >TRÍPODE</h5></div> 
+            <div class="card-footer"><h5 class="text-center color-texto2" >TRÍPODE</h5></div> 
         </a> 
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.tabletas')}}">
             <div class="card-body">
                 <img src="https://source.unsplash.com/lfRlv3nuf78/225x200"> 
             </div>
-            <div class="card-footer"><h5 class="text-center color-texto" >TABLETA</h5></div> 
+            <div class="card-footer"><h5 class="text-center color-texto3" >TABLETA</h5></div> 
         </a> 
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.lectores')}}">
             <div class="card-body">

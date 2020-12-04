@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Solicitud;
+use Carbon\Carbon;
 use App\ListarSolicitud;
 use Illuminate\Http\Request;
 
@@ -98,14 +99,16 @@ class ListarSolicitudController extends Controller
     }
 
     public function entrantes(){ 
-        $solicitudes = Solicitud::where('estado_id',1)->orderBy('id','DESC')->paginate(15);
+        $solicitudes = Solicitud::where('estado_id',1)->paginate(15);
         return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
 
     }
 
     public function aprobadas(){
+        $hoy= Carbon::today();
         $solicitudes = Solicitud::where('estado_id',2)->orderBy('id','DESC')->paginate(15);
-        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes'));
+
+        return view('encargado.solicitudes.aprobadas.index',compact('solicitudes','hoy'));
     }
 
     public function rechazadas(){

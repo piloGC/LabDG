@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Fonts -->
 
@@ -114,6 +115,20 @@
             </div>
         </nav>
         <main >
+            <div class="container-fluid">
+                @if (session('mensaje'))
+                    <div class="row mb-2 ">
+                        <div class="col-lg-12 py-2">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <h3>{{session('mensaje')}}</h3>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>

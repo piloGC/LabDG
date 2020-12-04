@@ -6,7 +6,10 @@ use App\Prestamo;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Asignatura;
+use App\Existencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ExistenciaController;
 
 class PrestamoController extends Controller
 {
@@ -23,7 +26,7 @@ class PrestamoController extends Controller
     {
         //
         $usuario =auth()->user();
-
+        
         //prestamos CON paginacion
         $prestamos = Prestamo::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(5);
 
@@ -31,7 +34,6 @@ class PrestamoController extends Controller
         return view('encargado.prestamos.index',compact('prestamos','usuario'));
         
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,8 +41,11 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        return view('encargado.prestamos.create');
+        $hoy= Carbon::now();
+        $prestamo= Solicitud::all('id');
+        return view('encargado.prestamos.create',compact('hoy','prestamo'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -51,20 +56,26 @@ class PrestamoController extends Controller
     public function store(Request $request)
     {
          //validacion
-         $datosPrestamo = $request->validate([
-            'fecha_retiro_equipo'=> 'required|date',
-            'fecha_devolucion'=> 'required|date',
-            'solicitud' =>'required',
-        ]);
+          $datosPrestamo = $request->validate([
+             'fecha_retiro_equipo'=> 'required|date',
+        //     // 'fecha_devolucion'=> 'date',
+             'solicitud' =>'required',
+         ]);
+        $disponibilidad=$request->disponibilidad;
+        $existencia=$request->existencia;
 
         //inserta en la bdd con modelo
         auth()->user()->prestamo()->create([
             'fecha_retiro_equipo'=> $datosPrestamo['fecha_retiro_equipo'],
-            'fecha_devolucion'=> $datosPrestamo['fecha_devolucion'],
             'solicitud_id'=>$datosPrestamo['solicitud'],
         ]);
+       // dd($request);
+        //(new ExistenciaController)->cambiarDisOcupado($request->existencia);
+        $cambio = $disponibilidad;
+        $cambio=2;
+        DB::table('existencias')->where('codigo',$existencia)->update(['disponibilidad_id' => $cambio]);
 
-        return redirect()->action('PrestamoController@index');
+        return redirect()->action('AdminController@index')->with('mensaje','Se ha generado el préstamo correctamente!');
 
     }
 

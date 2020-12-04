@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="text-center ">Prestamos</h1>
+<h1 class="text-center ">Préstamos</h1>
 <a href="{{route('prestamos.create')}}" class="btn btn-secondary">Agregar prestamo</a>
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
@@ -13,6 +13,7 @@
             <th scole="col">Fecha retiro</th>   
             <th scole="col">Fecha devolucion</th>  
             <th scole="col">Created at</th>
+            <th scole="col">Solicitud</th>
             <th scole="col">Acción</th>
             </tr> 
         </thead>
@@ -23,6 +24,7 @@
                 <td>{{$prestamo->fecha_retiro_equipo}}</td>
                 <td>{{$prestamo->fecha_devolucion}}</td>
                 <td>{{$prestamo->created_at}}</td>
+                <td>{{$prestamo->solicitud_id}}</td>
                 <td >
                     <a href="#" class="btn btn-primary text-white mb-2">Ver</a>
                 </td>

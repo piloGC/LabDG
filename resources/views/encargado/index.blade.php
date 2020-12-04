@@ -6,6 +6,8 @@
 
 @section('content')
 
+
+
 @endsection
 {{-- 
 @section('footer')
@@ -20,4 +22,6 @@
             'success'
         )
  </script>  --}}
+
+ 
 @endsection
