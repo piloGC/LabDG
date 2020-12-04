@@ -75,9 +75,9 @@ Auth::routes();
 
 Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencia.devolver');
 Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencia.devolverUpdate');
-Route::resource('existencias', 'ExistenciaController');
 Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencia.prestar');
 Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
+Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');
