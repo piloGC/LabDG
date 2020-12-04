@@ -153,15 +153,10 @@ class ExistenciaController extends Controller
         $datosExistencia = $request->validate([
             'codigo' => 'required|max:40',
             'disponibilidad' => 'required|max:200',
-         'solicitud' => 'required',
+            'solicitud' => 'required',
            
         ]);
-        //asigna valores actualizados a existencia
-        $existencia->codigo = $datosExistencia['codigo'];
-        $existencia->disponibilidad_id =2;
-        $existencia->save();
-
-
+        
         //rescato valores para crear prestamo
         $hoy=Carbon::today()->format('Y-m-d 00:00:00');
         $now=Carbon::now();
@@ -178,7 +173,16 @@ class ExistenciaController extends Controller
         $existencia_id=$solicitud->pluck('existencia_id');
         $exis=$existencia_id[0];
         // dd($hoy);
+
+        /*condicion para ver si la fecha de hoy coincide con el de la solicitud, 
+            si el id de solicitud coincide con el equipo seleccionado
+        */
            if($hoy == $fecha && $request->solicitud == $id && $exis == $existencia->id){
+               //asigna valores actualizados a existencia
+                $existencia->codigo = $datosExistencia['codigo'];
+                $existencia->disponibilidad_id =2;
+                $existencia->save();
+
                $id=  DB::table('prestamos')->insertGetId(
                  ['fecha_retiro_equipo'=> $fecha_retiro ,'fecha_devolucion'=>$devolucion,'solicitud_id'=> $id, 'user_id'=> $usuario,'created_at'=>$now,'updated_at'=>$now]);
         // //         return 'hola';

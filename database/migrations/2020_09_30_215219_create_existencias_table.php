@@ -33,6 +33,7 @@ class CreateExistenciasTable extends Migration
             $table->foreignId('estado_id')->references('id')->on('existencia_estados')->onDelete('cascade')->comment('Bueno o malo');
             $table->foreignId('disponibilidad_id')->references('id')->on('existencia_disponibilidads')->onDelete('cascade')->comment('disponible para prestamo o no');
             $table->foreignId('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
+            //$table->foreignId('solicitud_id')->nullable()->references('id')->on('solicituds');
             $table->timestamps();
         });
     }
