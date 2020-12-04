@@ -64,7 +64,7 @@
                             <a class="nav-link4 text-dark" href="#"><b>HORARIOS</b></a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link5 text-dark" href="#"><b>REGLAMENTO</b></a>
+                            <a class="nav-link5 text-dark" href="{{ route('reglamentos.index') }}"><b>REGLAMENTO</b></a>
                         </li>
 
                           
@@ -132,7 +132,7 @@
             @yield('content')
         </main>
     </div>
-
+    <script src="/us/app.js"></script>
     @yield('scripts')
 </body>
 </html>

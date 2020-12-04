@@ -44,6 +44,9 @@ Route::get('/catalogo/lectores-dvd', 'UserController@lector')->name('catalogo.le
 Route::get('/catalogo/{existencia}/create','UserController@create')->name('catalogo.create');
 Route::get('/catalogo/{existencia}','UserController@show')->name('catalogo.show');
 
+//rutas de reglamento
+Route::get('/reglamentos','ReglamentoController@index')->name('reglamentos.index')->middleware('user');
+
 //rutas de solicitudes
 Route::get('/solicitudes','SolicitudController@index')->name('solicitud.index')->middleware('user');
 Route::get('/solicitudes/solicitud','SolicitudController@create')->name('solicitud.create')->middleware('user');
@@ -52,6 +55,13 @@ Route::get('/solicitudes/{solicitud}','SolicitudController@show')->name('solicit
 Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('solicitud.edit')->middleware('admin');
 Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update')->middleware('admin');
 Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
+
+
+Route::get('markAsRead', function(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markAsRead');
+Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
 Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');

@@ -236,6 +236,12 @@ return [
             'search' => false,
             'topnav' => true,
         ],
+        // [
+        //     'text' => ' ',
+        //     'icon' => 'fas fa-fw fa-bell',
+        //     'url' => '/admin',
+        //     'topnav_right' => true,
+        // ],
         [
             'text'        => 'Inicio',
             'url'         => '/admin',
