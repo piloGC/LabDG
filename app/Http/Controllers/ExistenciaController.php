@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Equipo;
+use Carbon\Carbon;
 use App\Existencia;
 use App\ExistenciaEstado;
-use App\ExistenciaDisponibilidad;
-use App\Equipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\ExistenciaDisponibilidad;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ExistenciaController extends Controller
 {
@@ -37,7 +38,8 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('encargado.existencias.create')->with('estados',$estados)->with('disponibilidads',$disponibilidads)->with('equipos',$equipos);
+        $hoy = Carbon::now()->format('Y-m-d');
+        return view('encargado.existencias.create',compact('estados','disponibilidads','equipos','hoy'));
     }
 
     /**
@@ -91,7 +93,8 @@ class ExistenciaController extends Controller
         $estados = ExistenciaEstado::all(['id','nombre']);
         $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
         $equipos = Equipo::all(['id','nombre']);
-        return view('encargado.existencias.edit',compact('estados','disponibilidads','equipos','existencia'));
+        $fecha = Carbon::parse($existencia->fecha_adquisicion);
+        return view('encargado.existencias.edit',compact('estados','disponibilidads','equipos','existencia','fecha'));
     }
 
     /**
@@ -106,19 +109,20 @@ class ExistenciaController extends Controller
         //validacion
         $datosExistencia = $request->validate([
             'codigo' => 'required|max:40',
-            'fecha_adquisicion' => 'required|date',
-            'estado' => 'required|max:40',
+         //   'fecha_adquisicion' => 'required|date',
+         //   'estado' => 'required|max:40',
             'disponibilidad' => 'required|max:200',
-            'equipo' => 'required',
+         //   'equipo' => 'required',
+         'solicitud' => 'required',
            
         ]);
 
         //asigna valores
         $existencia->codigo = $datosExistencia['codigo'];
-        $existencia->fecha_adquisicion= $datosExistencia['fecha_adquisicion'];
-        $existencia->estado_id = $datosExistencia['estado'];
+    //  $existencia->fecha_adquisicion= $datosExistencia['fecha_adquisicion'];
+    //    $existencia->estado_id = $datosExistencia['estado'];
         $existencia->disponibilidad_id =$datosExistencia['disponibilidad'];
-        $existencia->equipo_id =$datosExistencia['equipo'];
+    //    $existencia->equipo_id =$datosExistencia['equipo'];
 
         $existencia->save();
 
@@ -136,4 +140,81 @@ class ExistenciaController extends Controller
         $existencia->delete();
         return redirect()->action('ExistenciaController@index');
     }
+
+    public function prestar( Existencia $existencia){
+        $hoy=Carbon::today()->format('Y-m-d');
+        $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
+        return view('encargado.existencias.prestar',compact('existencia','disponibilidads','hoy'));
+    }
+
+    public function prestarUpdate(Request $request, Existencia $existencia)
+    {
+        //validacion
+        $datosExistencia = $request->validate([
+            'codigo' => 'required|max:40',
+            'disponibilidad' => 'required|max:200',
+         'solicitud' => 'required',
+           
+        ]);
+        //asigna valores actualizados a existencia
+        $existencia->codigo = $datosExistencia['codigo'];
+        $existencia->disponibilidad_id =2;
+        $existencia->save();
+
+
+        //rescato valores para crear prestamo
+        $hoy=Carbon::today()->format('Y-m-d 00:00:00');
+        $now=Carbon::now();
+        $devolucion=Carbon::parse() ;
+        $devolucion=null;
+        $usuario = auth()->user()->id;
+        $solicitud_id= $request->solicitud;
+        $fecha_retiro= $request->fecha_retiro_equipo;
+        $solicitud=DB::table('solicituds')->where('fecha_inicio',$fecha_retiro);
+        $fecha_inicio=$solicitud->pluck('fecha_inicio');
+        $fecha=$fecha_inicio[0];
+        $solicitud_id=$solicitud->pluck('id');
+        $id=$solicitud_id[0];
+        $existencia_id=$solicitud->pluck('existencia_id');
+        $exis=$existencia_id[0];
+        // dd($hoy);
+           if($hoy == $fecha && $request->solicitud == $id && $exis == $existencia->id){
+               $id=  DB::table('prestamos')->insertGetId(
+                 ['fecha_retiro_equipo'=> $fecha_retiro ,'fecha_devolucion'=>$devolucion,'solicitud_id'=> $id, 'user_id'=> $usuario,'created_at'=>$now,'updated_at'=>$now]);
+        // //         return 'hola';
+             return redirect()->action('ExistenciaController@index')->with('mensaje','Se ha generado el préstamo correctamente!');
+           }else{
+            $existencia_id=$existencia->id;
+            return redirect()->route('existencia.prestar', ['existencia'=> $existencia->id])->with('mensaje','No se ha podido crear el préstamo! El código de solicitud o el equipo seleccionado es incorrecto');
+           }
+               
+           
+      //  return redirect()->action('ExistenciaController@index')->with('mensaje','Se ha generado el préstamo correctamente!');
+    }
+
+    public function devolver( Existencia $existencia){
+        $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
+        return view('encargado.existencias.devolver',compact('existencia','disponibilidads'));
+    }
+
+    // public function devolverUpdate(Request $request, Existencia $existencia){
+    //     //validacion
+    //     $datosExistencia = $request->validate([
+    //         'codigo' => 'required|max:40',
+    //         'disponibilidad' => 'required|max:200',
+    //         'solicitud' =>'required',
+    //         'fecha_devolucion' => 'required|date',
+    //     ]);
+
+    //     //asigna valores
+    //     $existencia->codigo = $datosExistencia['codigo'];
+    //     $existencia->fecha_adquisicion= $datosExistencia['fecha_adquisicion'];
+    //     $existencia->estado_id = $datosExistencia['estado'];
+    //     $existencia->disponibilidad_id =$datosExistencia['disponibilidad'];
+    //     $existencia->equipo_id =$datosExistencia['equipo'];
+
+    //     $existencia->save();
+
+    //     return redirect()->action('ExistenciaController@index');
+    // }
 }

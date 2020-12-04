@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
-use App\CategoriaEquipo;
 use App\CatalogoEquipo;
+use App\CategoriaEquipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -72,14 +71,12 @@ class EquipoController extends Controller
 
         //consulta si es que viene imagen, que modifique su ruta para guardar
         //if ($request->hasFile('imagen')){
-        $ruta_imagen= $request['imagen']->store('uploads','public');
+        $ruta_imagen = $request['imagen']->store('uploads','public');
 
         //resize image
-        //$img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
-        $image = $request->file('imagen');
-        $img=Image::make($image->getRealPath());
+        $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(600,550);
         $img->save();
-
+      
 
         //insertar en bdd sin modelo
         DB::table('equipos')->insert([
@@ -174,10 +171,14 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Equipo $equipo)
+    public function destroy($id)
     {
-        Storage::delete('public/'.$equipo->imagen);
+        //Storage::delete('public/uploads'.$equipo->imagen);
+        // $equipo->delete();
+        // return redirect()->action('EquipoController@index');
+        $equipo = Equipo::find($id);
         $equipo->delete();
-        return redirect()->action('EquipoController@index');
+        return redirect('/equipos');
+        ;
     }
 }

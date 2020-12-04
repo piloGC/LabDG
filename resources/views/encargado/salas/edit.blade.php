@@ -75,15 +75,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="internett">Internet</label>
-                    <input id="internett"
+                    <label for="internet">Internet</label>
+                    <input id="internet"
                         type="text"
-                        name="internett" 
-                        class="form-control @error('internett') is-invalid @enderror" 
+                        name="internet" 
+                        class="form-control @error('internet') is-invalid @enderror" 
                         placeholder="Ingrese si corresponde el servicio"
-                        value="{{ $sala->internett}}"
+                        value="{{ $sala->internet}}"
                     >
-                    @error('internett')
+                    @error('internet')
                         <span class="invalid_feedback d-block" role="alert">
                             <strong>{{$message}}</strong>
                         </span>

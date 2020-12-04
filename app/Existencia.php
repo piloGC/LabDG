@@ -8,7 +8,7 @@ class Existencia extends Model
 {
     //
     protected $fillable =[
-        'codigo', 'fecha_adquisicion' , 'estado_id', 'disponibilidad_id', 'equipo_id'
+        'codigo', 'fecha_adquisicion' , 'estado_id', 'disponibilidad_id','equipo_id'
     ];
     //obtiene la categoria del equipo via fk
     public function disponibilidad(){
@@ -20,4 +20,6 @@ class Existencia extends Model
     public function equipo(){
         return $this->belongsTo(Equipo::class);
     }
+
+    
 }

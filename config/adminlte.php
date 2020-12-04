@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Laboratorio</b> DG',
+    'logo' => '<b>Laboratorio</b> DG ',
     'logo_img' => 'vendor/adminlte/dist/img/DG-logo.png',
-    'logo_img_class' => 'brand-image  elevation-3',
+    'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'LabDG',
 
     /*
     |--------------------------------------------------------------------------
@@ -66,10 +66,10 @@ return [
 
     'usermenu_enabled' => true,
     'usermenu_header' => true,
-    'usermenu_header_class' => 'bg-info',//cambia el color
+    'usermenu_header_class' => 'bg-olive',//cambia el color
     'usermenu_image' => false,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-white elevation-4',
+    'classes_sidebar' => 'sidebar-dark-olive ', //elevation-4
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -188,7 +188,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'admin',
+    'dashboard_url' => '/admin',
 
     'logout_url' => 'logout',
 
@@ -236,56 +236,104 @@ return [
             'search' => false,
             'topnav' => true,
         ],
+        // [
+        //     'text' => ' ',
+        //     'icon' => 'fas fa-fw fa-bell',
+        //     'url' => '/admin',
+        //     'topnav_right' => true,
+        // ],
         [
             'text'        => 'Inicio',
-            'url'         => 'admin',
+            'url'         => '/admin',
             'icon'        => 'fas fa-fw fa-home',
         ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
+        //   ['header' => 'account_settings'],
+        //   [
+        //       'text' => 'profile',
+        //       'url'  => '/perfil',
+        //       'icon' => 'fas fa-fw fa-user',
+        //   ],
         // [
         //     'text' => 'change_password',
         //     'url'  => 'admin/settings',
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
+          ['header' => 'Solicitudes'],
+          [
+            'text'    => 'Solicitudes entrantes',
+            'url'     => '/listarSolicitud/entrantes',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
         [
-            'text'    => 'Solicitudes',
-            'icon'    => 'far fa-fw fa-file-alt',
+            'text' => 'Solicitudes aprobadas',
+            'url'  => 'listarSolicitud/aprobadas',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
+        [
+            'text'    => 'Solicitudes rechazadas',
+            'url'     => 'listarSolicitud/rechazadas',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
+        // [
+        //     'text'    => 'Solicitudes',
+        //     'icon'    => 'far fa-fw fa-file-alt',
+        //     'submenu' => [
+        //         [
+        //             'text'    => 'Solicitudes entrantes',
+        //             'url'     => '/listarSolicitud/entrantes',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //         [
+        //             'text' => 'Solicitudes aprobadas',
+        //             'url'  => 'listarSolicitud/aprobadas',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //         [
+        //             'text'    => 'Solicitudes rechazadas',
+        //             'url'     => 'listarSolicitud/rechazadas',
+        //             'icon' => 'fas fa-fw fa-angle-right'
+        //         ],
+        //     ],
+        // ],
+        //  ['header' => 'Equipos'],
+         [
+             'text'       => 'Reserva equipo',
+             'icon'    => 'fas fa-fw fa-camera',
+             'url'        => 'existencias',
+         ],
+         [
+            'text'       => 'Control sanción',
+            'icon'    => 'fas fa-fw fa-times-circle',
+            'url'        => '#',
+        ],
+        [
+            'text'    => 'Administración',
+            'icon'    => 'fas fa-fw fa-cog',
             'submenu' => [
                 [
-                    'text'    => 'Solicitudes entrantes',
-                    'url'     => '#',
+                    'text' => 'Prestamos',
+                    'url'  => 'prestamos',
+                    'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
-                    'text' => 'Solicitudes aprobadas',
-                    'url'  => '#',
+                    'text' => 'Equipos',
+                    'url'  => 'equipos',
+                    'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
-                    'text'    => 'Solicitudes rechazadas',
-                    'url'     => '#',
+                    'text'       => 'Salas',
+                    'url'        => 'salas',
+                    'icon' => 'fas fa-fw fa-angle-right'
+                ],
+                
+                [
+                    'text'    => 'Agregar ítem ',
+                    'url'     => 'existencias/create',
+                    'icon' => 'fas fa-fw fa-angle-right'
                 ],
             ],
         ],
-        //  ['header' => 'Equipos'],
-         [
-             'text'       => 'Equipos',
-             'icon'    => 'fas fa-fw fa-camera',
-             'url'        => 'equipos',
-         ],
-         [
-            'text'       => 'Existencias',
-            'icon'    => 'fas fa-fw fa-share',
-            'url'        => 'existencias',
-        ],
-        [
-            'text'       => 'Salas',
-            'icon'    => 'fas fa-fw fa-share',
-            'url'        => 'salas',
-        ],
+        
         // [
         //     'text'       => 'Sanciones',
         //     'icon'    => 'fas fa-fw fa-times',
@@ -374,7 +422,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

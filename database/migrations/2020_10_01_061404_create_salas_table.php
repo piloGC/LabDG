@@ -19,7 +19,7 @@ class CreateSalasTable extends Migration
             $table->string ('nombre');
             $table->string ('estado');
             $table->integer ('capacidad');
-            $table->string ('internett');
+            $table->string ('internet');
             $table->string ('aire_acondicionado');
             $table->timestamps();
         });
