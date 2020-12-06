@@ -23,8 +23,8 @@
                                 </div>
                                 <div class="col-sm-2">
                                     @if (count(auth()->user()->unreadNotifications)>0)
-                                            <button href="{{ route('markAsRead') }}" class=" btn btn-sm btn-dark" style="padding:.25rem 4.5rem ">Marcar Todas como Leidas</button>
-                                        @endif
+                                            <a href="{{ route('markAsRead') }}" class="btn btn-sm btn-dark">Marcar Todas como Leidas</a>
+                                    @endif
                                 </div>
                             </div>
                                 
@@ -37,11 +37,11 @@
                                         <div class="alert alert-default-danger">
                                             <div class="row">
                                                 <div class="col-md-2">Solicitud ID: {{ $notification->data['solicitud'] }} </div>
-                                                <div class="col-md-2"> Equipo ID: {{ $notification->data['existencia'] }} </div>
-                                                <div class="col-md-2"> Estudiante ID: {{ $notification->data['estudiante'] }} </div>
+                                                <div class="col-md-2"> Equipo: {{ $notification->data['equipo'] }} </div>
+                                                <div class="col-md-2"> Estudiante: {{ $notification->data['nombre'] }} {{ $notification->data['apellido'] }} </div>
                                                 <div class="col-md-3">Fecha Solicitada: {{ $notification->data['fecha_inicio'] }}  / {{ $notification->data['fecha_fin'] }} </div>
                                                 <div class="col-md-1">{{ $notification->created_at->diffForHumans()}}</div>
-                                                <div class="col-md-2-left"> <button type="submit"  class="mark-as-read btn btn-sm btn-dark" style="padding:.25rem 4.5rem " data-id="{{ $notification->id }}" >Marcar como Leida</button></div>
+                                                <div class="col-md-2-left"> <button type="submit"  class="mark-as-read btn btn-sm btn-dark" data-id="{{ $notification->id }}" >Marcar como Leida</button></div> 
                                             </div>
                                         </div>
                                     @empty
@@ -72,10 +72,12 @@
             </div>
         </div>
     </div>
-@endsection
+    </div>
+@stop
 
 
-@section('scripts')
+
+@section('js')
 <script>
   function sendMarkRequest(id = null){
     return $.ajax("{{ route('markNotification') }}", {
@@ -92,14 +94,9 @@
       request.done(() => {
         $(this).parents('div.alert').remove();
       });
+      window.location.reload(); 
     });
-});
+  });
 </script>
 @stop
 
-@section('js')
-<script>
-
-
-</script>
-@stop

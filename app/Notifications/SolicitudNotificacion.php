@@ -43,7 +43,7 @@ class SolicitudNotificacion extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Tu solicitud ha sido Aceptada')
+                    ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
@@ -55,6 +55,9 @@ class SolicitudNotificacion extends Notification
             'existencia' => $this->solicitud->existencia_id,
             'fecha_inicio' => $this->solicitud->fecha_inicio,
             'fecha_fin' => $this->solicitud->fecha_fin,
+            'nombre' => $this->solicitud->user_name,
+            'apellido' => $this->solicitud->user_lastname,
+            'equipo' => $this->solicitud->equipo,
         ];
     }
     /**

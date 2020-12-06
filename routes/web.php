@@ -56,11 +56,14 @@ Route::get('/solicitudes/{solicitud}/edit','SolicitudController@edit')->name('so
 Route::put('/solicitudes/{solicitud}','SolicitudController@update')->name('solicitud.update')->middleware('admin');
 Route::delete('/solicitudes/{solicitud}','SolicitudController@destroy')->name('solicitud.destroy');
 
-
+//rutas de notificaciones 
+//marcas todas como leidas
 Route::get('markAsRead', function(){
     auth()->user()->unreadNotifications->markAsRead();
     return redirect()->back();
 })->name('markAsRead');
+
+//ruta para marcar como leido una notificación
 Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
@@ -77,6 +80,7 @@ Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')
 Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencia.devolverUpdate');
 Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencia.prestar');
 Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
+
 Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones

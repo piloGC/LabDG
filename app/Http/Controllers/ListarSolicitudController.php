@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Solicitud;
+use App\Equipo;
+use App\User;
 use Carbon\Carbon;
 use App\ListarSolicitud;
 use Illuminate\Http\Request;
 
+use App\Events\SolicitudEvent;
+use App\Notifications\SolicitudNotificacion;
+use Illuminate\Support\Facades\Mail;   
+use App\Mail\AprobarSolicitud; 
+use App\Mail\RechazarSolicitud; 
+use App\Mail\AprobarPrestamo;
+use App\Mail\TerminarPrestamo
+;  
 class ListarSolicitudController extends Controller
 {
     public function __construct()
@@ -53,7 +63,7 @@ class ListarSolicitudController extends Controller
     public function show(Solicitud $listarSolicitud)
     {
         //
-         dd($listarSolicitud);
+        //  dd($listarSolicitud);
         if($listarSolicitud->estado_id == 1){
             return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
         }elseif ($listarSolicitud->estado_id == 2) {
@@ -118,18 +128,34 @@ class ListarSolicitudController extends Controller
     
 
     public function cambiarEstadoAprobada(Solicitud $listarSolicitud)
-    {
-        $listarSolicitud->estado_id = 2;
-        $listarSolicitud->save();
-        //dd($listarSolicitud);
-        return redirect()->action('ListarSolicitudController@entrantes');
-    }
+{
+    $listarSolicitud->estado_id = 2;
+    $listarSolicitud->save();
+    //valores de añadido a solicitud para realizar la notificación
+    $nombre = auth()->user()->name;
+    $apellido = auth()->user()->lastname;
+    $listarSolicitud->encargadoNombre = $nombre;
+    $listarSolicitud->encargadoApellido = $apellido;
+    //Enviar correo indicando el apruebo de solicitud
+    $mailusuario = $listarSolicitud->usuario->email;
+    Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
+    
+    return redirect()->action('ListarSolicitudController@entrantes');
+}
 
-    public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
-    {
-        $listarSolicitud->estado_id = 3;
-        $listarSolicitud->save();
-        return redirect()->action('ListarSolicitudController@rechazadas');
+public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
+{
+    $listarSolicitud->estado_id = 3;
+    $listarSolicitud->save();
+    //valores de añadido a solicitud para realizar la notificación
+    $nombre = auth()->user()->name;
+    $apellido = auth()->user()->lastname;
+    $listarSolicitud->encargadoNombre = $nombre;
+    $listarSolicitud->encargadoApellido = $apellido;
+    //Enviar correo indicando el apruebo de solicitud
+    $mailusuario = $listarSolicitud->usuario->email;
+    Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
+    return redirect()->action('ListarSolicitudController@rechazadas');
     }
 
     

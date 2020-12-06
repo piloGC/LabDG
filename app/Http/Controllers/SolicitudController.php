@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SolicitudController extends Controller
 {
-    public $name;
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -73,13 +72,6 @@ class SolicitudController extends Controller
             'existencia'=>'required',
             'estado'=>'required',
         ]);
-        $datosSolicitud['user_id'] = Auth::id();
-        $datosSolicitud['user_name'] =Auth::User()->name;
-        // $user_id = Auth::id();
-        // $role1= User::find($user_id)->role_id;
-        // $role2 = auth()->user()->role_id;
-        // $role3 = Auth::User()->role_id;
-        // dd($solicitud);
         $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
@@ -88,18 +80,24 @@ class SolicitudController extends Controller
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);
-        //Nos notificamos a nosotros mismos
+        $datosSolicitud['user_id'] = Auth::id();
+        $datosSolicitud['user_name'] =Auth::User()->name;
+        $datosSolicitud['user_lastname'] =Auth::User()->lastname;
+        $datosSolicitud['equipo'] = Equipo::find($datosSolicitud['existencia'])->nombre;
+        $solicitud->user_name = Auth::User()->name;
+        $solicitud->user_lastname = Auth::User()->lastname;
+        $solicitud->equipo = Equipo::find($datosSolicitud['existencia'])->nombre;
+        //Notificar al Encargado
         //auth()->user()->notify(new SolicitudNotificacion($solicitud));
         // User::all()
         //     ->except($solicitud->user_id)
         //     ->each(function(User $user) use ($solicitud){
         //         user()->notify(new SolicitudNotificacion($solicitud));
         //     });
-        $NotificarEncargado = User::find(1);
-        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
-        
         //metodo Notificacion con Evento y Listener  -> para todos
         // event (new SolicitudEvent($solicitud));
+        $NotificarEncargado = User::find(1);
+        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
         
         return redirect()->action('SolicitudController@index')->with('mensaje','Solicitud enviada!');
     }
@@ -151,7 +149,6 @@ class SolicitudController extends Controller
     }
     public function NotificationNoLeidas()
     {
-        //$todoEquipo = Equipo::all(['id','nombre','imagen']);
         $postNotifications = auth()->user()->unreadNotifications;
         return view('encargado.index', compact('postNotifications'));
     }

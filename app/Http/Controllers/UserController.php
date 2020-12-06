@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
 
         //inserta en la bdd con modelo
-        auth()->user()->solicitud()->create([
+        $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
             'fecha_fin'=> $datosSolicitud['fecha_fin'],
@@ -57,11 +57,18 @@ class UserController extends Controller
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);
-
+        $datosSolicitud['user_id'] = Auth::id();
+        $datosSolicitud['user_name'] =Auth::User()->name;
+        $datosSolicitud['user_lastname'] =Auth::User()->lastname;
+        $datosSolicitud['equipo'] = Equipo::find($datosSolicitud['existencia'])->nombre;
+        $solicitud->user_name = Auth::User()->name;
+        $solicitud->user_lastname = Auth::User()->lastname;
+        $solicitud->equipo = Equipo::find($datosSolicitud['existencia'])->nombre;
+        
         $NotificarEncargado = User::find(1);
         $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
 
-        return redirect()->action('SolicitudController@index');
+        return redirect()->action('SolicitudController@index')->with('mensaje','Solicitud enviada!');;
     }
 
     public function show(Existencia $existencia){

@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'lastname'=>'Espinoza Hasler',
             'run' =>"12.123.123-1",
             'phone' =>'123456789',
-            'email' => 'correo@correo.com',
+            'email' => 'laboratoriodg20@gmail.com',
             'role_id'=>1,
             'activo'=>'Si',
             'password' => Hash::make('correo123'),
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             'lastname'=>'Gonzalez Cea',
             'run' =>"12.123.123-2",
             'phone' =>'123456789',
-            'email' => 'correo2@correo.com',
+            'email' => 'laboratoriodg20alumno1@gmail.com',
             'role_id'=>2,
             'password' => Hash::make('correo123'),
             'carrera'=>'Diseño Gráfico',
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'lastname'=>'Fuentes Reyes',
             'run' =>"12.123.123-3",
             'phone' =>'123456789',
-            'email' => 'correo3@correo.com',
+            'email' => 'laboratoriodg20alumno2@gmail.com',
             'role_id'=>2,
             'password' => Hash::make('correo123'),
             'carrera'=>'Diseño Gráfico',
@@ -57,20 +57,6 @@ class UserSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        $user2 = User::create([
-            'name' => 'Nicholas ',
-            'lastname'=>'Espinoza Hasler',
-            'run' =>"19.416.735-0",
-            'phone' =>'123456789',
-            'email' => 'nicholas.espinoza1501@alumnos.ubiobio.com',
-            'role_id'=>2,
-            'password' => Hash::make('83avbogo'),
-            'carrera'=>'Diseño Gráfico',
-            'anio_ingreso'=>'2015',
-            'campus'=>'Fernando May',
-            'activo'=>'Si',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+
     }
 }
