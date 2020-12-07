@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content')
-    
+    <div id="app">
     <h1 class="text-center ">Control de Equipos</h1>
     <a href="{{route('equipos.create')}}" class="btn btn-secondary">Agregar Equipo</a>
     <div class="container mx-auto bg-white">
@@ -35,24 +35,15 @@
                         <img src="/storage/{{$equipo->imagen}}" style="width:100px" ></td>
                     <td>{{$equipo->catalogo->disponible}}</td>
                     <td>
-                      {{--  <form action="{{ route('equipos.destroy',['equipo' => $equipo->id])}}"  method="post"> --}}
-                        {{-- <a href="{{ route('equipos.edit', ['equipo'=> $equipo->id]) }}" class="btn btn-primary  mb-2">Editar</a>
-                        <a href="{{ route('equipos.show', ['equipo'=> $equipo->id]) }}" class="btn btn-success  mb-2">Ver</a>
-                        {{-- <eliminar-equipo equipo-id={{$equipo->id}}></eliminar-equipo> --}}
-                        {{-- <a href=""><form action="{{ route('equipos.destroy', ['equipo'=> $equipo->id]) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger mb-2" type="submit">Eliminar</button>
-                          </form>
-                        </a>  --}}
-                        <div class="btn-group mr-1" role="group">
+                        <div class="btn-group mr-1" role="group" >
                             <a href="{{ route('equipos.show', ['equipo'=> $equipo->id]) }}" class="btn btn-info  mb-2">Ver</a>
                             <a href="{{ route('equipos.edit', ['equipo'=> $equipo->id]) }}" class="btn btn-success  mb-2">Editar</a>
-                            <a href=""><form action="{{ route('equipos.destroy', ['equipo'=> $equipo->id]) }}" method="post">
+                            {{-- <a href=""><form action="{{ route('equipos.destroy', ['equipo'=> $equipo->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger text-white" style="border-top-left-radius: 0;border-bottom-left-radius: 0" type="submit">Eliminar</button>
-                              </form></a>
+                              </form></a> --}}
+                              <eliminar-equipo equipo-id={{$equipo->id}}></eliminar-equipo>
                           </div> 
                                                 
                     </td>
@@ -67,11 +58,10 @@
 
     </div>
 
-
-
 </div>
+
 @endsection
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ <script src="{{ asset('js/app.js')}}"></script> 
 @endsection

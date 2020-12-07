@@ -6,7 +6,13 @@
 
 @section('content')
 
-
+<body>
+    <div id="app">
+        <example-component></example-component>
+        <eliminar-existencia></eliminar-existencia>
+    </div>
+     
+    </body>
 
 @endsection
 {{-- 
@@ -23,5 +29,5 @@
         )
  </script>  --}}
 
- 
+ <script src="{{ asset('js/app.js')}}"></script> 
 @endsection

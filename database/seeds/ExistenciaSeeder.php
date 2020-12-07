@@ -31,7 +31,7 @@ class ExistenciaSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('existencias')->insert([
-            'codigo' => 'cs_01',
+            'codigo' => 'cn_01',
             'fecha_adquisicion' => date('Y-m-d H:i:s'),
             'estado_id'=>1,
             'disponibilidad_id'=>1,
@@ -40,7 +40,7 @@ class ExistenciaSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('existencias')->insert([
-            'codigo' => 'cs_02',
+            'codigo' => 'cn_02',
             'fecha_adquisicion' => date('Y-m-d H:i:s'),
             'estado_id'=>1,
             'disponibilidad_id'=>1,

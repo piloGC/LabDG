@@ -60,7 +60,7 @@ class SolicitudController extends Controller
         //validacion
          $datosSolicitud = $request->validate([
             'motivo' => 'required|max:200',
-            'fecha_inicio'=> 'required|date',
+            'fecha_inicio'=> 'required|date|before:fecha_fin',
             'fecha_fin'=> 'required|date',
             'asignatura' =>'required',
             'existencia'=>'required',

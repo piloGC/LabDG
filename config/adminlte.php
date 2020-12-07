@@ -321,8 +321,8 @@ return [
                 ],
                 
                 [
-                    'text'    => 'Agregar ítem ',
-                    'url'     => 'existencias/create',
+                    'text'    => 'Items ',
+                    'url'     => 'existencias/items',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
             ],

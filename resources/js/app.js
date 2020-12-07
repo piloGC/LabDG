@@ -27,10 +27,14 @@ Vue.use(VueSweetAlert2);
 Vue.config.ignoredElements=['trix-editor'];
 Vue.component('eliminar-sala', require('./components/EliminarSala.vue').default);
 Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
-Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
+//Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
-Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
+//Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
 Vue.component('dropdown-solicitud', require('./components/Dropdown.vue').default);
+
+import ExampleComponent from './components/ExampleComponent';
+import EliminarExistencia from './components/EliminarExistencia';
+import EliminarEquipo from './components/EliminarEquipo';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -40,4 +44,9 @@ Vue.component('dropdown-solicitud', require('./components/Dropdown.vue').default
 
 const app = new Vue({
     el: '#app',
+    components:{
+        ExampleComponent,
+        EliminarExistencia,
+        EliminarEquipo
+    }
 });

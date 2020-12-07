@@ -63,11 +63,13 @@ Auth::routes();
 
 //rutas de existencia
 
-Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencia.devolver');
-Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencia.devolverUpdate');
-Route::resource('existencias', 'ExistenciaController');
-Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencia.prestar');
-Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
+Route::get('/existencias/items','ExistenciaController@items')->name('existencias.items');
+Route::resource('existencias','ExistenciaController');
+Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencias.prestar');
+Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencias.devolver');
+Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencias.devolverUpdate');
+//Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
+
 
 //rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');
@@ -100,3 +102,5 @@ Route::resource('listarSolicitud', 'ListarSolicitudController');
 
 //ruta de perfil
 Route::resource('perfil','PerfilController');
+
+

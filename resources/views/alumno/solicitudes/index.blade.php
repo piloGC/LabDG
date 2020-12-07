@@ -36,6 +36,9 @@
                     @if ($solicitud->estado->nombre == 'Rechazada')
                    <h5><span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
+                    @if ($solicitud->estado->nombre == 'Terminada')
+                   <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
+                    @endif
                     
                 <td >
                     <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-outline-info mb-2">Detalle</a>

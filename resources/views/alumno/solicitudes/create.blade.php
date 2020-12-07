@@ -130,7 +130,7 @@
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-            </div> 
+            </div>
         </div>
             <div class="form-group mt-3">
                 <label for="motivo">Motivo solicitud:</label>
