@@ -5,7 +5,7 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-            <form action="{{ route('existencias.prestarUpdate',['existencia' => $existencia->id])}}" method="POST" novalidate>
+            <form action="{{ route('existencias.prestarUpdate',['existencia' => $existencia->id]) }}" method="POST" novalidate>
                 <!--csrf_field()}}  token de acceso unico para -->
                 @csrf
                 @method('PUT') 
@@ -32,7 +32,7 @@
                     <div class="form-group col-md-3">
                         <label for="disponibilidad">Disponibilidad</label>
                         <input type="text" name="disponibilidad" id="disponibilidad" 
-                        class="form-control @error('codigo') is-invalid @enderror" 
+                        class="form-control @error('codigo') is-invalid @enderror"
                         value="{{$existencia->disponibilidad->nombre}}" readonly>
                     </div>
                 </div>

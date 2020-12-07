@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Prestamo;
 use App\Solicitud;
 use Carbon\Carbon;
-use App\Asignatura;
-use App\Existencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ExistenciaController;
 
 class PrestamoController extends Controller
 {
@@ -60,22 +57,33 @@ class PrestamoController extends Controller
              'fecha_retiro_equipo'=> 'required|date',
         //     // 'fecha_devolucion'=> 'date',
              'solicitud' =>'required',
+             'estado' =>'required',
          ]);
         $disponibilidad=$request->disponibilidad;
         $existencia=$request->existencia;
-
         //inserta en la bdd con modelo
-        auth()->user()->prestamo()->create([
-            'fecha_retiro_equipo'=> $datosPrestamo['fecha_retiro_equipo'],
-            'solicitud_id'=>$datosPrestamo['solicitud'],
-        ]);
+       // dd($datosPrestamo);
+       auth()->user()->prestamo()->create([
+        'fecha_retiro_equipo'=> $datosPrestamo['fecha_retiro_equipo'],
+        'estado_id' => $datosPrestamo['estado'],
+        'solicitud_id'=>$datosPrestamo['solicitud'],
+    ]);
        // dd($request);
         //(new ExistenciaController)->cambiarDisOcupado($request->existencia);
-        $cambio = $disponibilidad;
+        $solicitud=$request->solicitud;
+        $sol = DB::table('solicituds')->where('id',$solicitud);
+        $estado_solicitud=$sol->pluck('estado_id');
+        $estado_sol=$estado_solicitud[0];
+        if($estado_sol == 2){
+            $cambio = $disponibilidad;
         $cambio=2;
         DB::table('existencias')->where('codigo',$existencia)->update(['disponibilidad_id' => $cambio]);
 
-        return redirect()->action('AdminController@index')->with('mensaje','Se ha generado el préstamo correctamente!');
+        return redirect()->action('AdminController@index')->with('exito','Se ha generado el préstamo correctamente!');
+        }else{
+            return redirect()->action('AdminController@index')->with('fracaso','No se ha generado el préstamo!');
+        }
+        
 
     }
 
