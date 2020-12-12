@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Solicitud;
-use App\Equipo;
 use App\User;
+use App\Equipo;
+use App\Solicitud;
 use Carbon\Carbon;
+use App\Asignatura;
+use App\Existencia;
+use App\PrestamoEstado;
 use App\ListarSolicitud;
-use Illuminate\Http\Request;
 
-use App\Events\SolicitudEvent;
-use App\Notifications\SolicitudNotificacion;
-use Illuminate\Support\Facades\Mail;   
+
+use App\SolicitudEstado;
+use Illuminate\Http\Request;
 use App\Mail\AprobarSolicitud; 
 use App\Mail\RechazarSolicitud; 
-use App\Mail\AprobarPrestamo;
-use App\Mail\TerminarPrestamo
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;   
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 ;  
 class ListarSolicitudController extends Controller
 {
@@ -41,6 +44,12 @@ class ListarSolicitudController extends Controller
     public function create()
     {
         //
+        $asignaturas = Asignatura::all(['id', 'nombre']);
+        $estados = SolicitudEstado::all(['id', 'nombre']);
+        $existencias = Existencia::all(['id','codigo','equipo_id']);
+     //   $usuario =auth()->user();
+        $hoy = Carbon::now()->format('Y-m-d');
+        return view('encargado.solicitudes.en_curso.create',compact('asignaturas','estados','hoy','existencias'));
     }
 
     /**
@@ -51,7 +60,58 @@ class ListarSolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+          $datosSolicitud = $request->validate([
+              'motivo' => 'required|max:200',
+            //  'fecha_inicio'=> 'required|date',
+              'fecha_fin'=> 'required|date|after:fecha_inicio',
+              'asignatura' =>'required',
+              'existencia'=>'required',
+              'estado'=>'required',
+              'run' =>'required'
+          ]);
+
+        $now=Carbon::now();
+        $run=$request->run;
+        $usuario=User::where('run',$run)->firstorfail();
+        $run_usuario=$usuario->pluck('run');
+        $run_user=$run_usuario[0];
+        $id_usuario=$usuario->pluck('id');
+        $id =$id_usuario[0];
+
+        if($run == $run_user){
+        //creo la solicitud
+        $id_solicitud = DB::table('solicituds')->insertGetId([
+            'motivo' => $datosSolicitud['motivo'],
+             'fecha_inicio' => $datosSolicitud['fecha_inicio'],
+             'fecha_fin' => $datosSolicitud['fecha_fin'],
+             'asignatura_id' => $datosSolicitud['asignatura'],
+             'existencia_id' => $datosSolicitud['existencia'],
+             'estado_id' => 4,
+            'user_id' => $id,
+            'created_at'=>$now,
+            'updated_at'=>$now
+         ]);
+        //creo el préstamo
+        $id_prestamo=  DB::table('prestamos')->insertGetId(
+            ['fecha_retiro_equipo'=> $request->fecha_inicio ,
+            'fecha_devolucion'=>$request->fecha_fin,
+            'estado_id'=>1,
+            'solicitud_id'=> $id_solicitud, 
+            'user_id'=> $id,
+            'created_at'=>$now,
+            'updated_at'=>$now]);
+
+        //actualizo la existencia
+        DB::table('existencias')->where('id',$request->existencia)->update(['disponibilidad_id'=>2]);
+
+        return redirect()->action('AdminController@index')->with('exito','Solicitud creada exitosamente!');
+        }else{
+           return redirect()->action('ListarSolicitudController@create')->with('fracaso','No se pudo crear la solicitud RUN inválido!');
+        }
+    }catch (ModelNotFoundException $ex) {
+        return redirect()->action('ListarSolicitudController@create')->with('fracaso','No existe ese RUN!');
+      }
     }
 
     /**

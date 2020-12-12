@@ -50,8 +50,8 @@
                 <input class="form-control" type="text" value="{{ $equipo->catalogo->disponible }}" readonly>
             </div>
         </div>
-        <div class="form-group">
-            <a href="{{ url('equipos')}}"  class="btn btn-primary"> Volver </a>
+        <div class="form-group float-right">
+            <a href="{{ url('equipos')}}"  class="btn btn-secondary"> Volver </a>
         </div>
     </div>
     

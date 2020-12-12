@@ -1,6 +1,4 @@
 @extends('adminlte::page')
-
-
 @section('content')
     <div class="container py-2">
         <h1 class="text-center mb-3">Registrar Nueva Sala DST</h1>

@@ -3,7 +3,7 @@
 @section('content')
 
 <h1 class="text-center ">Préstamos</h1>
-<a href="{{route('prestamos.create')}}" class="btn btn-secondary">Agregar prestamo</a>
+{{-- <a href="{{route('prestamos.create')}}" class="btn btn-secondary">Agregar prestamo</a> --}}
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
         <table class="table table-hover">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
+use Carbon\Carbon;
 use App\CatalogoEquipo;
 use App\CategoriaEquipo;
 use Illuminate\Http\Request;
@@ -23,8 +24,11 @@ class EquipoController extends Controller
      */
     public function index()
     {
+        $categorias = CategoriaEquipo::all(['id','nombre']);
+        $catalogos = CatalogoEquipo::all(['id','disponible']);
+
         $datos ['equipos']=Equipo::paginate(10);
-        return view ('encargado.equipos.index',$datos);
+        return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);;
     }
 
 
@@ -77,7 +81,7 @@ class EquipoController extends Controller
         $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(600,550);
         $img->save();
       
-
+        $now= Carbon::now();
         //insertar en bdd sin modelo
         DB::table('equipos')->insert([
             'nombre' => $datosEquipo['nombre'],
@@ -87,6 +91,8 @@ class EquipoController extends Controller
             'imagen' => $ruta_imagen,
             'categoria_id' => $datosEquipo['categoria'],
             'en_catalogo' => $datosEquipo['catalogo'],
+            'created_at' => $now,
+            'updated_at' =>$now,
             
         ]);
 
@@ -141,7 +147,7 @@ class EquipoController extends Controller
             'catalogo' => 'required',
             'categoria' =>'required',
         ]);
-
+        $now=Carbon::now();
         //Asignar los valores
         $equipo->nombre = $datosEquipo['nombre'];
         $equipo->marca = $datosEquipo['marca'];
@@ -149,7 +155,7 @@ class EquipoController extends Controller
         $equipo->descripcion = $datosEquipo['descripcion'];
         $equipo->categoria_id = $datosEquipo['categoria'];
         $equipo->en_catalogo = $datosEquipo['catalogo'];
-
+        $equipo->updated_at = $now;
         if (request('imagen')){
 
             //Storage::delete('public/'.$equipo->imagen);
@@ -179,6 +185,6 @@ class EquipoController extends Controller
         $equipo = Equipo::find($id);
         $equipo->delete();
         return redirect('/equipos');
-        ;
+        
     }
 }

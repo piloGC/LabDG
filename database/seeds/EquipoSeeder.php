@@ -17,7 +17,7 @@ class EquipoSeeder extends Seeder
             'marca' => 'Sony',
             'modelo'=>'Alfa 390',
             'descripcion'=>'Buenisima',
-            'imagen'=>'image.jpg',
+            'imagen'=>'../images/sony.jpg',
             'categoria_id'=>1,
             'en_catalogo'=>1,
             'created_at' => date('Y-m-d H:i:s'),
@@ -25,10 +25,10 @@ class EquipoSeeder extends Seeder
         ]);
         DB::table('equipos')->insert([
             'nombre' => 'Camara 2',
-            'marca' => 'Sony',
+            'marca' => 'Nikon',
             'modelo'=>'RX100 VI',
             'descripcion'=>'Buenisima',
-            'imagen'=>'image.jpg',
+            'imagen'=>'../images/nikon.jpg',
             'categoria_id'=>1,
             'en_catalogo'=>1,
             'created_at' => date('Y-m-d H:i:s'),

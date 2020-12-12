@@ -39,11 +39,6 @@
                         <div class="btn-group mr-1" role="group" >
                             <a href="{{ route('equipos.show', ['equipo'=> $equipo->id]) }}" class="btn btn-info  mb-2">Ver</a>
                             <a href="{{ route('equipos.edit', ['equipo'=> $equipo->id]) }}" class="btn btn-success  mb-2">Editar</a>
-                            {{-- <a href=""><form action="{{ route('equipos.destroy', ['equipo'=> $equipo->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger text-white" style="border-top-left-radius: 0;border-bottom-left-radius: 0" type="submit">Eliminar</button>
-                              </form></a> --}}
                               <eliminar-equipo equipo-id={{$equipo->id}}></eliminar-equipo>
                           </div> 
                                                 

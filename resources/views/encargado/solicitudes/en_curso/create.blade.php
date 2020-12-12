@@ -1,97 +1,38 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('styles')
+@section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css"
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
 @endsection
 
 @section('content')
-<body style="background-image:url('../images/fondo2.png')">
-<div class="container py-4">
-<h1 class="text-center mb-3">Formulario de Solicitud</h1>
-<hr>
-<div class="row justify-content-center mt-4">
-    <div class="col-md-12">
-        <form method="POST" action="{{ route('solicitud.store') }}"  novalidate>
+<div class="container py-2" id="app">
+    <h1 class="text-center mb-3">Formulario de Solicitud</h1>
+    <hr>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
+        <form action="{{ route('listarSolicitud.store')}}"  method="POST" novalidate>
             @csrf
-            <div class="row">
-             <div class="form-group col-md-4">
-                <label for="nombre">Nombre</label>
-                <input id="nombre" 
-                    type="text" 
-                    name="nombre" 
-                    class="form-control @error('nombre') is-invalid @enderror" 
-                    value="{{$usuario->name}}" readonly
-                >
-                @error('nombre')
-                    <span class="invalid_feedback d-block" role="alert">
-                        <strong>{{$message}}</strong>
-                    </span>
-                @enderror
-            </div>             
+             <div class="row">
             <div class="form-group col-md-4">
-                <label for="apellido">Apellidos</label>
+                <label for="run">Run solicitante</label>
                 <input 
+                value="{{old('run')}}"
                     type="text" 
-                    name="apellido" 
-                    class="form-control @error('apellido') is-invalid @enderror" 
-                    value="{{$usuario->lastname}}" readonly
-                >
-                @error('apellido')
-                    <span class="invalid_feedback d-block" role="alert">
-                        <strong>{{$message}}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="form-group col-md-4">
-                <label for="correo">Correo</label>
-                <input 
-                    type="text" 
-                    name="telefono" 
-                    class="form-control @error('correo') is-invalid @enderror" 
-                    value="{{$usuario->email}}" readonly
-                >
-                @error('correo')
+                    name="run" 
+                    id="run"
+                    class="form-control @error('run') is-invalid @enderror"  >
+                @error('run')
                     <span class="invalid_feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
                     </span>
                 @enderror
             </div> 
-        </div>
+        </div> 
         
              <dropdown-solicitud></dropdown-solicitud> 
-            {{-- <div class="form-group">
-                <label for="categoria">Categoría</label>
-                <select name="categoria" id="categoria" class="form-control @error('categoria') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('categoria')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            
-              <div class="form-group">
-                <label for="existencia">Equipo</label>
-                <select name="existencia" id="existencia" class="form-control @error('existencia') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($existencias as $existencia)
-                        <option value="{{ $existencia->id }}" {{ old('existencia') == $existencia->id ? 'selected' : '' }}>
-                            {{ $existencia->equipo->categoria->nombre}}</option>
-                    @endforeach
-                </select>
-                @error('existencia')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>             --}}
+
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
@@ -111,10 +52,10 @@
             
              <div class="form-group col-md-4 mt-3">
                 <label for="fecha_inicio">Desde:</label>
-                <input type="date"  value="{{old('fecha_inicio')}}"
-                name="fecha_inicio" id="fecha_inicio" min="{{$hoy->format('Y-m-d')}}"
-                class="form-control @error ('fecha_inicio') is-invalid @enderror">
-                @error('fecha_inicio')
+                <input type="date"  value="{{$hoy}}"
+                name="fecha_inicio" id="fecha_inicio" 
+                class="form-control @error ('fecha_inicio') is-invalid @enderror" readonly>
+                @error('fecha_inicio') 
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -123,7 +64,7 @@
             <div class="form-group col-md-4 mt-3">
                 <label for="fecha_fin">Hasta:</label>
                 <input type="date"  value="{{old('fecha_fin')}}"
-                name="fecha_fin" id="fecha_fin" min="{{$hoy->format('Y-m-d')}}"
+                name="fecha_fin" id="fecha_fin" min="{{$hoy}}"
                 class="form-control @error ('fecha_fin') is-invalid @enderror">
                 @error('fecha_fin')
                 <span class="invalid_feedback d-block" role="alert">
@@ -158,22 +99,24 @@
                    </span>
                    @enderror
                </div> 
-               <div class="form-group col-md-4 mt-3"></div>
-               <div class="form-group col-md-1 mt-3"></div>
-               <div class="form-group float-right col-md-3 mt-3">
+            </div>
+               {{-- <div class="form-group col-md-4 mt-3"></div>
+               <div class="form-group col-md-1 mt-3"></div> --}}
+               <div class="form-group float-right col-md-3">
                 {{-- <enviar-solicitud solicitud></enviar-solicitud>  --}}
                 <a href="{{ url('/')}}"  class="btn btn-secondary"> Cancelar </a>
                 <input type="submit" class="btn btn-success" value="Enviar solicitud" > 
-           </div>
+                </div>
             </div>
-            
+    </div>
         </form>
-    </div></div></div>
+    </div>
 </div>
-</body>
 @endsection
 
-@section('scripts')
+@section('js')
+  <script src="{{ asset('/js/app.js')}}"></script> 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
  integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
  @endsection

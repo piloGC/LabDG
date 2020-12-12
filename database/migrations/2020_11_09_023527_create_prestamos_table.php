@@ -13,7 +13,7 @@ class CreatePrestamosTable extends Migration
      */
     public function up()
     {
-        Schema::create('estado_prestamos', function (Blueprint $table) {
+        Schema::create('prestamos_estados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
@@ -23,7 +23,7 @@ class CreatePrestamosTable extends Migration
             $table->id();
             $table->datetime('fecha_retiro_equipo');
             $table->datetime('fecha_devolucion')->nullable();
-            $table->foreignId('estado_id')->references('id')->on('estado_prestamos');
+            $table->foreignId('estado_id')->references('id')->on('prestamos_estados');
             $table->foreignId('solicitud_id')->references('id')->on('solicituds');
             $table->foreignId('user_id')->references('id')->on('users');
             

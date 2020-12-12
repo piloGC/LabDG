@@ -25,7 +25,9 @@ Route::get('/login', function () {
 Route::resource('equipos','EquipoController');
 
 //rutas de sala
-Route::resource('salas','SalaController');
+Route::get('/horarios/sala-A','SalaController@salaA')->name('salas.salaA')->middleware(['auth','user']);
+Route::get('/horarios/sala-B/','SalaController@salaB')->name('salas.salaB')->middleware(['auth','user']);
+Route::resource('salas','SalaController')->middleware(['auth','admin']);;
 
 //rutas de prestamos
 Route::resource('prestamos','PrestamoController');

@@ -25,17 +25,16 @@ window.moment=require('moment');
 
 Vue.use(VueSweetAlert2);
 Vue.config.ignoredElements=['trix-editor'];
-Vue.component('eliminar-sala', require('./components/EliminarSala.vue').default);
+//Vue.component('eliminar-sala', require('./components/EliminarSala.vue').default);
 Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
 //Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
 //Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
 Vue.component('dropdown-solicitud', require('./components/Dropdown.vue').default);
-
-import ExampleComponent from './components/ExampleComponent';
+import Dropdown from './components/Dropdown';
 import EliminarExistencia from './components/EliminarExistencia';
 import EliminarEquipo from './components/EliminarEquipo';
-
+import EliminarSala from './components/EliminarSala';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -45,8 +44,9 @@ import EliminarEquipo from './components/EliminarEquipo';
 const app = new Vue({
     el: '#app',
     components:{
-        ExampleComponent,
         EliminarExistencia,
-        EliminarEquipo
+        EliminarEquipo,
+        EliminarSala,
+        Dropdown
     }
 });

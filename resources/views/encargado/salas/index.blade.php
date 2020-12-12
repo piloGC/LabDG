@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content')
-
+<div id="app">
     <h1 class="text-center ">Salas de Laboratorio DST</h1>
     <a href="{{route('salas.create')}}"class="btn btn-secondary">Agregar Sala</a>
     <div class="container mx-auto bg-white">
@@ -43,8 +43,10 @@
 
 
     </div>
-
-
-
 </div>
+@endsection
+
+@section('js')
+ <script src="{{ asset('js/app.js')}}" ></script> 
+ 
 @endsection

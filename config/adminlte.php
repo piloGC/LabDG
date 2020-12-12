@@ -258,7 +258,7 @@ return [
         //     'url'  => 'admin/settings',
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
-          ['header' => 'Solicitudes'],
+          ['header' => 'SOLICITUDES'],
           [
             'text'    => 'Solicitudes entrantes',
             'url'     => '/listarSolicitud/entrantes',
@@ -297,9 +297,9 @@ return [
         // ],
         //  ['header' => 'Equipos'],
          [
-             'text'       => 'Reserva equipo',
-             'icon'    => 'fas fa-fw fa-camera',
-             'url'        => 'existencias',
+             'text'       => 'Generar solicitud',
+             'icon'    => 'fas fa-fw fa-file-alt',
+             'url'        => 'listarSolicitud/create',
          ],
          [
             'text'       => 'Control sanción',

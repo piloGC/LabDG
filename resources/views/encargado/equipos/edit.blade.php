@@ -6,17 +6,17 @@
 @endsection
 
 @section('content')
-
-    <h1 class="text-center mb-5">Editar Equipo {{$equipo->nombre}}</h1>
-
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+<div class="container py-2">
+    <h1 class="text-center mb-3">Editar Equipo {{$equipo->nombre}}</h1>
+<hr>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
             <form action="{{ route('equipos.update',['equipo' => $equipo->id])}}" method="POST" enctype="multipart/form-data" novalidate>
                 <!--csrf_field()}}  token de acceso unico para -->
                 @csrf
                 @method('PUT')
-
-                <div class="form-group">
+<div class="row">
+    <div class="form-group col-md-3">
                     <label for="categoria">Categoria</label>
 
                     <select
@@ -39,7 +39,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <label for="nombre">Nombre</label>
                     <input id="nombre" 
                         type="text" 
@@ -55,7 +55,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <label for="marca">Marca</label>
                     <input id="marca" 
                         type="text" 
@@ -71,7 +71,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <label for="modelo">Modelo</label>
                     <input id="modelo"
                         type="text"
@@ -86,8 +86,9 @@
                         </span>
                     @enderror
                 </div>
-
-                <div class="form-group mt-3">
+            </div>
+            <div class="row">
+                <div class="form-group mt-4">
                     <label for="descripcion">Descripción</label>
                     <input id="descripcion" 
                     type="hidden" 
@@ -102,20 +103,20 @@
                     <span class="invalid_feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
                     </span>
-                @enderror
-
-                </div>
-                <div class="form-group">
+                     @enderror
+                </div></div>
+                <div class="row">
+                    <div class="form-group col-md-4">
                     <label for="imagen">Imagen</label>
                     <input id="imagen" 
                         type="file" 
                         name="imagen" 
                         class="form-control @error('imagen') is-invalid @enderror"  
                     >
-
-                    <div class="mt-4">
-                        <p> Imagen Actual: </p>
-                        <img src="/storage/{{$equipo->imagen}}" style="width:300px" >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="imagen">Imagen actual</label>
+                        <img src="/storage/{{$equipo->imagen}}" style="width:170px" >
                     </div>
 
 
@@ -124,8 +125,8 @@
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
-                </div>
-                <div class="form-group">
+                
+                <div class="form-group col-md-3">
                     <label for="catalogo">En Catalogo</label>
                     <select
                         name="catalogo" 
@@ -147,13 +148,13 @@
                         </span>
                     @enderror
 
-
-
+                </div>
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Actualizar Equipo">
-                    <a href="{{ url('equipos')}}"  class="btn btn-primary"> Cancelar </a>
+                <div class="form-group float-right mt-3">
+                    <a href="{{ url('equipos')}}"  class="btn btn-secondary"> Cancelar </a>
+                    <input type="submit" class="btn btn-success" value="Actualizar Equipo">
+                    
                 </div>
             </form>
         </div>

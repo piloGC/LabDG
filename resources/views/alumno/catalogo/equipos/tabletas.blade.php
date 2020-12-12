@@ -9,15 +9,16 @@
         @foreach ($existencias as $key => $grupo)
         
         <div class="container">
-            <h2 class="titulo-categoria text-uppercase mt-5 mb-4">
+            <h2 class="titulo-categoria text-uppercase mb-4">
                 {{str_replace('-',' ',$key)}}
             </h2>
             <div class="row">
                 @foreach ($grupo as $existencias)
+                @if(count($existencias) > 0)
                     @foreach ($existencias as $existencia)
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 mb-3 ">
                             <div class="card shadow">
-                                <img src="https://source.unsplash.com/lfRlv3nuf78/200x125" alt="imagen categoria" >
+                                <img class="card-img-top imagen-catalogo" src="/storage/{{$existencia->equipo->imagen}}" alt="imagen categoria" >
                                 <div class="card-body">
                                     <div>
                                         <span class="text-primary font-weight-bold">Categoría: </span>
@@ -29,21 +30,24 @@
                                     </div>
                                     <hr class="mt-2 mb-3">
                                     <div class="row justify-content-center">
-                                        <a href="{{ route('catalogo.show', ['existencia'=> $existencia->id]) }}"  class="btn btn-outline-info mr-2 ml-2">Ver</a>
+                                        <a href="{{ route('catalogo.show', ['existencia'=> $existencia->id]) }}"  class="btn btn-outline-info mr-2 ml-2">Detalle</a>
                                     <a href="{{ route('catalogo.create', ['existencia'=> $existencia->id]) }}" class="btn btn-outline-success mr-2 ml-2">Solicitar</a>
                                     </div>
                                     
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        @else
+                <h1 class="text-center">No hay equipos disponibles...</h1>
+            @endif
                     @endforeach
-                @endforeach
-            </div></div></div>
-        </div>
-    @endforeach
-        @else
-            <h1 class="text-center">No hay equipos aun...</h1>
-        @endif
+                </div></div></div>
+            </div>
+        @endforeach
+            @else
+                <h1 class="text-center">No hay equipos disponibles...</h1>
+            @endif
         
     
 @endsection

@@ -27,16 +27,19 @@
                 <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>
                 <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>
                 <td>
-                    @if ($solicitud->estado->nombre == 'Pendiente')
+                    @if ($solicitud->estado->id == 1)
                    <h5> <span class="badge badge-pill badge-warning">{{$solicitud->estado->nombre}}</span> </h5>
                     @endif
-                    @if ($solicitud->estado->nombre == 'Aprobada')
+                    @if ($solicitud->estado->id == 2)
                    <h5><span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
-                    @if ($solicitud->estado->nombre == 'Rechazada')
+                    @if ($solicitud->estado->id == 3)
                    <h5><span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
-                    @if ($solicitud->estado->nombre == 'Terminada')
+                    @if ($solicitud->estado->id == 4)
+                    <h5><span class="badge badge-pill badge-info text-white">{{$solicitud->estado->nombre}}</span></h5>
+                     @endif
+                    @if ($solicitud->estado->id == 5)
                    <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
                     

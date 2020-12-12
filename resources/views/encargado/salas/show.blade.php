@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="form-group float-right">
-            <a href="{{ url('salas')}}"  class="btn btn-primary"> Volver </a>
+            <a href="{{ url('salas')}}"  class="btn btn-secondary"> Volver </a>
         </div>
     </div>
 

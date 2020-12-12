@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sala;
+use App\Asignatura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,9 @@ class SalaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware(['auth','admin']);
-    }
+    // public function __construct(){
+    //     $this->middleware(['auth','admin']);
+    // }
     public function index()
     {
         $datos ['salas']=Sala::paginate(10);
@@ -131,5 +132,13 @@ class SalaController extends Controller
     {
         $sala->delete();
         return redirect()->action('SalaController@index');
+    }
+
+    public function salaA(){
+        return view('alumno.salas.salaA');
+    }
+    public function salaB(){
+
+        return view('alumno.salas.salaB');
     }
 }

@@ -27,7 +27,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     <img src="../../vendor/img/LOGOH.png" alt="Logo" height="70px">
@@ -60,8 +60,14 @@
                         <li class="nav-item  ">
                             <a class="nav-link3 text-dark" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
                         </li>
-                        <li class="nav-item  ">
-                            <a class="nav-link4 text-dark" href="#"><b>HORARIOS</b></a>
+                        <li class="nav-item  dropdown">
+                            <a class="nav-link4 text-dark" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <b>HORARIOS</b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
+                                <a class="dropdown-item" href="{{route('salas.salaA')}}">Laboratorio A</a>
+                                <a class="dropdown-item" href="{{route('salas.salaB')}}">Laboratorio B</a>
+                              </div>
                         </li>
                         <li class="nav-item  ">
                             <a class="nav-link5 text-dark" href="{{ route('reglamentos.index') }}"><b>REGLAMENTO</b></a>

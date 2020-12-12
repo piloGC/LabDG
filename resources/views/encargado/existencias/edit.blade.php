@@ -6,10 +6,11 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-5">Editar Existencia {{$existencia->nombre}}</h1>
-
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+<div class="container py-2">
+    <h1 class="text-center mb-3">Editar Existencia {{$existencia->nombre}}</h1>
+    <hr>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
             <form action="{{ route('existencias.update',['existencia' => $existencia->id])}}" method="POST" enctype="multipart/form-data" novalidate>
                 <!--csrf_field()}}  token de acceso unico para -->
                 @csrf
@@ -110,13 +111,9 @@
                 </div>
                 
 
-                <div class="form-group float-right">
+                <div class="form-group float-right mt-3">
                     <a href="{{ url('existencias')}}"  class="btn btn-secondary"> Cancelar </a>
-                    {{-- @if ($existencia->disponibilidad_id == 2)
-                        @include('encargado.existencias.devolver')
-                    @else
-                        @include('encargado.existencias.prestar')
-                    @endif --}}
+                    <input type="submit" class="btn btn-success" value="Actualizar item">
                     
                 </div>
             </form>
@@ -124,7 +121,7 @@
         </div>
         
     </div>
-
+</div>
 @endsection
 
 {{-- @section('js')
