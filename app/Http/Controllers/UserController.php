@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Equipo;
 use Carbon\Carbon;
+use App\Solicitud;
 use App\Asignatura;
 use App\Existencia;
 use App\CategoriaEquipo;

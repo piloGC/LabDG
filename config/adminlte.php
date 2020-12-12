@@ -270,6 +270,11 @@ return [
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         [
+            'text'    => 'Solicitudes en curso',
+            'url'     => 'listarSolicitud/encursos',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
+        [
             'text'    => 'Solicitudes rechazadas',
             'url'     => 'listarSolicitud/rechazadas',
             'icon' => 'fas fa-fw fa-angle-right'
@@ -321,14 +326,14 @@ return [
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
-                    'text'       => 'Salas',
-                    'url'        => 'salas',
+                    'text' => 'Salas',
+                    'url'  => 'salas',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 
                 [
-                    'text'    => 'Items ',
-                    'url'     => 'existencias/items',
+                    'text' => 'Items',
+                    'url'  => 'existencias/items',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
             ],

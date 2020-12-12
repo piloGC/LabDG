@@ -121,6 +121,12 @@ class ListarSolicitudController extends Controller
         return view('encargado.solicitudes.aprobadas.index',compact('solicitudes','hoy'));
     }
 
+    public function encursos(){ 
+        $hoy= Carbon::now();
+        $solicitudes = Solicitud::where('estado_id',4)->paginate(15);
+        return view('encargado.solicitudes.encursos.index',compact('solicitudes','hoy'));
+
+    }
     public function rechazadas(){
         $solicitudes = Solicitud::where('estado_id',3)->orderBy('id','DESC')->paginate(15);
         return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
