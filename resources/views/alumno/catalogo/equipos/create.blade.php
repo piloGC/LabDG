@@ -74,7 +74,7 @@
             </div>
             <div class="form-group col-md-4 mt-3">
                 <label >Equipo</label>
-                <input type="text" class="form-control" value="{{$existencia->equipo->nombre}}" readonly>
+                <input type="text" class="form-control" value="{{$existencia->equipo->marca}}" readonly>
             </div>
             <div class="form-group col-md-4 mt-3">
                 <label for="existencia">Número de equipo</label>

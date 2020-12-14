@@ -30,9 +30,14 @@ Route::get('/horarios/sala-B/','SalaController@salaB')->name('salas.salaB')->mid
 Route::resource('salas','SalaController')->middleware(['auth','admin']);;
 
 //rutas de prestamos
+Route::get('/prestamos/{prestamo}/devolver','PrestamoController@devolver')->name('prestamo.devolver');
+Route::get('/prestamos/{prestamo}/sancionar','PrestamoController@sancionar')->name('prestamo.sancionar');
+Route::put('/prestamos/{prestamo}','PrestamoController@update')->name('prestamo.update');
 Route::resource('prestamos','PrestamoController');
-Route::get('/prestamos/{prestamo}','PrestamoController@generar')->name('prestamo.generar');
 
+// Route::get('/prestamos/{prestamo}','PrestamoController@generar')->name('prestamo.generar');
+
+// Route::get('/prestamos/{prestamo}/Prestamo','PrestamoController@devolverPrestamo')->name('devolverPrestamo.index');
 
 //index de user
 Route::get('/','UserController@index')->name('user');
@@ -81,18 +86,19 @@ Auth::routes();
 Route::get('/existencias/items','ExistenciaController@items')->name('existencias.items');
 Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencias.prestar');
 Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencias.devolver');
-Route::put('/existencias/{existencia}','ExistenciaController@devolverUpdate')->name('existencias.devolverUpdate');
-//Route::put('/existencias/{existencia}','ExistenciaController@prestarUpdate')->name('existencias.prestarUpdate');
+Route::put('/existencias/{existencia}','ExistenciaController@prestarPrestamo')->name('existencias.prestarPrestamo');
+// Route::put('/existencias/{existencia}','ExistenciaController@devolverPrestamo')->name('existencias.devolverPrestamo');
 Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');
-Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create');
-Route::post('/sanciones','SancionController@store')->name('sanciones.store');
+Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create')->middleware('admin');
+Route::post('/sanciones','SancionController@store')->name('sanciones.store')->middleware('admin');
 Route::get('/sanciones/{sancion}','SancionController@show')->name('sanciones.show');
-Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit');
-Route::put('/sanciones/{sancion}','SancionController@update')->name('sanciones.update');
-Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
+Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit')->middleware('admin');
+Route::put('/sanciones/{sancion}','SancionController@update')->name('sanciones.update')->middleware('admin');
+Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy')->middleware('admin');
+
 
 //rutas de home
  Route::get('/home', 'HomeController@index')->name('home');
@@ -106,13 +112,13 @@ Route::get('/admin','AdminController@index')->name('admin');
 Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->name('entrantes.index');
 Route::get('/listarSolicitud/aprobadas','ListarSolicitudController@aprobadas')->name('aprobadas.index');
 Route::get('/listarSolicitud/rechazadas','ListarSolicitudController@rechazadas')->name('rechazadas.index');
-
+Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Aprobar','ListarSolicitudController@cambiarEstadoAprobada')->name('cambiarEstadoAprobada.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
 
 Route::get('/listarSolicitud/{listarSolicitud}/Prestamo','ListarSolicitudController@generarPrestamo')->name('generarPrestamo.index');
 
-Route::resource('listarSolicitud', 'ListarSolicitudController');
+Route::resource('listarSolicitud','ListarSolicitudController');
 
 //ruta de perfil
 

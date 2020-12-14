@@ -16,16 +16,24 @@ class CreateSancionsTable extends Migration
         Schema::create('categoria_sancions',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->string('descripcion');
+            $table->timestamps();
+        });
+        Schema::create('estado_sancions',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
             $table->timestamps();
         });
 
+
         Schema::create('sancions', function (Blueprint $table) {
             $table->id();
-            $table->text('descripcion');
+            $table->string('descripcion');
             $table->datetime('fecha_inicio');
             $table->datetime('fecha_fin');
+            $table->foreignId('prestamo_id')->references('id')->on('prestamos');
             $table->foreignId('categoria_id')->references('id')->on('categoria_sancions')->onDelete('cascade');
+            $table->foreignId('estado_id')->references('id')->on('estado_sancions')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,5 +47,6 @@ class CreateSancionsTable extends Migration
     {
         Schema::dropIfExists('sancions');
         Schema::dropIfExists('categoria_sancions');
+        Schema::dropIfExists('estado_sancions');
     }
 }

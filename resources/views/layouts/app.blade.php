@@ -103,7 +103,7 @@
                                     <a class="dropdown-item" href="{{ route('solicitud.index') }}">
                                         {{ __('Mis Solicitudes') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('sanciones.index') }}">
                                         {{ __('Mis Sanciones') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
