@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@include('encargado.notificacion')
 @section('plugins.Sweetalert2', true)
 @section('content')
     <div id="app">

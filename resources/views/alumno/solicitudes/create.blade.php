@@ -9,7 +9,14 @@
 @section('content')
 <body style="background-image:url('../images/fondo2.png')">
 <div class="container py-4">
-<h1 class="text-center mb-3">Formulario de Solicitud</h1>
+<h1 class="text-center mb-3 titulos">Formulario de Solicitud</h1>
+<div class="row justify-content-end mr-5">
+    <a href="" data-toggle="modal" data-target="#preguntas" style="color:black;text-decoration:none">
+        <i class="far fa-question-circle" 
+        data-toggle="tooltip" data-placement="top" 
+        title="Preguntas frecuentes"></i> Resuelve tus dudas!
+    </a>
+</div>
 <hr>
 <div class="row justify-content-center mt-4">
     <div class="col-md-12">
@@ -22,7 +29,7 @@
                     type="text" 
                     name="nombre" 
                     class="form-control @error('nombre') is-invalid @enderror" 
-                    value="{{$usuario->name}}" readonly
+                    value="{{auth()->user()->name}}" readonly
                 >
                 @error('nombre')
                     <span class="invalid_feedback d-block" role="alert">
@@ -36,7 +43,7 @@
                     type="text" 
                     name="apellido" 
                     class="form-control @error('apellido') is-invalid @enderror" 
-                    value="{{$usuario->lastname}}" readonly
+                    value="{{auth()->user()->lastname}}" readonly
                 >
                 @error('apellido')
                     <span class="invalid_feedback d-block" role="alert">
@@ -50,7 +57,7 @@
                     type="text" 
                     name="telefono" 
                     class="form-control @error('correo') is-invalid @enderror" 
-                    value="{{$usuario->email}}" readonly
+                    value="{{auth()->user()->email}}" readonly
                 >
                 @error('correo')
                     <span class="invalid_feedback d-block" role="alert">
@@ -60,38 +67,8 @@
             </div> 
         </div>
         
-             <dropdown-solicitud></dropdown-solicitud> 
-            {{-- <div class="form-group">
-                <label for="categoria">Categoría</label>
-                <select name="categoria" id="categoria" class="form-control @error('categoria') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('categoria')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            
-              <div class="form-group">
-                <label for="existencia">Equipo</label>
-                <select name="existencia" id="existencia" class="form-control @error('existencia') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($existencias as $existencia)
-                        <option value="{{ $existencia->id }}" {{ old('existencia') == $existencia->id ? 'selected' : '' }}>
-                            {{ $existencia->equipo->categoria->nombre}}</option>
-                    @endforeach
-                </select>
-                @error('existencia')
-                <span class="invalid_feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>             --}}
+             <dropdown-solicitud></dropdown-solicitud>
+
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
@@ -144,7 +121,7 @@
                 @enderror
             </div>
             <div class="row">
-                <div class="form-group col-md-4 mt-3">
+                <div class="form-group float-right">
                    <select type="hidden" name="estado" hidden id="estado" class="form-control 
                    @error('estado') is-invalid @enderror">
                        @foreach ($estados as $estado)
@@ -156,20 +133,29 @@
                    <span class="invalid_feedback d-block" role="alert">
                        <strong>{{ $message }}</strong>
                    </span>
-                   @enderror
+                   @enderror 
                </div> 
-               <div class="form-group col-md-4 mt-3"></div>
-               <div class="form-group col-md-1 mt-3"></div>
-               <div class="form-group float-right col-md-3 mt-3">
-                {{-- <enviar-solicitud solicitud></enviar-solicitud>  --}}
+            </div> 
+            <div class="form-group">
+                <input type="checkbox" name="condiciones" value="on" 
+                {{ old('condiciones') == 'on' ? 'checked' : '' }}>
+                He leído y acepto los <a href="" data-toggle="modal" data-target="#condicion" >Términos y Condiciones</a> de solicitud
+                @error('condiciones')
+                   <span class="invalid_feedback d-block" role="alert">
+                       <strong>Debes aceptar los términos y condiciones</strong>
+                   </span>
+                   @enderror 
+            </div>
+            
+            <div class="form-group float-right">
                 <a href="{{ url('/')}}"  class="btn btn-secondary"> Cancelar </a>
                 <input type="submit" class="btn btn-success" value="Enviar solicitud" > 
            </div>
-            </div>
-            
         </form>
     </div></div></div>
 </div>
+
+@include('alumno.solicitudes.modal')
 </body>
 @endsection
 

@@ -5,7 +5,7 @@
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
 @endsection
-
+@include('encargado.notificacion')
 @section('content')
 <div class="container py-2" id="app">
     <h1 class="text-center mb-3">Formulario de Solicitud</h1>

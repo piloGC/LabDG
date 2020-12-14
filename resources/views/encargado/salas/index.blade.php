@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@include('encargado.notificacion')
 @section('content')
 <div id="app">
     <h1 class="text-center ">Salas de Laboratorio DST</h1>

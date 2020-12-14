@@ -3,7 +3,7 @@
 @section('content')
 <body style="background-image:url('../images/fondo10.png') ">
 <div class="container py-4">
-<h1 class="text-center mb-3">Reglamento y Normativa</h1>
+<h1 class="text-center mb-3 titulos">Reglamento y Normativa</h1>
 <hr>
 <div class="row justify-content mt-4">
     <div class="container mx-auto bg-white">

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-
+@include('encargado.notificacion')
 @section('content')
 
 <div class="container">

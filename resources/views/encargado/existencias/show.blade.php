@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@include('encargado.notificacion')
 @section('content')
 <div class="container py-2">
     <h1 class="text-center mb-3">Ítem {{$existencia->codigo}}</h1>

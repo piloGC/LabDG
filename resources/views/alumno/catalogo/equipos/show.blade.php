@@ -4,33 +4,33 @@
 <body style="background-image: url(../images/fondo1.jpg)">
     <div class="container py-4" >
         <div >
-            <h1 class="text-center">{{$existencia->equipo->marca}} {{$existencia->equipo->modelo}}</h1>
+            <h1 class="text-center titulos">{{$existencia->equipo->marca}} {{$existencia->equipo->modelo}}</h1>
             <div class="row justify-content-end mr-5">
                 <h5 class="mr-2">Número de equipo: </h5>
+                <h5>{{$existencia->codigo}}</h5>
                 
-                {{$existencia->codigo}}
             </div>
              
         </div>
         <hr>
-        <h4 class="mb-0 font-weight-bold">Información del Equipo:</h4>
+        <h3 class="mb-4 titulo-categoria">Información del Equipo:</h3>
             <br>
             <div class="row">
                 <div class="form-group col-md-3">
-                    <label class="font-weight-bold">Categoría</label>
-                    <input class="form-control" type="text" value= "{{$existencia->equipo->categoria->nombre}}" readonly>
+                    <h4 class="titulos">Categoría</h4>
+                    <h5 class="mt-3">{{$existencia->equipo->categoria->nombre}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label class="font-weight-bold">Nombre equipo</label>
-                    <input class="form-control" type="text" value="{{$existencia->equipo->nombre}}" readonly>
+                    <h4 class="titulos">Nombre equipo</h4>
+                    <h5 class="mt-3">{{$existencia->equipo->nombre}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label class="font-weight-bold">Marca</label>
-                    <input class="form-control" type="text" value="{{$existencia->equipo->marca}}" readonly>
+                    <h4 class="titulos">Marca</h4>
+                    <h5 class="mt-3">{{$existencia->equipo->marca}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label class="font-weight-bold">Modelo</label>
-                    <input class="form-control" type="text" value="{{$existencia->equipo->modelo}}" readonly>
+                    <h4 class="titulos">Modelo</h4>
+                    <h5 class="mt-3">{{$existencia->equipo->modelo}}</h5>
                 </div>
                 
                 
@@ -38,16 +38,15 @@
             <br>
         <div class="row">
             <div class="form-group col-md-3">
-                <label class="font-weight-bold">Imagen</label>
+                <h4 class="titulos">Imagen referencial</h4>
                 <br>
                 <img src="/storage/{{$existencia->equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" >
             </div>
-            <div class="form-group col-md-4">
-                <label class="font-weight-bold">Descripción</label>
-                {{-- <input class="form-control" type="text" value="{{$existencia->equipo->descripcion}}" style="width: 745px; height: 10em" readonly> --}}
-                <div>{!! $existencia->equipo->categoria->descripcion !!}</div>
+            <div class="form-group col-md-8">
+                <h4 class="titulos">Descripción</h4>
+                <div><h5>{!! $existencia->equipo->categoria->descripcion !!}</h5></div>
             </div>
-            <div class="form-group col-md-4"></div>
+            {{-- <div class="form-group col-md-4"></div> --}}
 
         </div>
         

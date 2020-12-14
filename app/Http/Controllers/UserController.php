@@ -31,46 +31,10 @@ class UserController extends Controller
         
         $asignaturas = Asignatura::all(['id', 'nombre']);
         $estados = SolicitudEstado::all(['id', 'nombre']);
-        //$existencias = Existencia::all('id');
-        $usuario =auth()->user();
         $hoy = Carbon::now();
-        return view('alumno.catalogo.equipos.create',compact('usuario','asignaturas','hoy','estados','existencia'));
+        return view('alumno.catalogo.equipos.create',compact('asignaturas','hoy','estados','existencia'));
     }
 
-    public function store(Request $request){
-        
-        //validacion
-        $datosSolicitud = $request->validate([
-            'motivo' => 'required|max:200',
-            'fecha_inicio'=> 'required|date',
-            'fecha_fin'=> 'required|date|after:fecha_inicio',
-            'asignatura' =>'required',
-            'existencia'=>'required',
-            'estado'=>'required',
-        ]);
-
-        //inserta en la bdd con modelo
-        $solicitud = auth()->user()->solicitud()->create([
-            'motivo'=> $datosSolicitud['motivo'],
-            'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
-            'fecha_fin'=> $datosSolicitud['fecha_fin'],
-            'asignatura_id' =>$datosSolicitud['asignatura'],
-            'existencia_id'=> $datosSolicitud['existencia'],
-            'estado_id'=>$datosSolicitud['estado'],
-        ]);
-        $datosSolicitud['user_id'] = Auth::id();
-        $datosSolicitud['user_name'] =Auth::User()->name;
-        $datosSolicitud['user_lastname'] =Auth::User()->lastname;
-        $datosSolicitud['equipo'] = Equipo::find($datosSolicitud['existencia'])->nombre;
-        $solicitud->user_name = Auth::User()->name;
-        $solicitud->user_lastname = Auth::User()->lastname;
-        $solicitud->equipo = Equipo::find($datosSolicitud['existencia'])->nombre;
-        
-        $NotificarEncargado = User::find(1);
-        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
-
-        return redirect()->action('SolicitudController@index')->with('mensaje','Solicitud enviada!');;
-    }
 
     public function show(Existencia $existencia){
         return view('alumno.catalogo.equipos.show',compact('existencia'));

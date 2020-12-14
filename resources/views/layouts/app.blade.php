@@ -17,6 +17,8 @@
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
 
     <!-- cargar hoja de estilos-->
     @yield('styles')
@@ -40,11 +42,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item  ">
-                            <a class="nav-link1 text-dark" href="/"><b>INICIO</b></a>
+                            <a class="nav-link1 text-dark titulos" href="/"><h5>INICIO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link2 text-dark" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <b>CATÁLOGO</b>
+                            <a class="nav-link2 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <h5>CATÁLOGO</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
                                 <a class="dropdown-item" href="{{route('catalogo.fotograficas')}}">Cámaras fotográficas</a>
@@ -58,11 +60,11 @@
                             
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link3 text-dark" href="{{ route('solicitud.create') }}"><b>SOLICITUD DE PRÉSTAMO</b></a>
+                            <a class="nav-link3 text-dark titulos" href="{{ route('solicitud.create') }}"><h5>SOLICITUD DE PRÉSTAMO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link4 text-dark" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <b>HORARIOS</b>
+                            <a class="nav-link4 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <h5>HORARIOS</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
                                 <a class="dropdown-item" href="{{route('salas.salaA')}}">Laboratorio A</a>
@@ -70,7 +72,7 @@
                               </div>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link5 text-dark" href="{{ route('reglamentos.index') }}"><b>REGLAMENTO</b></a>
+                            <a class="nav-link5 text-dark titulos" href="{{ route('reglamentos.index') }}"><h5>REGLAMENTO</h5></a>
                         </li>
 
                           
@@ -90,7 +92,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle titulos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

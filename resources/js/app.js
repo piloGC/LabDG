@@ -26,11 +26,14 @@ window.moment=require('moment');
 Vue.use(VueSweetAlert2);
 Vue.config.ignoredElements=['trix-editor'];
 //Vue.component('eliminar-sala', require('./components/EliminarSala.vue').default);
-Vue.component('fecha-equipo', require('./components/FechaEquipo.vue').default);
+//Vue.component('fecha', require('./components/Fecha.vue').default);
 //Vue.component('eliminar-equipo', require('./components/EliminarEquipo.vue').default);
 Vue.component('eliminar-sancion', require('./components/EliminarSancion.vue').default);
 //Vue.component('eliminar-existencia', require('./components/EliminarExistencia.vue').default);
 Vue.component('dropdown-solicitud', require('./components/Dropdown.vue').default);
+
+import FechaIndex from './components/FechaIndex';
+import FechaFormato from './components/FechaFormato';
 import Dropdown from './components/Dropdown';
 import EliminarExistencia from './components/EliminarExistencia';
 import EliminarEquipo from './components/EliminarEquipo';
@@ -47,6 +50,8 @@ const app = new Vue({
         EliminarExistencia,
         EliminarEquipo,
         EliminarSala,
-        Dropdown
+        Dropdown,
+        FechaFormato,
+        FechaIndex
     }
 });

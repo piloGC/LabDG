@@ -80,7 +80,8 @@ class ExistenciaController extends Controller
      */
     public function show(Existencia $existencia)
     {
-        return view('encargado.existencias.show',compact('existencia'));
+        $fecha = Carbon::parse($existencia->fecha_adquisicion);
+        return view('encargado.existencias.show',compact('existencia','fecha'));
     }
 
     /**

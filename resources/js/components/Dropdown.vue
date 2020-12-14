@@ -8,6 +8,7 @@
           {{ data.nombre }}
         </option>
       </select>
+      
         <!-- <div class="error" v-if="!categoria"><strong>El campo categoria es obligatorio.</strong></div>   -->
     </div>
     <div class="form-group col-md-4 mt-3">
@@ -15,11 +16,10 @@
       <select class="form-control" v-model="equipo" @change="getExistencias()" required>
         <option value="0">-- Selecciona una opción --</option>
         <option v-for="data in equipos" :key="data.id" :value="data.id" >
-          {{ data.nombre }}
+          {{data.nombre}}
         </option>
       </select>
     <div class="error" v-if="!equipo">Primero debes seleccionar una categoria.</div>  
-
     </div>
     <div class="form-group col-md-4 mt-3">
       <label for="existencia">Número de equipo:</label>
@@ -28,11 +28,10 @@
         id="existencia"
         class="form-control"
         v-model="existencia" 
-        :old="existencia"
-        
+        :old="existencias"
       >
         <option value="0">-- Selecciona una opción --</option>
-        <option v-for="data in existencias" :key="data.id" :value="data.id" >
+        <option v-for="data in existencias" :key="data.id" :value="data.id">
           {{ data.codigo }}
         </option>
       </select>
@@ -88,6 +87,7 @@ export default {
           }.bind(this)
         );
     },
+    
   },
    validations: {
      categoria: {

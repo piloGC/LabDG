@@ -141,4 +141,5 @@ class SalaController extends Controller
 
         return view('alumno.salas.salaB');
     }
+    
 }

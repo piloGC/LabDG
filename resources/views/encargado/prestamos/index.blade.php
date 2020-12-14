@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@include('encargado.notificacion')
 @section('content')
 
 <h1 class="text-center ">Préstamos</h1>

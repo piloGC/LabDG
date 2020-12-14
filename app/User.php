@@ -77,14 +77,6 @@ class User extends Authenticatable
         return false;
     }
 
-    //descripcion en panel administrador
-    public function adminlte_desc(){
-        return "Encargado de Reservas del Laboratorio";
-    }
-    public function adminlte_profile_url(){
-         return '/perfil';
-    }
-
     /* Relacion de 1:n de usuario a prestamos*/
     public function prestamo(){
         //tiene relacion 1:n con prestamo ::class importa el modelo

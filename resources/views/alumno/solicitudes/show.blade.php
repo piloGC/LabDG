@@ -5,101 +5,88 @@
 <body style="background-image:url('../images/fondo17.jpg') ">
 <div class="container py-4">
             <div >
-                <h1 class="text-center">Solicitud #{{$solicitud->id}}</h1>
+                <h1 class="text-center titulos">Solicitud #{{$solicitud->id}}</h1>
                 <div class="row justify-content-end mr-5">
-                     <h5 class="">Estado: @if ($solicitud->estado->nombre == 'Pendiente')
-                        <span class="badge badge-pill badge-warning display-4">{{$solicitud->estado->nombre}}</span>
+                     <h5 class="">Estado: 
+                        @if ($solicitud->estado->id == 1)
+                            <span class="badge badge-pill badge-warning">{{$solicitud->estado->nombre}}</span> 
                         @endif
-                        @if ($solicitud->estado->nombre == 'Aprobada')
-                        <span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span>
+                        @if ($solicitud->estado->id == 2)
+                            <span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span>
                         @endif
-                        @if ($solicitud->estado->nombre == 'Rechazada')
-                        <span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span>
-                        @endif </h5> 
+                        @if ($solicitud->estado->id == 3)
+                            <span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span>
+                        @endif
+                        @if ($solicitud->estado->id == 4)
+                            <span class="badge badge-pill badge-info text-white">{{$solicitud->estado->nombre}}</span>
+                        @endif
+                        @if ($solicitud->estado->id == 5)
+                            <span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span>
+                        @endif 
+                    </h5> 
                     
                 </div>
-                 
+                
             </div>
             <hr>
-            <h4 class="mb-0">Información del Equipo:</h4>
+            <h3 class="mb-4 titulo-categoria">Información del Equipo:</h3>
             <br>
             <div class="row">
                 <div class="form-group col-md-3">
-                    <label>Nombre</label>
-                    <input class="form-control" type="text" value= "{{$solicitud->existencia->equipo->nombre}}" readonly>
+                    <h4 class="titulos">Nombre</h4>
+                    <h5 class="mt-3">{{$solicitud->existencia->equipo->nombre}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Marca</label>
-                    <input class="form-control" type="text" value="{{$solicitud->existencia->equipo->marca}}" readonly>
+                    <h4 class="titulos">Marca</h4>
+                    <h5 class="mt-3">{{$solicitud->existencia->equipo->marca}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Modelo</label>
-                    <input class="form-control" type="text" value="{{$solicitud->existencia->equipo->modelo}}" readonly>
+                    <h4 class="titulos">Modelo</h4>
+                    <h5 class="mt-3">{{$solicitud->existencia->equipo->modelo}}</h5>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Número de equipo</label>
-                    <input class="form-control" type="text" value="{{$solicitud->existencia->codigo}}" readonly>
+                    <h4 class="titulos">Número de equipo</h4>
+                    <h5 class="mt-3">{{$solicitud->existencia->codigo}}</h5>
                 </div>
                 
             </div>
             <br>
+            <h3 class="mb-4 titulo-categoria">Detalle de solicitud:</h3>
+            <br>
             <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Motivo</label>
-                    <div class="form-control" type="text" readonly >
-                        {{-- imprime codigo html por el input --}}
-                         {!! $solicitud->motivo !!}
-                    </div>
-                </div>
                 <div class="form-group col-md-3">
-                    <label>Asignatura</label>
-                    <input class="form-control" type="text" value="{{$solicitud->asignatura->nombre}}" readonly>
+                    <h4 class="titulos">Asignatura</h4>
+                    <h5 class="mt-3">{{$solicitud->asignatura->nombre}}</h5>
                 </div>   
                 <div class="form-group col-md-3">
-                    <label>Solicitud creada el:</label>
-                    <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->created_at)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
-                </div>             
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Motivo</label>
-                    <div class="form-control" type="text" readonly >
-                        {{-- imprime codigo html por el input --}}
-                         {!! $solicitud->motivo !!}
-                    </div>
+                    <h4 class="titulos">Solicitud creada el:</h4>
+                    @php
+                        $fecha = $solicitud->created_at
+                    @endphp
+                    <fecha-formato fecha="{{$fecha}}"></fecha-formato>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Asignatura</label>
-                    <input class="form-control" type="text" value="{{$solicitud->asignatura->nombre}}" readonly>
-                </div>   
-                <div class="form-group col-md-3">
-                    <label>Solicitud creada el:</label>
-                    <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->created_at)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
-                </div>             
-            </div>
-            <div class="row">       
-                <div class="form-group col-md-3">
-                    <label>Desde:</label>
-                    <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
+                    <h4 class="titulos">Desde:</h4>
+                    @php
+                        $fecha = $solicitud->fecha_inicio
+                    @endphp
+                    <fecha-formato fecha="{{$fecha}}"></fecha-formato>
                 </div> 
                 <div class="form-group col-md-3">
-                    <label>Hasta:</label>
-                    <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->fecha_fin)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
+                    <h4 class="titulos">Hasta:</h4>
+                    @php
+                        $fecha = $solicitud->fecha_fin
+                    @endphp
+                    <fecha-formato fecha="{{$fecha}}"></fecha-formato>
                 </div> 
-                   
+                
             </div>
-            
-
-            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h4 class="titulos">Motivo</h4>
+                    <div><h5>{!! $solicitud->motivo !!}</h5></div>
+                </div>           
+            </div>
     </div></body>
 
 @endsection
-{{-- <p>
-    <h4 class="text-primary">Hasta:</h4>
-    
-    @php
-        $fecha = $solicitud->fecha_fin
-    @endphp
-
-     <fecha-equipo fecha="{{$fecha}}"></fecha-equipo>
-</p>  --}}

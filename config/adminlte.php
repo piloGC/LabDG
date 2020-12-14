@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-olive',//cambia el color
     'usermenu_image' => false,
@@ -258,6 +258,7 @@ return [
         //     'url'  => 'admin/settings',
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
+        
           ['header' => 'SOLICITUDES'],
           [
             'text'    => 'Solicitudes entrantes',

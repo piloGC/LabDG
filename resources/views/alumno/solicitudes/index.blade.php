@@ -3,7 +3,7 @@
 @section('content')
 <body style="background-image:url('../images/fondo10.png') ">
 <div class="container py-4">
-<h1 class="text-center mb-3">Mis solicitudes</h1>
+<h1 class="text-center mb-3 titulos">Mis solicitudes</h1>
 <hr>
 <div class="row justify-content-center mt-4">
     <div class="container mx-auto bg-white">
@@ -24,8 +24,8 @@
             <tr>
                 <td>{{$solicitud->id}}</td>
                 <td>{{$solicitud->existencia->codigo}}</td>
-                <td><fecha-equipo fecha="{{$solicitud->fecha_inicio}}">-</fecha-equipo></td>
-                <td><fecha-equipo fecha="{{$solicitud->fecha_fin}}">-</fecha-equipo></td>
+                <td><fecha-index fecha="{{$solicitud->fecha_inicio}}">-</fecha-index></td>
+                <td><fecha-index fecha="{{$solicitud->fecha_fin}}">-</fecha-index></td>
                 <td>
                     @if ($solicitud->estado->id == 1)
                    <h5> <span class="badge badge-pill badge-warning">{{$solicitud->estado->nombre}}</span> </h5>
@@ -44,10 +44,7 @@
                     @endif
                     
                 <td >
-                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-outline-info mb-2">Detalle</a>
-                    <a href="# " class="btn btn-outline-success mb-2" id="edit" 
-                    {{-- onclick="ocultar()" value="ocultar" --}}
-                    >Editar</a>  
+                    <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-outline-primary mb-2 titulos">Detalle</a>
                 </td>
             </tr>
             @endforeach

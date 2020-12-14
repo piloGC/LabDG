@@ -32,7 +32,7 @@ class SolicitudController extends Controller
         $usuario =auth()->user();
 
         //prestamos CON paginacion
-        $solicitudes = Solicitud::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(5);
+        $solicitudes = Solicitud::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(10);
 
 
         return view('alumno.solicitudes.index',compact('solicitudes','usuario'));
@@ -49,10 +49,9 @@ class SolicitudController extends Controller
         $asignaturas = Asignatura::all(['id', 'nombre']);
         $estados = SolicitudEstado::all(['id', 'nombre']);
         $existencias = Existencia::all(['id','codigo','equipo_id']);
-        $usuario =auth()->user();
         $hoy = Carbon::now();
 
-        return view('alumno.solicitudes.create',compact('asignaturas','estados','hoy','existencias','usuario'));
+        return view('alumno.solicitudes.create',compact('asignaturas','estados','hoy','existencias'));
     }
 
     /**
@@ -71,6 +70,7 @@ class SolicitudController extends Controller
             'asignatura' =>'required',
             'existencia'=>'required',
             'estado'=>'required',
+            'condiciones' => 'required',
         ]);
         $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],

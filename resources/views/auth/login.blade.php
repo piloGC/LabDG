@@ -15,7 +15,7 @@
         <div class="col-md-6 login-form bg-white">
             <h3>Bienvenido!</h3>
             {{-- <h3>Iniciar Sesión</h3> --}}
-           <p><small>Utilice sus credenciales de Intranet</small></p> 
+           <p><small>Utilice las credenciales proporcionadas</small></p> 
           <form method="POST" action="{{ route('login') }}">
             @csrf
 

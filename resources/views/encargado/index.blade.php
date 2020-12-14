@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@include('encargado.notificacion')
 @section('content_header')
     <div class="content">
 
@@ -10,15 +11,15 @@
                         <div class="card-header">
 
                             <div class="row">
-                                <div class="col-sm-2">
+                                {{-- <div class="col-sm-2">
                                     <a class="nav-link" data-toggle="dropdown" href="#">     
                                         <i class="fas fa-bell"></i>
                                         @if (count(auth()->user()->unreadNotifications))
                                             <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
                                         @endif
                                     </a>
-                                </div>
-                                <div class="col-sm-8">
+                                </div> --}}
+                                <div class="col-sm-10">
                                     <span class="dropdown-header">Notificaciones Pendientes</span>
                                 </div>
                                 <div class="col-sm-2">

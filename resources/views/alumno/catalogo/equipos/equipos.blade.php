@@ -3,7 +3,7 @@
 @section('content')
 <body style="background-image: url(../images/fondo13.png)">
     <div class="container py-4" >
-        <h1 class="text-center mb-3">TODOS LOS EQUIPOS</h1>
+        <h1 class="text-center mb-3 titulos">TODOS LOS EQUIPOS</h1>
         <hr>
         @if (count($existencias) > 0)
         @foreach ($existencias as $key => $grupo)
@@ -30,8 +30,8 @@
                                     </div>
                                     <hr class="mt-2 mb-3">
                                     <div class="row justify-content-center">
-                                        <a href="{{ route('catalogo.show', ['existencia'=> $existencia->id]) }}"  class="btn btn-outline-info mr-2 ml-2">Detalle</a>
-                                    <a href="{{ route('catalogo.create', ['existencia'=> $existencia->id]) }}" class="btn btn-outline-success mr-2 ml-2">Solicitar</a>
+                                        <a href="{{ route('catalogo.show', ['existencia'=> $existencia->id]) }}"  class="btn btn-outline-primary mr-2 ml-2 titulos">Detalle</a>
+                                    <a href="{{ route('catalogo.create', ['existencia'=> $existencia->id]) }}" class="btn btn-outline-success mr-2 ml-2 titulos">Solicitar</a>
                                     </div>
                                     
                                 </div>
@@ -40,14 +40,14 @@
                         
                     @endforeach
                     @else
-                    <h3 class="text-center col-md-3 mb-3">No hay equipos disponibles...</h3>
+                    <h3 class="text-center titulos">No hay equipos disponibles...</h3>
                     @endif
             </div></div></div>
         </div>
                 @endforeach
             @endforeach
         @else
-        <h3 class="text-center col-md-3 mb-3">No hay equipos disponibles...</h3>
+        <h3 class="text-center titulos">No hay equipos disponibles...</h3>
         @endif
 </body>
 @endsection

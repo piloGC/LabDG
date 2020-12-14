@@ -115,6 +115,11 @@ Route::get('/listarSolicitud/{listarSolicitud}/Prestamo','ListarSolicitudControl
 Route::resource('listarSolicitud', 'ListarSolicitudController');
 
 //ruta de perfil
-Route::resource('perfil','PerfilController');
 
+Route::get('/admin/perfil', function () {
+    return view('encargado.perfil');
+})->name('admin.perfil')->middleware(['auth','admin']);
 
+Route::get('/perfil', function () {
+    return view('alumno.perfil');
+})->name('alumno.perfil')->middleware(['auth','user']);

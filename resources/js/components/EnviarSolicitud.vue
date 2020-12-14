@@ -12,7 +12,7 @@ export default {
   props: ["solicitud"],
   methods: {
     enviarSolicitud() {
-        this.$swal('Good job!','You clicked the button!','success')
+        // this.$swal('Good job!','You clicked the button!','success')
 
           //enviar la peticion al servidor
           axios

@@ -3,7 +3,7 @@
 @section('content')
 <body style="background-image:url('../images/fondo10.png') ">
     <div class="container py-4">
-        <h1 class="text-center mb-3">Horario Laboratorio A</h1>
+        <h1 class="text-center mb-3 titulos">Horario Laboratorio A</h1>
         <hr>
         <div class="table-responsive bg-white">
             <table id="tablaHorarios" class="table table-hover table-bordered">

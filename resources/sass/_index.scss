@@ -38,12 +38,26 @@
 }
 
 .titulo-categoria {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Barlow Semi Condensed', sans-serif;
   color: #333;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   border-bottom: 3px solid salmon !important;
   display: inline-block;
   padding-bottom: .5rem;
   padding-right: 2rem;
+  text-transform: uppercase !important;
+}
+
+.imagen-catalogo{
+  width: 60% !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.titulos{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  text-transform: uppercase !important;
 }
 

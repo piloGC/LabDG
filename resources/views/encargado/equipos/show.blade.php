@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-
+@include('encargado.notificacion')
 @section('content')
 
     <div class="container">
@@ -42,6 +42,8 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Fecha creación</label>
+
+                
                 <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($equipo->created_at)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
             </div>
 

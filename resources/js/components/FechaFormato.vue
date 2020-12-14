@@ -1,5 +1,5 @@
 <template>
-    <span >{{ formatearFecha }} </span>
+<h5 class="mt-3">{{formatearFecha}}</h5>
 </template>
 
 <script>
