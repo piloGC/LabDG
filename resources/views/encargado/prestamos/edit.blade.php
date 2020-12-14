@@ -2,7 +2,7 @@
 
     @section('content')
     <div class="container py-2">
-        <h1 class="text-center mb-5">Prestamo {{$prestamo->id_prestamo}}</h1>
+        <h1 class="text-center mb-5">Prestamo ID: {{$prestamo->id_prestamo}}</h1>
 
         <div class="row justify-content-center mt-3">
             <div class="col-md-12">
@@ -68,8 +68,7 @@
                             <a href="#" class="btn btn-warning" value="Sancionar" disabled> Sancionar no
                             <input type="submit" class="btn btn-success" value="Finalizar Prestamo">
                         @endif --}}
-
-                            <a href="#" class="btn btn-danger" value="Sancionar" > Sancionar </a>
+                            <a href="{{ route('prestamo.sancionar', ['prestamo'=> $prestamo->id_prestamo]) }}" class="btn btn-danger" value="Sancionar" > Sancionar y Liberar </a>
                             <input type="submit" class="btn btn-success" value="Finalizar Prestamo">
 
                         <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
@@ -80,3 +79,6 @@
         </div>
 
     @endsection
+
+
+

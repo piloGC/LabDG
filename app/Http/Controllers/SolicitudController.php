@@ -6,14 +6,19 @@ use App\SolicitudEstado;
 use App\User;
 use App\Role;
 use App\Equipo;
+use App\Sancion;
 use App\Solicitud;
+use App\Prestamo;
+use App\CategoriaEquipo;
+use App\Existencia;
 use Carbon\Carbon;
 use App\Asignatura;
-use App\Existencia;
+
 use App\Events\SolicitudEvent;
 use App\Notifications\SolicitudNotificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudController extends Controller
 {
@@ -63,6 +68,70 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
+        $continuar = '1';
+        while($continuar == '1'){
+            //todas sus solicitudes en la variable id_solicitud
+            $id_solicitud = DB::table('solicituds')->where('user_id',Auth::id());
+            $id_solicitudd=$id_solicitud->pluck('id');
+            $cantidadSolicitud = count($id_solicitudd);
+            
+            for ($i=0; $i <= $cantidadSolicitud; $i++) { 
+                //si no posee alguna solicitud en el sistema registrada, se sale del ciclo while
+                if(empty($id_solicitudd[$i])){
+                    $continuar='2';
+                }else{
+                    //al ya poseer alguna solicitud en el sistema, buscamos algun prestamo sancionado, y si este posee el estado activo
+                    $idSolicitud=$id_solicitudd[$i]; 
+
+                    $idPrestamo = DB::table('prestamos')->where('solicitud_id',$idSolicitud);
+                    $idPrestamoo=$idPrestamo->pluck('id');
+                    if(empty($idPrestamoo[0])){
+                        //si esta solicitud no tiene prestamo, volver a consultar con la siguiente solicitud
+                    }else{
+                        //Recuperamos la categoria del Request y la categoria del prestamo para asi compararlas si es que existe una sancion
+                        $idPrestamooo=$idPrestamoo[0]; 
+                        $infoPrestamo = Prestamo::find($idPrestamooo);   
+                        $estadoPrestamo = $infoPrestamo->estado_id;
+                        
+                        $infoSolicitud = Solicitud::find($idSolicitud);
+                        $idExistencia= $infoSolicitud->existencia_id;
+                        $idExistenciaRequest = $request->existencia;
+                        
+                        $infoExistencia = Existencia::find($idExistencia);
+                        $infoExistenciaRequest = Existencia::find($idExistenciaRequest);
+                        $idEquipo= $infoExistencia->equipo_id;
+                        $idEquipoRequest= $infoExistenciaRequest->equipo_id;
+                        
+                        $infoEquipo = Equipo::find($idEquipo);
+                        $infoEquipoRequest = Equipo::find($idEquipoRequest);
+                        $idCategoria= $infoEquipo->categoria_id;
+                        $idCategoriaRequest= $infoEquipoRequest->categoria_id;
+                        
+                        //seccion Sancion
+                        $idSancion = DB::table('sancions')->where('prestamo_id',$idPrestamooo);
+                        $idSancionn=$idSancion->pluck('id');
+                        
+                        //si no estoy sancionado
+                        if(empty($idSancionn[0])){
+                            //consulta si tengo alguna solicitud pendiente en el sistema, y si la categoria del equipo de esta
+                            //coincide con la categoria de la solicitud que estoy realizando ahora mismoa
+                            if ($idCategoria == $idCategoriaRequest && $estadoPrestamo == '1') {
+                                return redirect()->action('SolicitudController@create')->with('mensaje','No puede realizar la solicitud, ya posee una solicitud en el sistema con un equipo correspondiente a esa categoria');
+                            }
+                        }else{
+                            
+                            $idSancionnn=$idSancionn[0];    
+                            $infoSancion = Sancion::find($idSancionnn);
+                            $estadoSancion = $infoSancion->estado_id;
+                            //si es que estoy sancionado   ->> condicion para categoria idCategoria == $idCategoriaRequest && 
+                            if($estadoSancion == '1'){  //1=iniciada    2=terminada
+                                return redirect()->action('SolicitudController@create')->with('mensaje','No puede realizar la solicitud, se encuentra Sancionado');
+                            }
+                        }
+                    }
+                }
+            } // fin for
+        }//fin while
         //validacion
          $datosSolicitud = $request->validate([
             'motivo' => 'required|max:200',

@@ -13,9 +13,16 @@
                         @if ($solicitud->estado->nombre == 'Aprobada')
                         <span class="badge badge-pill badge-success">{{$solicitud->estado->nombre}}</span>
                         @endif
+                        @if ($solicitud->estado->nombre == 'En curso')
+                        <span class="badge badge-pill badge-info">{{$solicitud->estado->nombre}}</span>
+                        @endif
                         @if ($solicitud->estado->nombre == 'Rechazada')
                         <span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span>
-                        @endif </h5> 
+                        @endif
+                        @if ($solicitud->estado->nombre == 'Terminada')
+                        <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
+                         @endif </h5> 
+
                     
                 </div>
                  
@@ -59,23 +66,7 @@
                     <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->created_at)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
                 </div>             
             </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Motivo</label>
-                    <div class="form-control" type="text" readonly >
-                        {{-- imprime codigo html por el input --}}
-                         {!! $solicitud->motivo !!}
-                    </div>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Asignatura</label>
-                    <input class="form-control" type="text" value="{{$solicitud->asignatura->nombre}}" readonly>
-                </div>   
-                <div class="form-group col-md-3">
-                    <label>Solicitud creada el:</label>
-                    <input class="form-control" type="text" value="{{ \Carbon\Carbon::parse($solicitud->created_at)->isoFormat('DD [de] MMMM [del] YYYY')}} " readonly>
-                </div>             
-            </div>
+            
             <div class="row">       
                 <div class="form-group col-md-3">
                     <label>Desde:</label>

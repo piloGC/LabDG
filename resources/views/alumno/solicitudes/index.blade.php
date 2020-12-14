@@ -36,6 +36,9 @@
                     @if ($solicitud->estado->nombre == 'Rechazada')
                    <h5><span class="badge badge-pill badge-danger">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
+                    @if ($solicitud->estado->nombre == 'En curso')
+                   <h5><span class="badge badge-pill badge-info">{{$solicitud->estado->nombre}}</span></h5>
+                    @endif
                     @if ($solicitud->estado->nombre == 'Terminada')
                    <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
                     @endif

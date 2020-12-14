@@ -90,12 +90,13 @@ Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones
 Route::get('/sanciones','SancionController@index')->name('sanciones.index');
-Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create');
-Route::post('/sanciones','SancionController@store')->name('sanciones.store');
+Route::get('/sanciones/sancion','SancionController@create')->name('sanciones.create')->middleware('admin');
+Route::post('/sanciones','SancionController@store')->name('sanciones.store')->middleware('admin');
 Route::get('/sanciones/{sancion}','SancionController@show')->name('sanciones.show');
-Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit');
-Route::put('/sanciones/{sancion}','SancionController@update')->name('sanciones.update');
-Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy');
+Route::get('/sanciones/{sancion}/edit','SancionController@edit')->name('sanciones.edit')->middleware('admin');
+Route::put('/sanciones/{sancion}','SancionController@update')->name('sanciones.update')->middleware('admin');
+Route::delete('/sanciones/{sancion}','SancionController@destroy')->name('sanciones.destroy')->middleware('admin');
+
 
 //rutas de home
  Route::get('/home', 'HomeController@index')->name('home');

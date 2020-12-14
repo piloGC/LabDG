@@ -49,10 +49,7 @@
                                     @endforelse
                             </div>  
 
-                            <div id="app">
-                                <example-component></example-component>
-                                <eliminar-existencia></eliminar-existencia>
-                            </div>
+
                         {{--  </div>  --}}
                         {{--  <div class="col-sm-6">
                             <div class="card-body">

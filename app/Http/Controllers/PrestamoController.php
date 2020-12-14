@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Prestamo;
 use App\User;
 use App\Equipo;
+use App\CategoriaSancion;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Existencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;   
+use App\Mail\AprobarPrestamo;
+use App\Mail\TerminarPrestamo;
 
 class PrestamoController extends Controller
 {
@@ -65,7 +69,7 @@ class PrestamoController extends Controller
         ]);   
         $fechaRetiro = Carbon::now();
         //inserta en la bdd con modelo
-        $hola = auth()->user()->prestamo()->create([
+        $correo = auth()->user()->prestamo()->create([
             'fecha_retiro_equipo'=> $fechaRetiro,
             'estado_id' => $datosPrestamo['estado'],
             'solicitud_id'=>$datosPrestamo['solicitud'],
@@ -81,6 +85,26 @@ class PrestamoController extends Controller
         $disponibilidad=$request->disponibilidad;   //disponibilidad_id
         $existencia=$request->existencia;           //codigo
         $cambioEstadoExistencia = DB::table('existencias')->where('codigo',$existencia)->update(['disponibilidad_id' => '2']);
+
+        //Enviar correo indicando que se creo el prestamo   
+        $infoSolicitud = Solicitud::find($datosPrestamo['solicitud']); 
+        $alumno_id = $infoSolicitud->user_id;
+        $infoAlumno = User::find($alumno_id); 
+        $mailusuario = $infoAlumno->email;
+
+        $infoEncargado =User::find(1);
+
+        //datos para el correo
+        // $correo->
+        $correo->infoEquipo = $infoSolicitud->existencia;
+        $correo->alumnoNombre = $infoAlumno->name;
+        $correo->alumnoApellido = $infoAlumno->lastname;
+        $correo->encargadoNombre = $infoEncargado->name;
+        $correo->encargadoApellido = $infoEncargado->lastname;  
+        $correo->infoSolicitud = $infoSolicitud;
+
+     
+        Mail::to($mailusuario)->send(new AprobarPrestamo($correo));
 
         return redirect()->action('ListarSolicitudController@aprobadas')->with('exito','Se ha generado el préstamo correctamente!');
     }
@@ -105,10 +129,9 @@ class PrestamoController extends Controller
      */
     public function devolver(Solicitud $prestamo)
     {
-
         $hoyDevolucion= Carbon::today()->format('Y-m-d');
-        $fechaSancion = Carbon::today();
-        $prestamo['fechaSancion'] = $fechaSancion;
+        // $fechaSancion = Carbon::today();
+        // $prestamo['fechaSancion'] = $fechaSancion;
         $idPrestamo = DB::table('prestamos')->where('solicitud_id',$prestamo->id);
         $id_prestamo=$idPrestamo->pluck('id');
         $id_prest=$id_prestamo[0];
@@ -129,7 +152,7 @@ class PrestamoController extends Controller
 
         $prestamo['equipo'] = $id_equipo;
 
-        return view('encargado.prestamos.edit',compact('hoyDevolucion','prestamo','fechaSancion'));
+        return view('encargado.prestamos.edit',compact('hoyDevolucion','prestamo'));
     }
 
     /**
@@ -142,7 +165,7 @@ class PrestamoController extends Controller
     public function update(Request $request, Prestamo $prestamo)
     {
         $now=Carbon::now();
-        
+
         //rescato valores para modificar prestamo
         $fecha_devolucion=$request->fecha_devolucion;
         $devolucion=Carbon::parse($fecha_devolucion)->format('Y-m-d 00:00:00');
@@ -164,9 +187,35 @@ class PrestamoController extends Controller
             $prestamo->estado_id = 2;
             $prestamo->fecha_devolucion = $now;
             $prestamo->save();
-
+            
+            
             DB::table('solicituds')->where('id',$solicitudId)->update(['estado_id' => 5]);
             DB::table('existencias')->where('id',$existenciaId)->update(['disponibilidad_id' => 1]);
+
+                
+         
+            //Enviar correo indicando que se termino el prestamo   
+            $alumno_id = $solicitud->user_id;
+            $infoAlumno = User::find($alumno_id); 
+            $mailusuario = $infoAlumno->email;
+
+            $infoEncargado =User::find(1);
+
+            //datos para el correo
+            $correo = DB::table('prestamos')->where('id',$prestamo_id);
+            // dd($correo);
+            $correo->fecha_devolucion = $now;
+            $correo->alumnoNombre = $infoAlumno->name;
+            $correo->alumnoApellido = $infoAlumno->lastname;
+            $correo->encargadoNombre = $infoEncargado->name;
+            $correo->encargadoApellido = $infoEncargado->lastname;  
+            $correo->idSolicitud = $solicitud;
+            // $correo->idExistencia = $existenciaId;    
+   
+            Mail::to($mailusuario)->send(new TerminarPrestamo($correo));
+
+            
+            
 
             return redirect()->action('PrestamoController@index')->with('exito','Se ha concluido su prestamo!');
         }
@@ -187,9 +236,63 @@ class PrestamoController extends Controller
         //
     }
 
-    public function sancionar(Solicitud $prestamo)
+    public function sancionar(Request $request,Prestamo $prestamo)
     {
-        dd($prestamo);
-        asda;
+        //finalizar Prestamo
+        $now=Carbon::now();
+
+        //rescato valores para modificar prestamo
+        $fecha_devolucion= Carbon::today()->format('Y-m-d');
+        // $fecha_devolucion=$request->fecha_devolucion;
+        $devolucion=Carbon::parse($fecha_devolucion)->format('Y-m-d 00:00:00');
+
+        // $requestId = $request->solicitud;
+        $solicitudId=$prestamo->solicitud_id;
+        $solicitud=Solicitud::findOrFail($solicitudId);
+
+        $existenciaId = Solicitud::find($solicitudId)->existencia_id;
+        $fechaFin = Solicitud::find($solicitudId)->fecha_fin;
+        $solicitud_estado = Solicitud::find($solicitudId)->estado_id;
+
+        //rescato valores de prestamo 
+        $prestamo_id= $prestamo->id;
+        $prestamo_estado=$prestamo->estado_id;
+
+
+        if($devolucion >= $fechaFin  && $solicitud_estado == 4 && $prestamo_estado == 1){
+            $prestamo->estado_id = 2;
+            $prestamo->fecha_devolucion = $now;
+            $prestamo->save();
+
+            DB::table('solicituds')->where('id',$solicitudId)->update(['estado_id' => 5]);
+            DB::table('existencias')->where('id',$existenciaId)->update(['disponibilidad_id' => 1]);
+        }
+        //***************************************************************************************S */
+        //Generar Sancion
+
+
+
+        $categorias = CategoriaSancion::all(['id','nombre']);
+        $hoySancion= Carbon::today();
+        $id_user = Solicitud::find($prestamo->solicitud_id)->user_id;
+        $nombreEstudiante = User::find($id_user)->name;
+        $apellidoEstudiante = User::find($id_user)->lastname;
+        $rut = User::find($id_user)->run;
+        $prestamo['nombre'] = $nombreEstudiante;
+        $prestamo['apellido'] = $apellidoEstudiante;
+        $prestamo['rut'] = $rut;
+    
+        $id_existencia = Solicitud::find($prestamo->solicitud_id)->existencia_id;
+        $id_equipo = Existencia::find($id_existencia)->equipo_id;
+        $nombre_equipo=Equipo::find($id_equipo)->nombre;
+        $prestamo['nombre_equipo'] = $nombre_equipo;
+
+
+        // $solicitudId=$prestamo->solicitud_id;
+        // $solicitud=Solicitud::findOrFail($solicitudId);
+        // $userId=$solicitud->user_id;
+        // $user = User::find($userId);
+        return view('encargado.sanciones.create',compact('prestamo','categorias','hoySancion'));
+
     }
 }

@@ -309,7 +309,7 @@ return [
          [
             'text'       => 'Control sanción',
             'icon'    => 'fas fa-fw fa-times-circle',
-            'url'        => '#',
+            'url'        => '/sanciones',
         ],
         [
             'text'    => 'Administración',
