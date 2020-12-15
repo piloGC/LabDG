@@ -115,9 +115,11 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function show(Solicitud $prestamo)
+    public function show(Solicitud $solicitud)
     {
         //
+
+        return view('encargado.prestamos.show',compact('solicitud'));
         
     }
 

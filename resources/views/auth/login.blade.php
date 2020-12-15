@@ -21,13 +21,13 @@
 
             <div class="form-group row">
                 <label for="run" class="col-md-4 col-form-label text-md-right">{{ __('Run') }}</label>
-
+                
                 <div class="col-md-6">
                     <input id="run" type="text" 
-                    {{-- placeholder="Ingrese con puntos y guión" --}}
+                     placeholder="Ingrese con puntos y guión"
                     class="form-control @error('run') is-invalid @enderror" 
                     name="run" value="{{ old('run') }}" required autocomplete="run" autofocus>
-
+                   
                     @error('run')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

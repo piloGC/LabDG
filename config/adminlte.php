@@ -280,6 +280,11 @@ return [
             'url'     => 'listarSolicitud/rechazadas',
             'icon' => 'fas fa-fw fa-angle-right'
         ],
+        [
+            'text'    => 'Solicitudes canceladas',
+            'url'     => 'listarSolicitud/canceladas',
+            'icon' => 'fas fa-fw fa-angle-right'
+        ],
         // [
         //     'text'    => 'Solicitudes',
         //     'icon'    => 'far fa-fw fa-file-alt',
@@ -334,7 +339,7 @@ return [
                 
                 [
                     'text' => 'Items',
-                    'url'  => 'existencias/items',
+                    'url'  => 'existencias',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
             ],

@@ -284,10 +284,4 @@ class ExistenciaController extends Controller
       }
 }
 
-     public function items()
-    {
-        //
-        $datos ['existencias']=Existencia::paginate(10);
-        return view ('encargado.existencias.items',$datos);
-    }
 }

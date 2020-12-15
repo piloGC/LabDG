@@ -42,6 +42,9 @@
                     @if ($solicitud->estado->id == 5)
                    <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
                     @endif
+                    @if ($solicitud->estado->id == 6)
+                   <h5><span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span></h5>
+                    @endif
                     
                 <td >
                     <a href="{{action ('SolicitudController@show',['solicitud' => $solicitud->id])}} " class="btn btn-outline-primary mb-2 titulos">Detalle</a>

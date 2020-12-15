@@ -1,34 +1,34 @@
 @extends('adminlte::page')
 @include('encargado.notificacion')
 @section('content')
-<h1 class="text-center mb-5">Información de Usuario</h1>
-
-<div class="container mx-auto ">
+<div class="container">
+<h1 class="text-center text-uppercase text-bold mb-5">Información de Usuario</h1>
+<hr>
     <div class="row ">
             
         <div class="form-group col-md-4">
-            <label>Nombres</label>
-            <input class="form-control" type="text" value= "{{auth()->user()->name}}" readonly>
+            <h4>Nombres</h4>
+            <span class="mt-3">{{auth()->user()->name}}</span>
         </div>
         <div class="form-group col-md-4">
-            <label>Apellidos</label>
-            <input class="form-control" type="text" value= "{{auth()->user()->lastname}}" readonly>
-        </div>
-        <div class="form-group col-md-4">
-            <label>Run</label>
-            <input class="form-control" type="text" value=" {{auth()->user()->run}}" readonly>
+            <h4>Apellidos</h4>
+            <span class="mt-3">{{auth()->user()->lastname}}</span>
         </div>
         
+        <div class="form-group col-md-4">
+            <h4>Run</h4>
+            <span class="mt-3">{{auth()->user()->run}}</span>
+        </div>
     </div>
-    <div class="row ">
+    <div class="row">
+        <div class="form-group col-md-4">
+            <h4>Correo</h4>
+            <span class="mt-3">{{auth()->user()->email}}</span>
+        </div>
         
         <div class="form-group col-md-4">
-            <label>Correo</label>
-            <input class="form-control" type="text" value=" {{auth()->user()->email}}" readonly>
-        </div>
-        <div class="form-group col-md-4">
-            <label>Teléfono</label>
-            <input class="form-control" type="text" value= "{{auth()->user()->phone}}" readonly>
+            <h4>Teléfono</h4>
+            <span class="mt-3">{{auth()->user()->phone}}</span>
         </div>
         
     </div>

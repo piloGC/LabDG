@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css" integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg==" crossorigin="anonymous" />
 @endsection
-
+@include('encargado.notificacion')
 @section('content')
     <h3 class="text-center mb-5">Información Sancion</h3>
     <div class="row justify-content-center mt-5">
@@ -116,8 +116,8 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <input type="submit"  class="btn btn-primary" value="Agregar sancion">
+                <div class="form-group float-right">
+                    <input type="submit"  class="btn btn-success" value="Agregar sancion">
                 </div>
             </form>
         </div>

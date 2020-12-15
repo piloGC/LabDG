@@ -1,41 +1,45 @@
 @extends('adminlte::page')
 
-
 @include('encargado.notificacion')
 @section('content')
 
     <div class="container">
-        <h1 class="text-center mb-4">{{ $sala->nombre}}</h1>
+        <h1 class="text-center text-uppercase text-bold">{{ $sala->nombre}}</h1>
+        <div class="row justify-content-end mr-5">
+            <h5 class="">Estado: 
+               @if ($sala->estado == "Disponible")
+                   <span class="badge badge-pill badge-success">{{$sala->estado}}</span> 
+               @endif
+               @if ($sala->estado == "No disponible")
+                   <span class="badge badge-pill badge-danger">{{$sala->estado}}</span>
+               @endif
+           </h5> 
+           
+       </div>
         <hr>
         <div class="row">
-            
-            <div class="form-group col-md-4">
-                <label>Código</label>
-                <input class="form-control" type="text" value= "{{$sala->codigo_interno}}" readonly>
+            <div class="form-group col-md-3">
+                <h4 >Código</h4>
+                <span class="mt-3">{{$sala->codigo_interno}}</span>
             </div>
-            <div class="form-group col-md-4">
-                <label>Nombre</label>
-                <input class="form-control" type="text" value=" {{$sala->nombre}}" readonly>
+            <div class="form-group col-md-3">
+                <h4 >Nombre</h4>
+                <span class="mt-3">{{$sala->nombre}}</span>
+            </div> 
+           
+            <div class="form-group col-md-3">
+                <h4 >Capacidad</h4>
+                <span class="mt-3">{{$sala->capacidad}}</span>
             </div>
-            <div class="form-group col-md-4">
-                <label>Estado</label>
-                <input class="form-control" type="text" value="{{$sala->aire_acondicionado}}" readonly>
-            </div>
-            
         </div>
         <div class="row">
-           
-            <div class="form-group col-md-4">
-                <label>Capacidad</label>
-                <input class="form-control" type="text" value="{{$sala->capacidad}}" readonly>
+            <div class="form-group col-md-3">
+                <h4 >Internet</h4>
+                <span class="mt-3">{{$sala->internet}}</span>
             </div>
-            <div class="form-group col-md-4">
-                <label>Internet</label>
-                <input class="form-control" type="text" value=" {{$sala->internet}}" readonly>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Aire acondicionado</label>
-                <input class="form-control" type="text" value="{{$sala->capacidad}}" readonly>
+            <div class="form-group col-md-3">
+                <h4 >Aire acondicionado</h4>
+                <span class="mt-3">{{$sala->aire_acondicionado}}</span>
             </div>
         </div>
         <div class="form-group float-right">

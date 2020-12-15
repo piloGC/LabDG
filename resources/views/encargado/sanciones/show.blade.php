@@ -1,32 +1,38 @@
 @extends('adminlte::page')
-
-
-
+@include('encargado.notificacion')
 @section('content')
 
 {{-- <h1>{{$sancion}}</h1> --}}
-     <div class="container">
-        <h1 class="text-center mb-4"> Sanción n° {{ $sancion->id}} </h1>
-
-        <div class="descripcion">
-            <h2 class="my-3 text-primary">Descripción</h2>
-            {!! $sancion->descripcion !!}
-        </div>
-
-        <div class="descripcion">
-            <h2 class="my-3 text-primary">Categoría</h2>
-            {{ $sancion->categoria->nombre }}
-        </div>
-
-        <div class="descripcion">
-            <h2 class="my-3 text-primary">Fecha inicio</h2>
-            <fecha-equipo fecha="{{$sancion->fecha_inicio}}">-</fecha-equipo>
-        </div>
-
-        <div class="descripcion">
-            <h2 class="my-3 text-primary">Fecha fin</h2>
-            <fecha-equipo fecha="{{$sancion->fecha_fin}}">-</fecha-equipo>
-        </div>
+     <div class="container" id="app">
+        <h1 class="text-center text-uppercase text-bold"> Sanción #{{ $sancion->id}} </h1>
+<hr>
+<h3 class="text-bold text-uppercase">Información de sanción:</h3>
+        <br>
+<div class="row">
+    <div class="form-group col-md-3">
+        <h4 >Categoría sanción</h4>
+        <span class="mt-3">{{ $sancion->categoria->nombre }}</span>
+    </div>   
+    <div class="form-group col-md-8">
+        <h4 >Descripción</h4>
+        {!! $sancion->descripcion !!}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="form-group col-md-3">
+        <h4 >Desde</h4>
+        <fecha-index fecha="{{$sancion->fecha_inicio}}"></fecha-index>
+        <br>
+        <formato-hora fecha="{{$sancion->fecha_inicio}}"></formato-hora>
+    </div>
+    <div class="form-group col-md-3">
+        <h4 >Hasta</h4>
+        <fecha-index fecha="{{$sancion->fecha_fin}}"></fecha-index>
+        <br>
+        <formato-hora fecha="{{$sancion->fecha_fin}}"></formato-hora>
+    </div>
+</div>
         
     </div> 
 

@@ -23,6 +23,9 @@
                         @if ($solicitud->estado->id == 5)
                             <span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span>
                         @endif 
+                        @if ($solicitud->estado->id == 6)
+                            <span class="badge badge-pill badge-secondary">{{$solicitud->estado->nombre}}</span>
+                        @endif
                     </h5> 
                     
                 </div>

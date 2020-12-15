@@ -1,15 +1,13 @@
 @extends('adminlte::page')
-
+@include('encargado.notificacion')
 @section('content')
-  
-<div class="container">
 
-    <h1 class="text-center mb-5">Sanciones</h1>
-    <div class="col-md-10 mx-auto bg-white p-3">
+<h1 class="text-center ">Sanciones</h1>
+    <div class="container mx-auto bg-white">
         <div class="table-responsive">
-        <table class="table table-hover table-light">
-            <thead class="bg-primary text-white">
-                <tr>
+        <table class="table table-hover">
+            <thead class="bg-olive text-light ">
+           <tr class="table-active">
                     <th scole="col">#</th>
                     <th scole="col">Categoria</th>
                     <th scole="col">Desde</th>

@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css" integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg==" crossorigin="anonymous" />
 @endsection
-
+@include('encargado.notificacion')
 @section('content')
     <h1 class="text-center mb-5">Editar sancion n° {{$sancion->id}}</h1>
 

@@ -44,7 +44,7 @@
             </div>
             <div class="form-group col-md-8">
                 <h4 class="titulos">Descripción</h4>
-                <div><h5>{!! $existencia->equipo->categoria->descripcion !!}</h5></div>
+                <div><h5>{!! $existencia->equipo->->descripcion !!}</h5></div>
             </div>
             {{-- <div class="form-group col-md-4"></div> --}}
 

@@ -61,8 +61,8 @@
             <input type="text"  name="existencia" id="existencia" class="form-control" value="{{$solicitud->existencia->codigo}}" hidden>
             <input type="text" name="estado" id="estado" class="form-control" value="1" hidden >
             @if($solicitud->fecha_inicio == $hoy->format('Y-m-d 00:00:00'))   
-                <button class="btn btn-danger text-white" style="border-top-left-radius: 0;border-bottom-left-radius: 0" type="submit">Generar préstamo</button>
+                <button class="btn btn-danger text-white" style="border-radius: 0" type="submit">Generar préstamo</button>
             @else
-                <button class="btn btn-danger text-white" style="border-top-left-radius: 0;border-bottom-left-radius: 0" type="submit" disabled>Generar préstamo</button>
+                <button class="btn btn-danger text-white" style="border-radius: 0;" type="submit" disabled>Generar préstamo</button>
              @endif
 </form>

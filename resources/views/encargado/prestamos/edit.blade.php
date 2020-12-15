@@ -68,11 +68,9 @@
                             <a href="#" class="btn btn-warning" value="Sancionar" disabled> Sancionar no
                             <input type="submit" class="btn btn-success" value="Finalizar Prestamo">
                         @endif --}}
-                            <a href="{{ route('prestamo.sancionar', ['prestamo'=> $prestamo->id_prestamo]) }}" class="btn btn-danger" value="Sancionar" > Sancionar y Liberar </a>
-                            <input type="submit" class="btn btn-success" value="Finalizar Prestamo">
-
                         <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
-
+                        <a href="{{ route('prestamo.sancionar', ['prestamo'=> $prestamo->id_prestamo]) }}" class="btn btn-danger" value="Sancionar" > Sancionar y Liberar </a>
+                        <input type="submit" class="btn btn-success" value="Finalizar Prestamo">
                     </div>
                 </form>
             </div>

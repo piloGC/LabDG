@@ -38,6 +38,7 @@ import Dropdown from './components/Dropdown';
 import EliminarExistencia from './components/EliminarExistencia';
 import EliminarEquipo from './components/EliminarEquipo';
 import EliminarSala from './components/EliminarSala';
+import FormatoHora from './components/FormatoHora';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52,6 +53,7 @@ const app = new Vue({
         EliminarSala,
         Dropdown,
         FechaFormato,
-        FechaIndex
+        FechaIndex,
+        FormatoHora
     }
 });

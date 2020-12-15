@@ -29,10 +29,7 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$equipo->categoria->nombre}}</td>
                     <td>{{$equipo->nombre}}</td>
-                {{--    <td>{{$equipo->marca}}</td>
-                    <td>{{$equipo->modelo}}</td>
-                    <td>{{$equipo->descripcion}}</td> --}}
-                    <td>{{--$equipo->imagen--}}
+                    <td>
                         <img src="/storage/{{$equipo->imagen}}" style="width:100px" ></td>
                     <td>{{$equipo->catalogo->disponible}}</td>
                     <td>
@@ -58,6 +55,3 @@
 
 @endsection
 
-@section('js')
- <script src="{{ asset('js/app.js')}}"></script> 
-@endsection

@@ -9,7 +9,12 @@
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link" href="/admin/perfil" data-toggle="tooltip" data-placement="top" title="Mi perfil">     
-            <i class="fas fa-user"></i>
+            <i class="fas fa-user mr-2"></i>{{auth()->user()->name}}
         </a>
     </li>
+@endsection
+
+
+@section('js')
+ <script src="{{ asset('js/app.js')}}"></script> 
 @endsection

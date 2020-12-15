@@ -22,15 +22,29 @@
   
 
   <div class="modal fade" id="preguntas" tabindex="-1" role="dialog" aria-labelledby="preguntas" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title titulos" id="preguntas">preguntas frecuentes</h5>
+          <h5 class="modal-title titulos" id="preguntas">resolvemos tus dudas</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+          <div class="ml-2 mb-2">
+            <div data-toggle="collapse" href="#pregunta" role="button" aria-expanded="false" aria-controls="pregunta">
+
+            <h6 class="text-uppercase"> 
+              <b>¿Cómo puedo saber las características de cada equipo?<i class="fas fa-caret-down ml-2"></i></b> 
+            </h6>
+            </div>
+            <div class="collapse" id="pregunta">
+            <p>Si no conoces las características de los equipos disponibles te recomendamos que revises el 
+              "Catálogo", ahí podrás ver todos los equipos disponibles con sus características y realizar la
+              solicitud desde ahí. </p>
+            </div>
+          </div>
+          <hr>
           <div class="ml-2 mb-2">
             <div data-toggle="collapse" href="#pregunta1" role="button" aria-expanded="false" aria-controls="pregunta1">
 

@@ -172,7 +172,7 @@ class SancionController extends Controller
     {
         //
 
-        return view('sanciones.show')->with('sancion',$sancion);
+        return view('encargado.sanciones.show')->with('sancion',$sancion);
     }
 
     /**

@@ -82,8 +82,6 @@ Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
 Auth::routes();
 
 //rutas de existencia
-
-Route::get('/existencias/items','ExistenciaController@items')->name('existencias.items');
 Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->name('existencias.prestar');
 Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencias.devolver');
 Route::put('/existencias/{existencia}','ExistenciaController@prestarPrestamo')->name('existencias.prestarPrestamo');
@@ -112,11 +110,11 @@ Route::get('/admin','AdminController@index')->name('admin');
 Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->name('entrantes.index');
 Route::get('/listarSolicitud/aprobadas','ListarSolicitudController@aprobadas')->name('aprobadas.index');
 Route::get('/listarSolicitud/rechazadas','ListarSolicitudController@rechazadas')->name('rechazadas.index');
+Route::get('/listarSolicitud/canceladas','ListarSolicitudController@canceladas')->name('canceladas.index');
 Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Aprobar','ListarSolicitudController@cambiarEstadoAprobada')->name('cambiarEstadoAprobada.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
-
-Route::get('/listarSolicitud/{listarSolicitud}/Prestamo','ListarSolicitudController@generarPrestamo')->name('generarPrestamo.index');
+Route::get('/listarSolicitud/{listarSolicitud}/Cancelar','ListarSolicitudController@cambiarEstadoCancelada')->name('cambiarEstadoCancelada.index');
 
 Route::resource('listarSolicitud','ListarSolicitudController');
 

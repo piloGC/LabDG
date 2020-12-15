@@ -119,15 +119,7 @@ class ListarSolicitudController extends Controller
      */
     public function show(Solicitud $listarSolicitud)
     {
-        //
-        //  dd($listarSolicitud);
-        if($listarSolicitud->estado_id == 1){
-            return view('encargado.solicitudes.entrantes.show', compact('listarSolicitud'));
-        }elseif ($listarSolicitud->estado_id == 2) {
-             return view('encargado.solicitudes.aprobadas.show', compact('listarSolicitud'));
-        }elseif ($listarSolicitud->estado_id == 3) {
-            return view('encargado.solicitudes.rechazadas.show', compact('listarSolicitud'));
-        }
+            return view('encargado.solicitudes.show', compact('listarSolicitud'));
         
     }
 
@@ -188,6 +180,11 @@ class ListarSolicitudController extends Controller
         $solicitudes = Solicitud::where('estado_id',3)->orderBy('id','DESC')->paginate(15);
         return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
     }
+
+    public function canceladas(){
+        $solicitudes = Solicitud::where('estado_id',6)->orderBy('id','DESC')->paginate(15);
+        return view('encargado.solicitudes.canceladas.index',compact('solicitudes'));
+    }
     
 
     public function cambiarEstadoAprobada(Solicitud $listarSolicitud)
@@ -222,8 +219,18 @@ public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
     }
 
     
-    public function generarPrestamo(){
-
+    public function cambiarEstadoCancelada(Solicitud $listarSolicitud){
+        $listarSolicitud->estado_id = 6;
+        $listarSolicitud->save();
+    //valores de añadido a solicitud para realizar la notificación
+    $nombre = auth()->user()->name;
+    $apellido = auth()->user()->lastname;
+    $listarSolicitud->encargadoNombre = $nombre;
+    $listarSolicitud->encargadoApellido = $apellido;
+    //Enviar correo indicando el apruebo de solicitud
+    $mailusuario = $listarSolicitud->usuario->email;
+    Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
+    return redirect()->action('ListarSolicitudController@canceladas');
     }
     
 }
