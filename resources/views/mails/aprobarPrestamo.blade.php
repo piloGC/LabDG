@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h3> Estimado(a) {{ $info->alumnoNombre }} {{ $info->alumnoApellido }}:</h3>
+    <h3> Estimado(a): {{ $info->alumnoNombre }} {{ $info->alumnoApellido }}:</h3>
     <h4>
         <p>De acuerdo a lo solicitado, informo a usted que se realizo un prestamo en base a su solicitud nº {{ $info->solicitud_id }} <br>
         Ústed se presento en el laboratorio de Diseño Gráfico el día del {{ \Carbon\Carbon::parse($info->infoSolicitud->fecha_retiro_equipo)}} a retirar su equipo. <br>
