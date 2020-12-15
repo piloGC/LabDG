@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaSeeder::class);
         $this->call(EnCatalogoSeeder::class);
         $this->call(CategoriaSancionSeeder::class);
-        
+        $this->call(SancionEstadoSeeder::class);
         $this->call(ExistenciaDisponibilidadSeeder::class);
         $this->call(ExistenciaEstadoSeeder::class);
         $this->call(RoleSeeder::class);
@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EquipoSeeder::class);
         $this->call(ExistenciaSeeder::class);
         $this->call(PrestamoEstadoSeeder::class);
-        $this->call(SancionEstadoSeeder::class);
         // $this->call(UsersTableSeeder::class);
     }
 }

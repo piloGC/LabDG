@@ -15,7 +15,8 @@ use App\ListarSolicitud;
 use App\SolicitudEstado;
 use Illuminate\Http\Request;
 use App\Mail\AprobarSolicitud; 
-use App\Mail\RechazarSolicitud; 
+use App\Mail\RechazarSolicitud;
+use App\Mail\CancelarSolicitud;  
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;   
 use Symfony\Component\Console\Input\Input;
@@ -229,7 +230,7 @@ public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-    Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
+    Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
     return redirect()->action('ListarSolicitudController@canceladas');
     }
     

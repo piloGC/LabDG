@@ -9,8 +9,8 @@
 
     <h3> Estimado(a) {{ $info->alumnoNombre }} {{ $info->alumnoApellido }}:</h3>
     <h4>
-        <p>De acuerdo a lo informado, se finaliza el prestamo de su solicitud nº {{ $info->idSolicitud->id }} </p> <br>
-        <p>De igual manera, se le comunica por medio de este correo, que ha incumplido de su contrato en base a su solicitud nº {{ $info->idSolicitud->id }} <br>
+        <p>De acuerdo a lo informado, se finaliza el prestamo de su solicitud nº {{ $info->idSolicitud}} </p> <br>
+        <p>De igual manera, se le comunica por medio de este correo, que ha incumplido de su contrato en base a su solicitud nº {{ $info->idSolicitud }} <br>
             Desde ahora, usted pasa a estar en estado de alumno sancionado, por ende no podra emitir ninguna solicitud de equipo en el Laboratorio de Diseño Gráfico en 
             las siguientes fechas
 

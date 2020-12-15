@@ -49,6 +49,7 @@
                                         <span class="ml-3 pull-right text-muted text-sm"> Sin Notificaciones Por Leer</span>          
                                     @endforelse
                             </div>  
+                        </div>
 
 
                         {{--  </div>  --}}
@@ -74,7 +75,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @stop
 

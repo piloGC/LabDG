@@ -42,6 +42,7 @@ export default {
               this.$el.parentNode.parentNode.parentNode.removeChild(
                 this.$el.parentNode.parentNode
               );
+              window.location.reload(); 
             })
             .catch((error) => {
               console.log(error);
