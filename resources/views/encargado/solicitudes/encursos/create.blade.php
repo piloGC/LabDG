@@ -5,6 +5,7 @@
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
 @endsection
+
 @include('encargado.notificacion')
 @section('content')
 <div class="container py-2" id="app">
@@ -114,9 +115,3 @@
 </div>
 @endsection
 
-@section('js')
-  <script src="{{ asset('/js/app.js')}}"></script> 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
- integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
- @endsection

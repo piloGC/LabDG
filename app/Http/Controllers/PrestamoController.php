@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Prestamo;
 use App\User;
 use App\Equipo;
-use App\CategoriaSancion;
+use App\Prestamo;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Existencia;
+use App\PrestamoEstado;
+use App\CategoriaSancion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;   
 use App\Mail\AprobarPrestamo;
 use App\Mail\TerminarPrestamo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;   
 
 class PrestamoController extends Controller
 {
@@ -115,12 +116,9 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function show(Solicitud $solicitud)
+    public function show(Prestamo $prestamo)
     {
         //
-
-        return view('encargado.prestamos.show',compact('solicitud'));
-        
     }
 
     /**

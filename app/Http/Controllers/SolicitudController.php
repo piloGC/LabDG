@@ -115,7 +115,7 @@ class SolicitudController extends Controller
                             //consulta si tengo alguna solicitud pendiente en el sistema, y si la categoria del equipo de esta
                             //coincide con la categoria de la solicitud que estoy realizando ahora mismoa
                             if ($idCategoria == $idCategoriaRequest && $estadoPrestamo == '1') {
-                                return redirect()->action('SolicitudController@create')->with('mensaje','No puede realizar la solicitud, ya posee una solicitud en el sistema con un equipo correspondiente a esa categoria');
+                                return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud en el sistema con un equipo correspondiente a esa categoria');
                             }
                         }else{
                             
@@ -124,7 +124,7 @@ class SolicitudController extends Controller
                             $estadoSancion = $infoSancion->estado_id;
                             //si es que estoy sancionado   ->> condicion para categoria idCategoria == $idCategoriaRequest && 
                             if($estadoSancion == '1'){  //1=iniciada    2=terminada
-                                return redirect()->action('SolicitudController@create')->with('mensaje','No puede realizar la solicitud, se encuentra Sancionado');
+                                return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, se encuentra Sancionado');
                             }
                         }
                     }

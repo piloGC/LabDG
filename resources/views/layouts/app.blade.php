@@ -137,6 +137,20 @@
                     </div>
                 @endif
             </div>
+            <div class="container-fluid">
+                @if (session('fracaso'))
+                    <div class="row mb-2 ">
+                        <div class="col-lg-12 py-2">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <h3>{{session('fracaso')}}</h3>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>

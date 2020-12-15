@@ -17,4 +17,7 @@
 
 @section('js')
  <script src="{{ asset('js/app.js')}}"></script> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
+ integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
+ 
 @endsection

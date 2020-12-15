@@ -2,7 +2,7 @@
 @include('encargado.notificacion')
 @section('content')
 <div id="app">
-    <h1 class="text-center ">Préstamos</h1>
+    <h1 class="text-center mb-5">Préstamos</h1>
 {{-- <a href="{{route('prestamos.create')}}" class="btn btn-secondary">Agregar prestamo</a> --}}
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
@@ -14,7 +14,7 @@
             <th scole="col">Fecha devolucion</th>  
             <th scole="col">Creación préstamo</th>
             <th scole="col">Solicitud</th>
-            <th scole="col">Acción</th>
+            <th scole="col">Estado</th>
             </tr> 
         </thead>
         <tbody>
@@ -30,10 +30,17 @@
                     @endif
                 </td>
                 <td><fecha-index fecha="{{$prestamo->created_at}}"></fecha-index></td>
-                <td>{{$prestamo->solicitud_id}}</td>
-                <td >
-                    <a href="{{ route('prestamos.show', ['prestamo'=> $prestamo->id]) }}" class="btn btn-info text-white mb-2">Detalle</a>
+                <td><a class="p-2" data-toggle="tooltip" data-placement="top" 
+                    title="Ver solicitud" style="color:black;text-decoration:none"
+                     href="{{action ('ListarSolicitudController@show',['listarSolicitud' => $prestamo->solicitud_id])}} ">
+                     {{$prestamo->solicitud_id}}<i class="fas fa-caret-right ml-2 mt-1"></i></a>
                 </td>
+                <td>@if ($prestamo->estado->id == 1)
+                    <h5> <span class="badge badge-pill badge-success">{{$prestamo->estado->nombre}}</span> </h5>
+                     @endif
+                     @if ($prestamo->estado->id == 2)
+                    <h5><span class="badge badge-pill badge-secondary">{{$prestamo->estado->nombre}}</span></h5>
+                     @endif</td>
             </tr>
             @endforeach
         </tbody>
