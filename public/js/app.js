@@ -2128,6 +2128,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
             _this.$el.parentNode.parentNode.parentNode.removeChild(_this.$el.parentNode.parentNode);
+
+            window.location.reload();
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2187,6 +2189,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
             _this.$el.parentNode.parentNode.parentNode.removeChild(_this.$el.parentNode.parentNode);
+
+            window.location.reload();
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2246,6 +2250,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
             _this.$el.parentNode.parentNode.parentNode.removeChild(_this.$el.parentNode.parentNode);
+
+            window.location.reload();
           })["catch"](function (error) {
             console.log(error);
           });

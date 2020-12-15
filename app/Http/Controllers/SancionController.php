@@ -66,7 +66,7 @@ class SancionController extends Controller
                         $idPrestamooo=$idPrestamo[0]; 
                         $infoPrestamo = Prestamo::find($idPrestamooo);   
                         $id_prestamo = $infoPrestamo->id;
-                        
+
                         $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
                         $idSancion=$sancionTable->pluck('id');
 
@@ -80,7 +80,7 @@ class SancionController extends Controller
                             $sancion= Sancion::find($idSancionn);
                             $estadoSancion=$sancion->estado_id;
                             if($estadoSancion == '1'){
-                                $data['sanciones']=  Sancion::find($id_prestamo);
+                                $data['sanciones']=  Sancion::find($idSancionn);
                             
                                 return view('alumno.sancions.index',$data);
                             }

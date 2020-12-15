@@ -184,7 +184,7 @@ class PrestamoController extends Controller
         $prestamo_estado=$prestamo->estado_id;
 
 
-        if($devolucion >= $fechaFin  && $requestId == $solicitudId && $solicitud_estado == 4 && $prestamo_estado == 1){
+        if($requestId == $solicitudId && $solicitud_estado == 4 && $prestamo_estado == 1){
             $prestamo->estado_id = 2;
             $prestamo->fecha_devolucion = $now;
             $prestamo->save();
@@ -260,7 +260,7 @@ class PrestamoController extends Controller
         $prestamo_estado=$prestamo->estado_id;
 
         // si estoy devolviendo el mismo dia que finaliza mi prestamo o me atrase al devolverlo, entro a este ciclo
-        if($devolucion >= $fechaFin  && $solicitud_estado == 4 && $prestamo_estado == 1){
+        if($solicitud_estado == 4 && $prestamo_estado == 1){
             //si corresponde al prestamo, se generara su sancion, y luego de generar la sancion, se libera el prestamo
 
             $categorias = CategoriaSancion::all(['id','nombre']);
@@ -280,23 +280,6 @@ class PrestamoController extends Controller
 
             return view('encargado.sanciones.create',compact('prestamo','categorias','hoySancion'));
 
-        }elseif($devolucion < $fechaFin  && $solicitud_estado == 4 && $prestamo_estado == 1){
-            $categorias = CategoriaSancion::all(['id','nombre']);
-            $hoySancion= Carbon::today();
-            $id_user = Solicitud::find($prestamo->solicitud_id)->user_id;
-            $nombreEstudiante = User::find($id_user)->name;
-            $apellidoEstudiante = User::find($id_user)->lastname;
-            $rut = User::find($id_user)->run;
-            $prestamo['nombre'] = $nombreEstudiante;
-            $prestamo['apellido'] = $apellidoEstudiante;
-            $prestamo['rut'] = $rut;
-        
-            $id_existencia = Solicitud::find($prestamo->solicitud_id)->existencia_id;
-            $id_equipo = Existencia::find($id_existencia)->equipo_id;
-            $nombre_equipo=Equipo::find($id_equipo)->nombre;
-            $prestamo['nombre_equipo'] = $nombre_equipo;
-
-            return view('encargado.sanciones.create',compact('prestamo','categorias','hoySancion'))->with('exito','Esta regresando antes de tiempo su prestamo');
         }
         
 
