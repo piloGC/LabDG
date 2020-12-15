@@ -117,6 +117,7 @@
                 </div>
                 
                 <div class="form-group float-right">
+                    <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
                     <input type="submit"  class="btn btn-success" value="Agregar sancion">
                 </div>
             </form>

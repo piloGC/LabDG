@@ -66,14 +66,24 @@ class SancionController extends Controller
                         $idPrestamooo=$idPrestamo[0]; 
                         $infoPrestamo = Prestamo::find($idPrestamooo);   
                         $id_prestamo = $infoPrestamo->id;
-                        
-                        $sancion= Sancion::find($id_prestamo);
-                        $estadoSancion=$sancion->estado_id;
-                        
-                        if($estadoSancion == '1'){
-                            $data['sanciones']=  Sancion::find($id_prestamo);
-                           
-                            return view('alumno.sancions.index',$data);
+
+                        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+                        $idSancion=$sancionTable->pluck('id');
+
+                        if(empty($idSancion['0'])){
+                            //dd('no tiene una sancion asociado a este prestamo');
+                                //continua con ciclo for en i++
+                        }else{
+                            //->where('prestamo_id',$id_prestamo);
+                            
+                            $idSancionn=$idSancion[0]; 
+                            $sancion= Sancion::find($idSancionn);
+                            $estadoSancion=$sancion->estado_id;
+                            if($estadoSancion == '1'){
+                                $data['sanciones']=  Sancion::find($idSancionn);
+                            
+                                return view('alumno.sancions.index',$data);
+                            }
                         }
                     }
                 }
@@ -93,12 +103,12 @@ class SancionController extends Controller
      */
     public function create(Prestamo $prestamo)
     {
-        //obtener categorias
+        //Esta funcion no se esta ocupando, se pasa directamente de prestamocontroller -> sancionar
         $categorias = CategoriaSancion::all(['id','nombre']);
         $hoySancion= Carbon::today()->format('Y-m-d');
         //$categorias=DB::table('categoria_sancions')->get()->pluck('nombre','id');
         
-        return view('sanciones.create',compact('categorias','hoySancion'));
+        return view('sanciones.create',compact('categorias','hoySancion','prestamo'));
     }
 
     /**
@@ -109,6 +119,7 @@ class SancionController extends Controller
      */
     public function store(Request $request)
     {
+
         $now=Carbon::now();
     //    dd($request->all());    
         //validacion
@@ -122,7 +133,7 @@ class SancionController extends Controller
         $id_prestamo=Prestamo::find($request->prestamo)->id; 
            
         //almacenar en base de datos sin modelo
-       DB::table('sancions')->insert([
+       $idSancion = DB::table('sancions')->insert([
              'descripcion'=>$datosSancion['descripcion'],
             'fecha_inicio'=>$datosSancion['fecha_inicio_sancion'],
             'fecha_fin'=>$datosSancion['fecha_fin_sancion'],
@@ -131,30 +142,44 @@ class SancionController extends Controller
             'estado_id' =>'1',
         ]);
        
-        //Enviar correo indicando que se creo el prestamo   
+        //Enviar correo indicando que se creo el prestamo 
+        // dd($request->all());  
+
         $infoPrestamo = Prestamo::find($id_prestamo);
-        $solicitud = Solicitud::find($infoPrestamo->solicitud_id);
+        $idSolicitud = $infoPrestamo->solicitud_id;
+        $infoSolicitud = Solicitud::find($idSolicitud);
 
-        $alumno_id = $solicitud->user_id;
-        $infoAlumno = User::find($alumno_id); 
-        $mailusuario = $infoAlumno->email;
+        $id_user = $infoSolicitud->user_id;
+        $alumnoNombre = User::find($id_user)->name;
+        $alumnoApellido = User::find($id_user)->lastname;
+        $mailusuario = User::find($id_user)->email;
+        $encargadoNombre = User::find(Auth::id())->name;
+        $encargadoApellido = User::find(Auth::id())->lastname;
 
-        $infoEncargado =User::find(1);
+        //rescatar el id de la sancion
+        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+        $idSancion=$sancionTable->pluck('id');
+        $idSancionn = $idSancion[0];
+        $sancion= Sancion::find($idSancionn);
 
-        $idSancion = DB::table('prestamos')->where('id',$id_prestamo);
-       
-        
-        $idSancion->alumnoNombre = $infoAlumno->name;
-        $idSancion->alumnoApellido = $infoAlumno->lastname;
-        $idSancion->encargadoNombre = $infoEncargado->name;
-        $idSancion->encargadoApellido = $infoEncargado->lastname;  
-        $idSancion->idSolicitud = $solicitud;
-        $idSancion->fecha_inicio = $datosSancion['fecha_inicio_sancion'];
-        $idSancion->fecha_fin = $datosSancion['fecha_fin_sancion'];
-        $idSancion->fecha_devolucion = $now;
+
+        $sancion->fecha_devolucion = $now;
+        $sancion->alumnoNombre = $alumnoNombre;
+        $sancion->alumnoApellido = $alumnoApellido;
+        $sancion->encargadoNombre = $encargadoNombre;
+        $sancion->encargadoApellido = $encargadoApellido;
+        $sancion->idSolicitud = $idSolicitud;
+
+
+
+        //Terminar Prestamo
+        DB::table('prestamos')->where('id',$id_prestamo)->update(['estado_id' => 2]);
+        DB::table('prestamos')->where('id',$id_prestamo)->update(['fecha_devolucion' => $now]);
+        DB::table('solicituds')->where('id',$idSolicitud)->update(['estado_id' => 5]);
+        DB::table('existencias')->where('id',$infoSolicitud->existencia_id)->update(['disponibilidad_id' => 1]);
 
      
-        Mail::to($mailusuario)->send(new SancionarPrestamo($idSancion));
+        Mail::to($mailusuario)->send(new SancionarPrestamo($sancion));
 
         // $id_prestamo=Prestamo::findOrFail($request->prestamo); 
         // DB::table('prestamos')->where('id',$id_prestamo)->update(['sancion_id' => ]);
@@ -170,9 +195,25 @@ class SancionController extends Controller
      */
     public function show(Sancion $sancion)
     {
-        //
+        $usuario = Auth::id();
+        $prestamoid = $sancion->prestamo_id;
+        $infoPrestamo= Prestamo::find($prestamoid);
 
-        return view('encargado.sanciones.show')->with('sancion',$sancion);
+        $solicitud = Solicitud::find($infoPrestamo->solicitud_id);
+
+        $alumno_id = $solicitud->user_id;
+        $infoAlumno = User::find($alumno_id); 
+
+        $sancion->alumnoNombre = $infoAlumno->name;
+        $sancion->alumnoApellido = $infoAlumno->lastname;
+        $sancion->rutAlumno = $infoAlumno->run;
+
+        if($usuario == '1'){
+            return view('encargado.sanciones.show')->with('sancion',$sancion);
+        }else{
+            return view('alumno.sancions.show')->with('sancion',$sancion);
+        }
+        
     }
 
     /**
@@ -183,11 +224,8 @@ class SancionController extends Controller
      */
     public function edit(Sancion $sancion)
     {
-        //
-        // return dd($sancion->all());
-        $categorias=CategoriaSancion::all(['id','nombre']);
-
-        return view('sanciones.edit',compact('sancion','categorias'));
+            $categorias=CategoriaSancion::all(['id','nombre']);
+            return view('encargado.sanciones.edit',compact('sancion','categorias'));
     }
 
     /**

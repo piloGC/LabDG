@@ -37,10 +37,10 @@
                             <a href="{{action ('PrestamoController@devolver',['prestamo' => $solicitud->id])}} " class="btn btn-success text-white">Devolver Prestamo</a> 
                         @endif
                         @if($solicitud->fecha_fin > $hoy->format('Y-m-d 00:00:00'))
-                            <a href="{{action ('PrestamoController@devolver',['prestamo' => $solicitud->id])}} " class="btn btn-success text-white disabled">Devolver Prestamo</a> 
+                            <a href="{{action ('PrestamoController@devolver',['prestamo' => $solicitud->id])}} " class="btn btn-success text-white ">Devolver Anticipadamente</a> 
                         @endif
                         @if($solicitud->fecha_fin < $hoy->format('Y-m-d 00:00:00'))
-                            <a href="{{action ('PrestamoController@devolver',['prestamo' => $solicitud->id])}} " class="btn btn-danger text-white ">Devolver Prestamo</a> 
+                            <a href="{{action ('SancionController@create',['prestamo' => $solicitud->id])}} " class="btn btn-danger text-white ">Liberar y Sancionar </a> 
                         @endif
 
                          {{-- <a href="#">

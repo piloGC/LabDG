@@ -28,8 +28,7 @@
                 @foreach ($sanciones as $sancion)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>
-                        {{$id = $sancion->prestamo_id}}</td>
+                        <td>{{$id = $sancion->prestamo_id}}</td>
                         <td>{!! $sancion->descripcion !!}</td>
                         <td>
                             <fecha-index fecha="{{$sancion->fecha_inicio}}"></fecha-index>
@@ -45,10 +44,11 @@
                         <td>{{$sancion->estado->nombre}}</td>
                         {{-- <th>{{$sancion->fecha_fin}}</th> --}}
                         <td>
-                            {{-- <a href="{{route ('sanciones.edit',['sancion' => $sancion->id]) }}" class="btn btn-success text-white mr-1">Editar</a> --}}
+                            <div class="btn-group mr-1" role="group" >
+                            <a href="{{route ('sanciones.edit',['sancion' => $sancion->id]) }}" class="btn btn-success text-white mr-1">Editar</a>
                             <a href="{{route ('sanciones.show',['sancion' => $sancion->id]) }}" class="btn btn-info text-white mr-1">Detalle</a>
-                            {{-- <eliminar-sancion sancion-id={{$sancion->id}}></eliminar-sancion> --}}
-
+                            <eliminar-sancion sancion-id={{$sancion->id}}></eliminar-sancion>
+                              </div> 
                         </td>
                     </tr>                    
                 @endforeach
