@@ -97,7 +97,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/perfil">
+                                    <a class="dropdown-item" href={{ route ('alumno.perfil')}}>
                                         {{ __('Mi Perfil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('solicitud.index') }}">
@@ -154,7 +154,8 @@
             @yield('content')
         </main>
     </div>
-    <script src="/us/app.js"></script>
+     <script src="/us/app.js"></script> 
+    {{-- <script src="{{ asset('js/app.js')}}"></script>  --}}
     @yield('scripts')
 </body>
 </html>

@@ -111,10 +111,13 @@ Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->
 Route::get('/listarSolicitud/aprobadas','ListarSolicitudController@aprobadas')->name('aprobadas.index');
 Route::get('/listarSolicitud/rechazadas','ListarSolicitudController@rechazadas')->name('rechazadas.index');
 Route::get('/listarSolicitud/canceladas','ListarSolicitudController@canceladas')->name('canceladas.index');
-Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
+ Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
+// Route::get('/listarSolicitud/{listarSolicitud}/Cancelar','ListarSolicitudController@encursos')->name('cancelar.edit');
+// Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@encursos')->name('rechazar.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Aprobar','ListarSolicitudController@cambiarEstadoAprobada')->name('cambiarEstadoAprobada.index');
-Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
-Route::get('/listarSolicitud/{listarSolicitud}/Cancelar','ListarSolicitudController@cambiarEstadoCancelada')->name('cambiarEstadoCancelada.index');
+Route::put('/listarSolicitud/{listarSolicitud}/cancelar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
+Route::put('/listarSolicitud/{listarSolicitud}/rechazar','ListarSolicitudController@cambiarEstadoCancelada')->name('cambiarEstadoCancelada.index');
+//Route::put('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
 
 Route::resource('listarSolicitud','ListarSolicitudController');
 

@@ -8,7 +8,7 @@
 
 @section('content')
 <body style="background-image:url('../images/fondo2.png')">
-<div class="container py-4">
+<div class="container py-4" id="app">
 <h1 class="text-center mb-3 titulos">Formulario de Solicitud</h1>
 <div class="row justify-content-end mr-5">
     <a href="" data-toggle="modal" data-target="#preguntas" style="color:black;text-decoration:none">
@@ -142,7 +142,7 @@
                 He leído y acepto los <a href="" data-toggle="modal" data-target="#condicion" >Términos y Condiciones</a> de solicitud
                 @error('condiciones')
                    <span class="invalid_feedback d-block" role="alert">
-                       <strong>Debes aceptar los términos y condiciones</strong>
+                    <strong class="text-danger">Debes aceptar los términos y condiciones</strong>
                    </span>
                    @enderror 
             </div>
@@ -162,4 +162,6 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
  integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
+
+ 
  @endsection

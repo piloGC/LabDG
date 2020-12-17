@@ -11,16 +11,18 @@
 @endsection
 @include('encargado.notificacion')
 @section('content')
-    <h3 class="text-center mb-5">Información Sancion</h3>
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+<div class="container py-2">
+    <h1 class="text-center mb-3">Información sanción</h1>
+    <hr>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
             <form method="POST" action="{{ route('sanciones.store') }}"  novalidate>
                 @csrf
 
 
-                <div class="row justify-content-center"> 
-                    <div class="form-group col-md-2">
-                        <label for="solicitud">Solicitud ID:</label>
+                <div class="row"> 
+                    <div class="form-group col-md-3">
+                        <label for="solicitud">Solicitud ID</label>
                         <input type="text"  
                         name="solicitud" 
                         id="solicitud" 
@@ -29,8 +31,8 @@
                         value="{{ $prestamo->solicitud_id}}" readonly>
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="prestamo">Prestamo ID:</label>
+                    <div class="form-group col-md-3">
+                        <label for="prestamo">Prestamo ID</label>
                         <input type="text"  
                         name="prestamo" 
                         id="prestamo" 
@@ -38,16 +40,16 @@
                         placeholder="Ingrese id prestamo" 
                         value="{{ $prestamo->id}}" readonly>
                     </div>
-                    <div class="form-group col-md-4">
-                            <label for="usuario"> Estudiante:</label>
+                    <div class="form-group col-md-3">
+                            <label for="usuario"> Estudiante</label>
                             <input type="text"  name="usuario" id="usuario" 
                             class="form-control @error ('usuario') is-invalid @enderror"
                             placeholder="Ingrese id usuario" 
                             value="{{ $prestamo->nombre }} {{ $prestamo->apellido }}" readonly>
 
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="rut"> Rut:</label>
+                    <div class="form-group col-md-3">
+                        <label for="rut"> Run</label>
                         <input type="text"  name="rut" id="rut" 
                         class="form-control @error ('rut') is-invalid @enderror"
                         placeholder="Ingrese id rut" 
@@ -118,7 +120,7 @@
                 
                 <div class="form-group float-right">
                     <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
-                    <input type="submit"  class="btn btn-success" value="Agregar sancion">
+                    <input type="submit"  class="btn btn-success" value="Sancionar">
                 </div>
             </form>
         </div>

@@ -105,10 +105,10 @@ class SancionController extends Controller
     {
         //Esta funcion no se esta ocupando, se pasa directamente de prestamocontroller -> sancionar
         $categorias = CategoriaSancion::all(['id','nombre']);
-        $hoySancion= Carbon::today()->format('Y-m-d');
+        $hoySancion= Carbon::today();
         //$categorias=DB::table('categoria_sancions')->get()->pluck('nombre','id');
         
-        return view('sanciones.create',compact('categorias','hoySancion','prestamo'));
+        return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
     }
 
     /**

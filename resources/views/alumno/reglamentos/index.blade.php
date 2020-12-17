@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url('../images/fondo10.png') ">
+<body style="background-image:url('../images/fondo9.png') ">
 <div class="container py-4">
 <h1 class="text-center mb-3 titulos">Reglamento y Normativa</h1>
 <hr>

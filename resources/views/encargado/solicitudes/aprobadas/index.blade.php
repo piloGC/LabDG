@@ -36,7 +36,10 @@
                         <a href="#">
                              @include('encargado.prestamos.create')
                         </a>
-                        <a href="{{action ('ListarSolicitudController@cambiarEstadoCancelada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-secondary text-white" >Cancelar</a>
+
+                        <a href="{{ route('listarSolicitud.edit', ['listarSolicitud'=> $solicitud->id]) }}" class="btn btn-secondary text-white">Cancelar</a>
+
+                        {{-- <a href="{{action ('ListarSolicitudController@cambiarEstadoCancelada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-secondary text-white" >Cancelar</a> --}}
                       </div> 
                 </td> 
             </tr>
