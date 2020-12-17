@@ -8,6 +8,8 @@ use App\EstadoSancion;
 use App\Prestamo;
 use App\Solicitud;
 use App\User;
+use App\Existencia;
+use App\Equipo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -101,14 +103,35 @@ class SancionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Prestamo $prestamo)
+    public function create(Request $request)
     {
-        //Esta funcion no se esta ocupando, se pasa directamente de prestamocontroller -> sancionar
         $categorias = CategoriaSancion::all(['id','nombre']);
-        $hoySancion= Carbon::today()->format('Y-m-d');
+        $hoySancion= Carbon::today();
+
+        // dd($idprestamo);
+        $idSolicitud = $request->prestamo;
+        $infoSolicitud = Solicitud::find($idSolicitud);
+        $idPrestamo = DB::table('prestamos')->where('solicitud_id',$idSolicitud)->pluck('id');
+        $id_prestamo = $idPrestamo[0];
+        $prestamo= Prestamo::find($id_prestamo);
+
+        
+        $id_user = Solicitud::find($idSolicitud)->user_id;
+        $nombreEstudiante = User::find($id_user)->name;
+        $apellidoEstudiante = User::find($id_user)->lastname;
+        $rut = User::find($id_user)->run;
+        $prestamo['nombre'] = $nombreEstudiante;
+        $prestamo['apellido'] = $apellidoEstudiante;
+        $prestamo['rut'] = $rut;
+    
+        $id_existencia = Solicitud::find($prestamo->solicitud_id)->existencia_id;
+        $id_equipo = Existencia::find($id_existencia)->equipo_id;
+        $nombre_equipo=Equipo::find($id_equipo)->nombre;
+        $prestamo['nombre_equipo'] = $nombre_equipo;
         //$categorias=DB::table('categoria_sancions')->get()->pluck('nombre','id');
         
-        return view('sanciones.create',compact('categorias','hoySancion','prestamo'));
+
+        return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
     }
 
     /**

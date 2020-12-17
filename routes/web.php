@@ -74,9 +74,11 @@ Route::get('markAsRead', function(){
 Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
-Route::get('/getCategorias', 'CategoriaEquipoController@getCategorias');
-Route::get('/getEquipos', 'CategoriaEquipoController@getEquipos');
-Route::get('/getExistencias', 'CategoriaEquipoController@getExistencias');
+
+Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
+Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
+Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
+
 
 //rutas de autenticacion
 Auth::routes();
