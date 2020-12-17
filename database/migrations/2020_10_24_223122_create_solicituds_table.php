@@ -32,6 +32,7 @@ class CreateSolicitudsTable extends Migration
             // $table->datetime('fecha_solicitud');
             $table->datetime('fecha_inicio');
             $table->datetime('fecha_fin');
+            $table->string('motivo_estado')->nullable();
             $table->foreignId('asignatura_id')->references('id')->on('asignaturas');
             $table->foreignId('estado_id')->references('id')->on('solicitud_estados')->onDelete('cascade');
             $table->foreignId('existencia_id')->references('id')->on('existencias');

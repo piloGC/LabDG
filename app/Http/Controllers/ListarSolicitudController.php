@@ -196,9 +196,16 @@ class ListarSolicitudController extends Controller
      * @param  \App\ListarSolicitud  $listarSolicitud
      * @return \Illuminate\Http\Response
      */
-    public function edit(ListarSolicitud $listarSolicitud)
+    public function edit(Solicitud $listarSolicitud)
     {
         //
+        if($listarSolicitud->estado_id == 1){
+            return view('encargado.solicitudes.entrantes.rechazar',compact('listarSolicitud'));
+
+        }
+        if($listarSolicitud->estado_id == 2){
+            return view('encargado.solicitudes.aprobadas.cancelar',compact('listarSolicitud'));
+        }
     }
 
     /**
@@ -265,15 +272,24 @@ class ListarSolicitudController extends Controller
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-    Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
+  //  Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
     
     return redirect()->action('ListarSolicitudController@entrantes');
 }
 
-public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
+public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolicitud)
 {
-    $listarSolicitud->estado_id = 3;
-    $listarSolicitud->save();
+    $datosRechazo = request()->validate([
+        'motivo_estado' => 'required|max:200',
+    ]);
+
+    DB::table('solicituds')->update([
+        'motivo_estado' => $datosRechazo['motivo_estado'],
+      //  'estado_id' => 3
+    ]);
+    
+     $listarSolicitud->estado_id = 3;
+     $listarSolicitud->save();
     //valores de añadido a solicitud para realizar la notificación
     $nombre = auth()->user()->name;
     $apellido = auth()->user()->lastname;
@@ -281,12 +297,21 @@ public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-    Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
+ //   Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
     return redirect()->action('ListarSolicitudController@rechazadas');
     }
-
     
-    public function cambiarEstadoCancelada(Solicitud $listarSolicitud){
+    
+    public function cambiarEstadoCancelada(Request $request, Solicitud $listarSolicitud){
+
+        $datosCancelar = request()->validate([
+            'motivo_estado' => 'required|max:200',
+        ]);
+    
+        DB::table('solicituds')->update([
+            'motivo_estado' => $datosCancelar['motivo_estado'],
+           // 'estado_id' => 6
+        ]);
         $listarSolicitud->estado_id = 6;
         $listarSolicitud->save();
     //valores de añadido a solicitud para realizar la notificación
@@ -296,7 +321,8 @@ public function cambiarEstadoRechazada(Solicitud $listarSolicitud)
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-    Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
+  //  Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
+
     return redirect()->action('ListarSolicitudController@canceladas');
     }
     

@@ -35,7 +35,8 @@
                         <a href="{{action ('ListarSolicitudController@show',['listarSolicitud' => $solicitud->id])}} " class="btn btn-info text-white" >Detalle</a>
                         {{--  <a href="{{route ('listarSolicitud.update',['listarSolicitud' => $solicitud->id])}}" class="btn btn-success text-white">UPDATE</a>  --}}
                         <a href="{{action ('ListarSolicitudController@cambiarEstadoAprobada',['listarSolicitud' => $solicitud->id])}} " class="btn btn-success text-white">Aprobar</a>
-                        <a href="{{action ('ListarSolicitudController@cambiarEstadoRechazada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-danger text-white">Rechazar</a>
+                        <a href="{{ route('listarSolicitud.edit', ['listarSolicitud'=> $solicitud->id]) }}" class="btn btn-danger text-white">Rechazar</a>
+                        {{-- <a href="{{action ('ListarSolicitudController@cambiarEstadoRechazada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-danger text-white">Rechazar</a> --}}
                       </div> 
                 </td> 
             </tr>

@@ -2,7 +2,7 @@
 
 @section('content')
 <body style="background-image:url('../images/fondo10.png') ">
-<div class="container py-4">
+<div class="container py-4" id="app">
 <h1 class="text-center mb-3 titulos">Mis solicitudes</h1>
 <hr>
 <div class="row justify-content-center mt-4">

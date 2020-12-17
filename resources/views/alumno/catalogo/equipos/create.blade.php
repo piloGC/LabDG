@@ -157,7 +157,7 @@
                 He leído y acepto los <a href="" data-toggle="modal" data-target="#condicion" >Términos y Condiciones</a> de solicitud
                 @error('condiciones')
                    <span class="invalid_feedback d-block" role="alert">
-                       <strong>Debes aceptar los términos y condiciones</strong>
+                       <strong class="text-danger">Debes aceptar los términos y condiciones</strong>
                    </span>
                    @enderror 
             </div>

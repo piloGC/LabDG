@@ -133,7 +133,7 @@ class SolicitudController extends Controller
         }//fin while
         //validacion
          $datosSolicitud = $request->validate([
-            'motivo' => 'required|max:200',
+            'motivo' => 'required|string|max:200',
             'fecha_inicio'=> 'required|date',
             'fecha_fin'=> 'required|date|after:fecha_inicio',
             'asignatura' =>'required',

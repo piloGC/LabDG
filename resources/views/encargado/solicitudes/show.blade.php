@@ -61,21 +61,21 @@
                     <span class="mt-3">{{$listarSolicitud->asignatura->nombre}}</span>
                 </div>   
                  <div class="form-group col-md-3">
-                    <h4 class="titulos">Solicitud creada el:</h4>
+                    <h4 >Solicitud creada el:</h4>
                     @php
                         $fecha = $listarSolicitud->created_at
                     @endphp
                     <fecha-index fecha="{{$fecha}}"></fecha-index>
                 </div>
                 <div class="form-group col-md-3">
-                    <h4 class="titulos">Desde:</h4>
+                    <h4 >Desde:</h4>
                     @php
                         $fecha = $listarSolicitud->fecha_inicio
                     @endphp
                     <fecha-index fecha="{{$fecha}}"></fecha-index>
                 </div> 
                 <div class="form-group col-md-3">
-                    <h4 class="titulos">Hasta:</h4>
+                    <h4 >Hasta:</h4>
                     @php
                         $fecha = $listarSolicitud->fecha_fin
                     @endphp
@@ -88,6 +88,31 @@
                     <h4>Motivo</h4>
                     <div><span>{!! $listarSolicitud->motivo !!}</span></div>
                 </div>  
+            </div>
+
+            @if ($listarSolicitud->estado->id == 3)
+            <br>
+            <h3 class="text-bold text-uppercase">motivo estado:</h3>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h4 >Motivo del rechazo</h4>
+                    <div><span>{!! $listarSolicitud->motivo_estado !!}</span></div>
+                </div>           
+            </div>
+            @endif
+
+            @if ($listarSolicitud->estado->id == 6)
+            <br>
+            <h3 class="text-bold text-uppercase">motivo estado:</h3>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h4 >Motivo la cancelación</h4>
+                    <div><span>{!! $listarSolicitud->motivo_estado !!}</span></div>
+                </div>           
+            </div>
+            @endif
 </div>
 
 @endsection 

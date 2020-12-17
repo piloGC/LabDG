@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title titulos" id="condicion">Término y condiciones</h5>
+          <h5 class="modal-title titulos" id="condicion">Términos y condiciones</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
