@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;   
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-;  
 class ListarSolicitudController extends Controller
 {
     public function __construct()

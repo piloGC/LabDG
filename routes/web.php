@@ -74,9 +74,9 @@ Route::get('markAsRead', function(){
 Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
-Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
-Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
-Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
+Route::get('/getCategorias', 'CategoriaEquipoController@getCategorias');
+Route::get('/getEquipos', 'CategoriaEquipoController@getEquipos');
+Route::get('/getExistencias', 'CategoriaEquipoController@getExistencias');
 
 //rutas de autenticacion
 Auth::routes();
@@ -120,7 +120,7 @@ Route::resource('listarSolicitud','ListarSolicitudController');
 
 //ruta de perfil
 
-Route::get('/admin/perfil', function () {
+Route::get('http://parra.chillan.ubiobio.cl:8075/nicholas.espinoza1501/resources/views/encargado/admin/perfil', function () {
     return view('encargado.perfil');
 })->name('admin.perfil')->middleware(['auth','admin']);
 

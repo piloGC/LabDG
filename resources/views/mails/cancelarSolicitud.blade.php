@@ -13,7 +13,7 @@
     </h4>
 
         <h4>
-            Solicitud rechazada por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}
+            Solicitud rechazada por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}.
         </h4> 
         <h4> Saludos cordiales <br> <br> Laboratorio de Diseño Gráfico <br> Universidad del BÍO-BÍO</h4>
 </body>

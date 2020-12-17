@@ -9,7 +9,7 @@
 
     <h3> Estimado(a) {{ $info->alumnoNombre }} {{ $info->alumnoApellido }}:</h3>
     <h4>
-        <p>De acuerdo a lo solicitado, informo a usted que se realizo un prestamo en base a su solicitud nº {{ $info->solicitud_id }} <br>
+        <p>De acuerdo a lo solicitado, informo a usted que se realizo un prestamo en base a su solicitud nº {{ $info->solicitud_id }}. <br>
         Ústed se presento en el laboratorio de Diseño Gráfico el día del {{ \Carbon\Carbon::parse($info->infoSolicitud->fecha_retiro_equipo)}} a retirar su equipo. <br>
             Al momento de realizar su devolución, debera proporcionar el numero de su solicitud "{{ $info->solicitud_id }}" y su carnet de identidad.
         </p>
@@ -22,7 +22,7 @@
     
     </h4>
    <h4>
-        Prestamo realizado por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}
+        Prestamo realizado por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}.
     </h4> 
     <h4> Saludos cordiales <br> <br> Laboratorio de Diseño Gráfico <br> Universidad del BÍO-BÍO</h4>
 
