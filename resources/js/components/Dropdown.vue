@@ -19,6 +19,7 @@
           {{data.nombre}}
         </option>
       </select>
+      
     <div class="error" v-if="!equipo">Primero debes seleccionar una categoria.</div>  
     </div>
     <div class="form-group col-md-4 mt-3">
@@ -35,14 +36,20 @@
           {{ data.codigo }}
         </option>
       </select>
+      
+        <div v-for="data in equipos" style="clear: both;">
+          <div v-if="(data.imagen != '[none]')">
+            <img v-bind:src="'/storage/' + data.imagen">
+          </div>
+        </div>
       <div class="error" role="error" v-if="!existencia">Primero debes seleccionar un equipo.</div>  
     </div>
   </div>
 </template>
+
 <script>
 import {required} from 'vuelidate/lib/validators'
 export default {
-  props: ["oldData"],
   data() {
     return {
       categoria: 0,
