@@ -1,6 +1,6 @@
 @section('content_top_nav_right')
     <li class="nav-item dropdown">
-        <a class="nav-link" href="{{route('admin')}}">     
+        <a class="nav-link" href="{{ route('admin') }}">     
             <i class="fas fa-bell"></i>
             @if (count(auth()->user()->unreadNotifications))
                 <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
@@ -8,7 +8,7 @@
         </a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link" href="{{route('admin.perfil')}}" data-toggle="tooltip" data-placement="top" title="Mi perfil">     
+        <a class="nav-link" href="{{ route('admin.perfil') }}" data-toggle="tooltip" data-placement="top" title="Mi perfil">     
             <i class="fas fa-user mr-2"></i>{{auth()->user()->name}}
         </a>
     </li>
@@ -24,7 +24,7 @@
 @section('js')
  <script src="{{ asset('js/app.js')}}"></script> 
 
- {{-- codigo marcar notificacion como leida --}}
+
  <script>
     function sendMarkRequest(id = null){
       return $.ajax("{{ route('markNotification') }}", {

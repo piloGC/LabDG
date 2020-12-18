@@ -15,9 +15,9 @@
         <table class="table table-hover">
             <thead class="bg-olive text-light ">
            <tr class="table-active">
-                    <th scole="col">#</th>
-                    <th scole="col">Prestamo ID</th>
-                    <th scole="col">Descripción</th>
+                    {{--  <th scole="col">#</th>  --}}
+                    <th scole="col">N° prestamo</th>
+                    <th scole="col">Categoria</th>
                     <th scole="col">Desde</th>
                     <th scole="col">Hasta</th>
                     <th scole="col">Estado</th>
@@ -26,28 +26,49 @@
             </thead>
             <tbody>
                 @foreach ($sanciones as $sancion)
+                
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$id = $sancion->prestamo_id}}</td>
-                        <td>{!! $sancion->descripcion !!}</td>
+                        {{--  <td>{{$loop->iteration}}</td>  --}}
+                        <td>{{$sancion->prestamo_id}}</td>
+                        
+                        <td>    
+                            {{--  @if($sancion->id >0)
+                                @if($id == '1')
+                                    {{$pos1[0]}}
+                                @endif
+
+                                @if($id == '6')
+                                    {{$pos6[0]}}
+                                @endif 
+                            @endif  --}}
+                            {{ $sancion->categoria->nombre}}
+
+                        </td>
+                        {{--  <td>{!! $sancion->descripcion !!}</td>  --}}
                         <td>
                             <fecha-index fecha="{{$sancion->fecha_inicio}}"></fecha-index>
-                            <br>
-                            <formato-hora fecha="{{$sancion->fecha_inicio}}"></formato-hora>
+                            
+                            {{--  <formato-hora fecha="{{$sancion->fecha_inicio}}"></formato-hora>  --}}
 
                         </td>
                         <td>
                             <fecha-index fecha="{{$sancion->fecha_fin}}"></fecha-index>
-                            <br>
-                            <formato-hora fecha="{{$sancion->fecha_fin}}"></formato-hora>
+                            
+                            {{--  <formato-hora fecha="{{$sancion->fecha_fin}}"></formato-hora>  --}}
                         </td>
-                        <td>{{$sancion->estado->nombre}}</td>
+                        <td>
+                            @if ($sancion->estado->id == 1)
+                                <span class="badge badge-pill badge-info">{{$sancion->estado->nombre}}</span> 
+                            @endif
+                            @if ($sancion->estado->id == 2)
+                                <span class="badge badge-pill badge-secondary">{{$sancion->estado->nombre}}</span>
+                            @endif
+                        </td>
                         {{-- <th>{{$sancion->fecha_fin}}</th> --}}
                         <td>
                             <div class="btn-group mr-1" role="group" >
-                            <a href="{{route ('sanciones.edit',['sancion' => $sancion->id]) }}" class="btn btn-success text-white mr-1">Editar</a>
+                            {{--  <a href="{{route ('sanciones.edit',['sancion' => $sancion->id]) }}" class="btn btn-success text-white mr-1">Editar</a>  --}}
                             <a href="{{route ('sanciones.show',['sancion' => $sancion->id]) }}" class="btn btn-info text-white mr-1">Detalle</a>
-                            <eliminar-sancion sancion-id={{$sancion->id}}></eliminar-sancion>
                               </div> 
                         </td>
                     </tr>                    

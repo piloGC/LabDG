@@ -7,6 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use App\User;
+use App\Equipo;
+use App\Sancion;
+use App\Prestamo;
+use App\Solicitud;
+use Carbon\Carbon;
+use App\Asignatura;
+use App\Existencia;
+
+use App\Mail\SancionTerminada; 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;   
+
 class LoginController extends Controller
 {
     /*
@@ -31,6 +44,54 @@ class LoginController extends Controller
     public function redirectTo(){
         switch (Auth::user()->role_id) {
             case 1:
+                
+                $hoy = Carbon::today()->format('Y-m-d 00:00:00');
+                $now = Carbon::now();
+                $sanciones = Sancion::where('estado_id',1);
+                $id_sanciones=$sanciones->pluck('id');
+                $cantidad = count($id_sanciones);  
+                
+                if($cantidad>0){
+                    $i=0;
+                    for($i=0; $i< $cantidad; $i++){
+                        $id_sancion = $id_sanciones[$i];
+                        $sancion= Sancion::find($id_sancion);
+
+                        if($sancion->fecha_fin <= $hoy){
+                            DB::table('sancions')->where('id',$id_sancion)->update(['estado_id' => 2]);
+                            
+                            //notificar que su sancion a terminado
+
+                            $id_prestamo = $sancion->prestamo_id;
+                            $infoPrestamo = Prestamo::find($id_prestamo);
+            
+                            $id_solicitud = $infoPrestamo->solicitud_id;
+                            $infoSolicitud = Solicitud::find($id_solicitud); 
+            
+                            $id_existencia = $infoSolicitud->existencia_id;
+                            $infoExistencia = Existencia::find($id_existencia); 
+            
+                            $id_equipo = $infoExistencia->equipo_id;
+                            $infoEquipo = Equipo::find($id_equipo);
+            
+                            $id_user = $infoSolicitud->user_id;
+                            $infoUser = User::find($id_user);
+
+                            
+                            $sancion->infoSolicitud = $infoSolicitud;
+                            $sancion->nombre = $infoUser->name;
+                            $sancion->apellido = $infoUser->lastname;
+                            $sancion->infoExistencia = $infoExistencia;
+                            $sancion->infoEquipo = $infoEquipo;
+                            $sancion->notificacioncorreo = $now;
+
+                            $mailusuario = $infoUser->email;
+                            Mail::to($mailusuario)->send(new SancionTerminada($sancion));
+
+
+                        }
+                    }
+                }
                 return $this->redirectTo= '/admin';
                 break;
             case 2:

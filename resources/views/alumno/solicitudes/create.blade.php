@@ -67,10 +67,8 @@
             </div> 
         </div>
         
-             <dropdown-solicitud ruta-cat="{{route('dropdown.categorias')}}"
-              ruta-equipo="{{route('dropdown.equipos')}}"
-              ruta-existencia="{{route('dropdown.existencias')}}">
-            </dropdown-solicitud>
+             <dropdown-solicitud ruta-cat="{{route('dropdown.categorias')}}" ruta-equipo="{{route('dropdown.equipos')}}"
+             ruta-existencia="{{route('dropdown.existencias')}}"></dropdown-solicitud>
 
             <div class="row">
              <div class="form-group col-md-4 mt-3">

@@ -56,8 +56,11 @@
                         value="{{ $prestamo->rut }} " readonly>
 
                     </div>
+
                 </div>
+                
                 <div class="row justify-content-center"> 
+                    
                     <div class="form-group col-md-4">
                         <label for="categoria">Categoria</label>
                         <select
@@ -79,13 +82,12 @@
                         @enderror
                     </div>
 
-
-
+                        
                     <div class="form-group col-md-4">
                         <label for="fecha_inicio_sancion">Desde:</label>
                         <input type="date"  name="fecha_inicio_sancion" value="{{$hoySancion->format('Y-m-d')}}"
                          id="fecha_inicio_sancion" min="{{$hoySancion->format('Y-m-d')}}"
-                         class="form-control @error ('fecha_inicio_sancion') is-invalid @enderror">
+                         class="form-control @error ('fecha_inicio_sancion') is-invalid @enderror" readonly>
                         @error('fecha_inicio_sancion')
                         <span class="invalid_feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
@@ -117,11 +119,27 @@
                         @enderror
                     </div>
                 </div>
-                
-                <div class="form-group float-right">
-                    <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
-                    <input type="submit"  class="btn btn-success" value="Sancionar">
+                <div class="row justify-content"> 
+                    <div class="form-group col-md-4">
+                        <label for="infocategoria">Información Sanciones Alumno</label>
+                        <textarea name="infocategoria" id="infocategoria" rows="6" class="form-control" readonly >
+Entregado fuera de plazo:               {{$prestamo->fueraPlazo}} 
+Daño Hardware o Software:           {{$prestamo->danio}}                          
+Equipo devuelto por Tercero:        {{$prestamo->entregadoTercero}}
+Equipo robado o hurtados:             {{$prestamo->robado}}
+                        
+                        </textarea>
+                        
+
+                    </div>
+                    <div class="form-group col-md-6">
+                    </div>
+                    <div class="form-group justify-content-right">
+                        <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
+                        <input type="submit"  class="btn btn-success" value="Sancionar">
+                    </div>
                 </div>
+                
             </form>
         </div>
     </div>
