@@ -99,12 +99,13 @@ class SalaController extends Controller
      */
     public function update(Request $request, Sala $sala)
     {
+        //dd($request->nombre);
         $datos = $request->validate([
             'codigo_interno' => 'required|max:40',
             'nombre' => 'required|max:40',
             'estado' => 'required|max:40',
             'capacidad' => 'required',       
-            'internett' => 'required', 
+            'internet' => 'required', 
             'aire_acondicionado' => 'required',   
         ]);
 
@@ -113,9 +114,8 @@ class SalaController extends Controller
         $sala->nombre = $datos['nombre'];
         $sala->estado = $datos['estado'];
         $sala->capacidad = $datos['capacidad'];
-        $sala->internett = $datos['internett'];
+        $sala->internet = $datos['internet'];
         $sala->aire_acondicionado = $datos['aire_acondicionado'];
-
         $sala->save();
 
         //return view('equipos.edit',compact('equipo'))
@@ -134,12 +134,10 @@ class SalaController extends Controller
         return redirect()->action('SalaController@index');
     }
 
-    public function salaA(){
-        return view('alumno.salas.salaA');
-    }
-    public function salaB(){
+    public function inicio(){
 
-        return view('alumno.salas.salaB');
+        $salas=Sala::all();
+        return view('alumno.salas.salas',compact('salas'));
     }
     
 }

@@ -30,9 +30,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="{{route('user')}}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <img src="../../vendor/img/LOGOH.png" alt="Logo" height="70px">
+                    
+                    <img src="{{ asset('../vendor/img/LOGOH.png') }}" alt="Logo" height="70px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,10 +43,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item  ">
-                            <a class="nav-link1 text-dark titulos" href="/"><h5>INICIO</h5></a>
+                            <a class="nav-link1 text-dark titulos" href="{{route('user')}}"><h5>INICIO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link2 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link2 text-dark titulos" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <h5>CATÁLOGO</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
@@ -63,12 +64,12 @@
                             <a class="nav-link3 text-dark titulos" href="{{ route('solicitud.create') }}"><h5>SOLICITUD DE PRÉSTAMO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link4 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5>HORARIOS</h5>
+                            <a class="nav-link4 text-dark titulos" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <h5>HORARIOs</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
-                                <a class="dropdown-item" href="{{route('salas.salaA')}}">Laboratorio A</a>
-                                <a class="dropdown-item" href="{{route('salas.salaB')}}">Laboratorio B</a>
+                                <a class="dropdown-item" href="{{route('salas.salas')}}">Salas</a>
+                                <a class="dropdown-item" href="{{route('eventos.index') }}">Eventos</a>
                               </div>
                         </li>
                         <li class="nav-item  ">

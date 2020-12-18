@@ -336,6 +336,11 @@ return [
                     'url'  => 'salas',
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
+                [
+                    'text' => 'Control eventos',
+                    'url'  => 'reservas',
+                    'icon' => 'fas fa-fw fa-angle-right'
+                ],
                 
                 [
                     'text' => 'Items',

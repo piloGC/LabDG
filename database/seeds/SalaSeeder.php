@@ -14,7 +14,7 @@ class SalaSeeder extends Seeder
     {
         DB::table('salas')->insert([
             'codigo_interno'=>'s_01',
-            'nombre' => 'Sala A',
+            'nombre' => 'Laboratorio A',
             'estado'=>'Disponible',
             'capacidad'=>'20',
             'internet'=>'Si',
@@ -24,8 +24,8 @@ class SalaSeeder extends Seeder
         ]);
         DB::table('salas')->insert([
             'codigo_interno'=>'s_02',
-            'nombre' => 'Sala B',
-            'estado'=>'No disponible',
+            'nombre' => 'Laboratorio B',
+            'estado'=>'Disponible',
             'capacidad'=>'20',
             'internet'=>'Si',
             'aire_acondicionado'=>'Si',

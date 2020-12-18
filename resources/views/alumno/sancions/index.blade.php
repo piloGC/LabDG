@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url('../images/fondo19.png') ">
+<body style="background-image:url({{ asset('../images/fondo19.png') }}) ">
 <div class="container py-4">
-<h1 class="text-center mb-3 titulos">Sancion</h1>
+<h1 class="text-center mb-3 titulos"> mis Sanciones</h1>
 
 <hr>
 <div class="row justify-content-center mt-4">
@@ -33,14 +33,14 @@
                         <td><fecha-equipo fecha="{{$sancion->fecha_fin}}">-</fecha-equipo></td>  --}}
                         <td>
                             @if ($sanciones->estado->id == 1)
-                            <h5> <span class="badge badge-pill badge-info">{{$sanciones->estado->nombre}}</span> </h5>
+                            <h5> <span class="badge badge-pill badge-info text-white">{{$sanciones->estado->nombre}}</span> </h5>
                              @endif
                              @if ($sanciones->estado->id == 2)
                             <h5><span class="badge badge-pill badge-secondary">{{$sanciones->estado->nombre}}</span></h5>
                              @endif    
                         </td> 
                         <td>
-                            <a href="{{route ('sanciones.show',['sancion' => $sanciones->id]) }}" class="btn btn-info text-white mr-1">Detalle</a>
+                            <a href="{{route ('sanciones.show',['sancion' => $sanciones->id]) }}" class="btn btn-outline-primary mb-2 titulos">Detalle</a>
                         </td>
                     </tr>                    
             </tbody>

@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url('../images/fondo17.jpg') ">
-    <div class="container py-4">
-    <h1 class="text-center mb-3 titulos">Sancion #{{ $sancion->id}}</h1>
+<body style="background-image:url({{ asset('../images/fondo17.jpg') }}) ">
+    <div class="container py-4" id="app">
+        <div>
+            <h1 class="text-center titulos">Sancion #{{ $sancion->id}}</h1>
     <div class="row justify-content-end mr-5">
         <h5 class="">Estado: 
            @if ($sancion->estado->id == 1)
-               <span class="badge badge-pill badge-info">{{$sancion->estado->nombre}}</span> 
+               <span class="badge badge-pill badge-info text-white">{{$sancion->estado->nombre}}</span> 
            @endif
            @if ($sancion->estado->id == 2)
                <span class="badge badge-pill badge-secondary">{{$sancion->estado->nombre}}</span>
@@ -15,40 +16,37 @@
        </h5> 
    </div>
 <hr>
-<h3 class="text-bold text-uppercase">Información de sanción:</h3>
+<h3 class="mb-4 titulo-categoria">Detalle de sanción:</h3>
         <br>
         <div class="row">
-            <div class="form-group col-md-2">
-                <h4 >Solicitud ID</h4>
-                <span class="mt-3">{{ $sancion->prestamo->solicitud_id }}</span>
-            </div>   
-            <div class="form-group col-md-3">
-                <h4 >Categoría sanción</h4>
-                <span class="mt-3">{{ $sancion->categoria->nombre }}</span>
-            </div>   
-            <div class="form-group col-md-7">
-                <h4 >Descripción</h4>
-                {!! $sancion->descripcion !!}
+            <div class="form-group col-md-4">
+                <h4 class="titulos">código solicitud</h4>
+                <h5 class="mt-3">{{ $sancion->prestamo->solicitud_id }}</h5>
+            </div>  
+            <div class="form-group col-md-4">
+                <h4 class="titulos">Desde</h4>
+                <fecha-formato fecha="{{$sancion->fecha_inicio}}"></fecha-formato>
+            </div>
+            <div class="form-group col-md-4">
+                <h4 class="titulos">Hasta</h4>
+                <fecha-formato fecha="{{$sancion->fecha_fin}}"></fecha-formato>
             </div>
         </div>
-<br>
+        <br>
         <div class="row">
-            <div class="form-group col-md-3">
-                <h4 >Desde</h4>
-                <fecha-index fecha="{{$sancion->fecha_inicio}}"></fecha-index>
-                <br>
-                <formato-hora fecha="{{$sancion->fecha_inicio}}"></formato-hora>
-            </div>
-            <div class="form-group col-md-3">
-                <h4 >Hasta</h4>
-                <fecha-index fecha="{{$sancion->fecha_fin}}"></fecha-index>
-                <br>
-                <formato-hora fecha="{{$sancion->fecha_fin}}"></formato-hora>
+            
+            <div class="form-group col-md-4">
+                <h4 class="titulos">Categoría sanción</h4>
+                <h5 class="mt-3">{{ $sancion->categoria->nombre }}</h5>
+            </div>   
+            <div class="form-group col-md-7">
+                <h4 class="titulos">Descripción sanción</h4>
+                <div><h5 class="mt-3">{!! $sancion->descripcion !!}</h5></div>
             </div>
         </div>
         <br>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="form-group col-md-3">
                 <h4 >Estudiante</h4>
                 <span class="mt-3">{{ $sancion->alumnoNombre }} {{ $sancion->alumnoApellido }}</span>
@@ -57,8 +55,10 @@
                 <h4 >Rut</h4>
                 {!! $sancion->rutAlumno !!}
             </div>
+        </div> --}}
         </div>
+    
         
     </div> 
-
+</body>
 @endsection

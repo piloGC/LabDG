@@ -1,12 +1,5 @@
 @extends('adminlte::page')
-
-@section('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css"
-        integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
-        crossorigin="anonymous" />
-@endsection
 @section('css')
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css" integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg==" crossorigin="anonymous" />
 @endsection
 @include('encargado.notificacion')
@@ -113,25 +106,14 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row justify-content"> 
-                    <div class="form-group col-md-4">
-                        <label for="infocategoria">Información Sanciones Alumno</label>
-                        <textarea name="infocategoria" id="infocategoria" rows="6" class="form-control" readonly >
-Entregado fuera de plazo:               {{$prestamo->fueraPlazo}} 
-Daño Hardware o Software:           {{$prestamo->danio}}                          
-Equipo devuelto por Tercero:        {{$prestamo->entregadoTercero}}
-Equipo robado o hurtados:             {{$prestamo->robado}}
-                        
-                        </textarea>
-                        
 
-                    </div>
                     <div class="form-group col-md-6">
                     </div>
-                    <div class="form-group justify-content-right">
-                        <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
-                        <input type="submit"  class="btn btn-success" value="Sancionar">
-                    </div>
+                        <div class="form-group float-right">
+                            <a href="{{ url('listarSolicitud/encursos')}}" class="btn btn-secondary"> Cancelar </a>
+                            <input type="submit"  class="btn btn-success" value="Sancionar">
+                        </div>
+                    
                 </div>
                 <div class="form-group col-md-3">
                     <input type="text"  
@@ -142,6 +124,26 @@ Equipo robado o hurtados:             {{$prestamo->robado}}
                 </div> 
             </form>
         </div>
+<br>
+        <h4 class="text-bold text-uppercase">Información sanciones alumno</h4>
+                <br>
+                <div class="row justify-content"> 
+                    <div class="form-group col-md-3">
+                        <h5 >Entrega fuera de plazo</h5>
+                        <span class="mt-3">{{$prestamo->fueraPlazo}}</span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <h5 >Daño Hardware o Software</h5>
+                        <span class="mt-3">{{$prestamo->danio}} </span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <h5 >Equipo devuelto por Tercero</h5>
+                        <span class="mt-3">{{$prestamo->entregadoTercero}}</span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <h5 >Equipo robado o hurtados</h5>
+                        <span class="mt-3">{{$prestamo->robado}}</span>
+                    </div>
     </div>
 @endsection
 
