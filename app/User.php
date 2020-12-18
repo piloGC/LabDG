@@ -87,4 +87,8 @@ class User extends Authenticatable
         //tiene relacion 1:n con solicitud ::class importa el modelo
         return $this->hasMany(Solicitud::class);
     }
+
+    public function reserva(){
+        return $this->hasMany(Reserva::class);
+    }
 }

@@ -2,7 +2,7 @@
 
 
 @section('content')
-<body style="background-image:url('../images/fondo17.jpg') ">
+<body style="background-image:url({{ asset('images/fondo17.jpg') }}) ">
 <div class="container py-4" id="app">
             <div >
                 <h1 class="text-center titulos">Solicitud #{{$solicitud->id}}</h1>

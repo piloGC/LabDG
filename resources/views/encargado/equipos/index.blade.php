@@ -50,7 +50,9 @@
             {{-- <a href="{{route('admin')}}" class="btn btn-primary mr-2">Volver a Inicio</a> --}}
 
     </div>
-
+    <div class="col-12 mt-4 justify-content-center d-flex">
+        {{$equipos->links()}}
+    </div>
 </div>
 
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image: url(../images/fondo16.png)">
+<body style="background-image: url({{ asset('../images/fondo16.png') }})">
     <div class="container py-4" >
         <h1 class="text-center mb-3 titulos">CÁMARAS FOTOGRÁFICAS</h1>
         <hr>

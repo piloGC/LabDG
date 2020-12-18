@@ -37,11 +37,6 @@
         </option>
       </select>
       
-        <div v-for="data in equipos" style="clear: both;">
-          <div v-if="(data.imagen != '[none]')">
-            <img v-bind:src="'/storage/' + data.imagen">
-          </div>
-        </div>
       <div class="error" role="error" v-if="!existencia">Primero debes seleccionar un equipo.</div>  
     </div>
   </div>

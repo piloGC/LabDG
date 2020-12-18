@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
- <body style="background-image:url('../images/fondo18.png')">
+ <body style="background-image:url({{ asset('../images/fondo18.png') }})">
      {{-- <div class="jumbotron jumbotron-fluid" style="height: 15em;background-image:url('../images/inicio2.png')">  
       <h1 class="display-4 ml-3 text-uppercase font-weight-bold ">Laboratorio de Computación y Multimedia</h1>
     <h3 class=" ml-3 font-weight-bold" >Escuela de Diseño Gráfico</h3>  

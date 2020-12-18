@@ -60,6 +60,9 @@
 
 
 </div>
+<div class="col-12 mt-4 justify-content-center d-flex">
+    {{$existencias->links()}}
+</div> 
 </div>
 
 @endsection

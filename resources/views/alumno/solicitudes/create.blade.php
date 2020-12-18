@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<body style="background-image:url('../images/fondo2.png')">
+<body style="background-image:url({{ asset('../images/fondo2.png') }})">
 <div class="container py-4" id="app">
 <h1 class="text-center mb-3 titulos">Formulario de Solicitud</h1>
 <div class="row justify-content-end mr-5">

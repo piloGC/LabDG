@@ -66,7 +66,17 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        //validacion
+        $datosSolicitud = $request->validate([
+           'motivo' => 'required|string|max:200',
+           'fecha_inicio'=> 'required|date',
+           'fecha_fin'=> 'required|date|after:fecha_inicio',
+           'asignatura' =>'required',
+           'existencia'=>'required',
+           'estado'=>'required',
+           'condiciones' => 'required',
+       ]);
         $continuar = '1';
         while($continuar == '1'){
             //todas sus solicitudes en la variable id_solicitud
@@ -131,16 +141,7 @@ class SolicitudController extends Controller
                 }
             } // fin for
         }//fin while
-        //validacion
-         $datosSolicitud = $request->validate([
-            'motivo' => 'required|string|max:200',
-            'fecha_inicio'=> 'required|date',
-            'fecha_fin'=> 'required|date|after:fecha_inicio',
-            'asignatura' =>'required',
-            'existencia'=>'required',
-            'estado'=>'required',
-            'condiciones' => 'required',
-        ]);
+        
         $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],

@@ -28,7 +28,7 @@ class EquipoController extends Controller
         $catalogos = CatalogoEquipo::all(['id','disponible']);
 
         $datos ['equipos']=Equipo::paginate(10);
-        return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);;
+        return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);
     }
 
 

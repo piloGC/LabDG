@@ -42,13 +42,11 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="estado">Estado</label>
-                    <input id="estado"
-                        type="text"
-                        name="estado" 
-                        class="form-control @error('estado') is-invalid @enderror" 
-                        placeholder="Ingrese el Estado correspondiente"
-                        value={{old ('estado')}}
-                    >
+                            <select name="aire_acondicionado" id="aire_acondicionado" class="form-control @error('aire_acondicionado') is-invalid @enderror" >
+                                <option value="0">-- Seleccione una opción --</option>
+                                <option value="Disponible"  {{ old('aire_acondicionado') == "Disponible" ? 'selected' : '' }}>Disponible</option>
+                                <option value="No disponible"  {{ old('aire_acondicionado') == "No disponible" ? 'selected' : '' }}>No disponible</option>
+                              </select>
                     @error('estado')
                         <span class="invalid_feedback d-block" role="alert">
                             <strong>{{$message}}</strong>
@@ -106,7 +104,6 @@
                     @enderror
                         </div>
                     </div>
-    
                     <div class="form-group float-right mt-3">
                         <a href="{{ url('salas')}}"  class="btn btn-secondary"> Cancelar </a>
                         <input type="submit" class="btn btn-success" value="Agregar Sala">
