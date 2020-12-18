@@ -25,9 +25,13 @@ Route::get('/login', function () {
 Route::resource('equipos','EquipoController');
 
 //rutas de sala
-Route::get('/horarios/sala-A','SalaController@salaA')->name('salas.salaA')->middleware(['auth','user']);
-Route::get('/horarios/sala-B/','SalaController@salaB')->name('salas.salaB')->middleware(['auth','user']);
-Route::resource('salas','SalaController')->middleware(['auth','admin']);;
+Route::get('/horarios/salas/','SalaController@inicio')->name('salas.salas')->middleware(['auth','user']);
+Route::resource('salas','SalaController')->middleware(['auth','admin']);
+//rutas de reservas
+Route::get('/reservas/{reserva}/cambiar-fecha','ReservaController@formFecha')->name('form.fecha')->middleware(['auth','admin']);
+Route::put('/reservas/{reserva}/fecha','ReservaController@cambiarFecha')->name('cambiar.fecha')->middleware(['auth','admin']);
+Route::get('/eventos','ReservaController@eventos')->name('eventos.index')->middleware(['auth','user']);
+Route::resource('reservas','ReservaController')->middleware(['auth','admin']);
 
 //rutas de prestamos
 Route::get('/prestamos/{prestamo}/devolver','PrestamoController@devolver')->name('prestamo.devolver');
@@ -74,9 +78,9 @@ Route::get('markAsRead', function(){
 Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
-Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
-Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
-Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
+Route::get('getCategorias', 'CategoriaEquipoController@getCategorias')->name('dropdown.categorias');
+Route::get('getEquipos', 'CategoriaEquipoController@getEquipos')->name('dropdown.equipos');
+Route::get('getExistencias', 'CategoriaEquipoController@getExistencias')->name('dropdown.existencias');
 
 //rutas de autenticacion
 Auth::routes();
