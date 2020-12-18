@@ -14,7 +14,7 @@
 
 
                 <div class="row"> 
-                    <div class="form-group col-md-3">
+                    {{--  <div class="form-group col-md-3">
                         <label for="solicitud">Solicitud ID</label>
                         <input type="text"  
                         name="solicitud" 
@@ -22,39 +22,9 @@
                         class="form-control @error ('solicitud') is-invalid @enderror"
                         placeholder="Ingrese id solicitud" 
                         value="{{ $prestamo->solicitud_id}}" readonly>
-                    </div>
+                   </div>  --}}
 
                     <div class="form-group col-md-3">
-                        <label for="prestamo">Prestamo ID</label>
-                        <input type="text"  
-                        name="prestamo" 
-                        id="prestamo" 
-                        class="form-control @error ('prestamo') is-invalid @enderror"
-                        placeholder="Ingrese id prestamo" 
-                        value="{{ $prestamo->id}}" readonly>
-                    </div>
-                    <div class="form-group col-md-3">
-                            <label for="usuario"> Estudiante</label>
-                            <input type="text"  name="usuario" id="usuario" 
-                            class="form-control @error ('usuario') is-invalid @enderror"
-                            placeholder="Ingrese id usuario" 
-                            value="{{ $prestamo->nombre }} {{ $prestamo->apellido }}" readonly>
-
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="rut"> Run</label>
-                        <input type="text"  name="rut" id="rut" 
-                        class="form-control @error ('rut') is-invalid @enderror"
-                        placeholder="Ingrese id rut" 
-                        value="{{ $prestamo->rut }} " readonly>
-
-                    </div>
-
-                </div>
-                
-                <div class="row justify-content-center"> 
-                    
-                    <div class="form-group col-md-4">
                         <label for="categoria">Categoria</label>
                         <select
                             name="categoria" id="categoria"
@@ -74,9 +44,24 @@
                             </span>
                         @enderror
                     </div>
+                    <div class="form-group col-md-3">
+                            <label for="usuario"> Estudiante</label>
+                            <input type="text"  name="usuario" id="usuario" 
+                            class="form-control @error ('usuario') is-invalid @enderror"
+                            placeholder="Ingrese id usuario" 
+                            value="{{ $prestamo->nombre }} {{ $prestamo->apellido }}" readonly>
 
-                        
-                    <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="rut"> Run</label>
+                        <input type="text"  name="rut" id="rut" 
+                        class="form-control @error ('rut') is-invalid @enderror"
+                        placeholder="Ingrese id rut" 
+                        value="{{ $prestamo->rut }} " readonly>
+
+                    </div>
+
+                    <div class="form-group col-md-3">
                         <label for="fecha_inicio_sancion">Desde:</label>
                         <input type="date"  name="fecha_inicio_sancion" value="{{$hoySancion->format('Y-m-d')}}"
                          id="fecha_inicio_sancion" min="{{$hoySancion->format('Y-m-d')}}"
@@ -87,7 +72,16 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-4">
+
+                </div>
+                
+                <div class="row justify-content-center"> 
+                    
+
+
+                        
+
+                    {{--  <div class="form-group col-md-4">
                         <label for="fecha_fin_sancion">Hasta:</label>
                         <input type="date"  value="{{old('fecha_fin')}}"
                         name="fecha_fin_sancion" id="fecha_fin_sancion"  min="{{$hoySancion->format('Y-m-d')}}"
@@ -97,7 +91,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
+                    </div>  --}}
                 </div>
                 <div class="row justify-content-center"> 
                     <div class="form-group col-md">
@@ -121,7 +115,13 @@
                         </div>
                     
                 </div>
-                
+                <div class="form-group col-md-3">
+                    <input type="text"  
+                    name="prestamo" 
+                    id="prestamo" 
+                    class="form-control @error ('prestamo') is-invalid @enderror"
+                    value="{{ $prestamo->id}}" hidden>
+                </div> 
             </form>
         </div>
 <br>

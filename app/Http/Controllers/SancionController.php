@@ -279,9 +279,97 @@ class SancionController extends Controller
         $datosSancion= request()->validate([
             'descripcion'=>'required',
             'fecha_inicio_sancion'=>'required|date',
-            'fecha_fin_sancion'=>'required|date',
+            // 'fecha_fin_sancion'=>'required|date',
             'categoria'=>'required',
         ]);
+        //verificar cuantas sanciones tiene por cada categoria
+        $cont=0;
+        $rut= $request->rut;
+        $iduser = DB::table('users')->where('run',$rut)->pluck('id');
+        $i=0;
+        $id_user=$iduser[$i]; 
+
+        $terminarCiclo = 1;
+        while($terminarCiclo ==1){
+            //recuperamos los id de las solicitudes que ha generado ese alumno                
+            $cantidadSolicitud=DB::table('solicituds')->where('user_id',$id_user)->pluck('id');
+            $cantidadSolicitudd = count($cantidadSolicitud);  
+
+            if($cantidadSolicitudd == 0){
+                $terminarCiclo='2';
+                return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
+            }
+            for ($i=0; $i < $cantidadSolicitudd; $i++) { 
+                //obtener los prestamos que posee
+                $numero_de_solicitud=$cantidadSolicitud[$i]; 
+               
+                $id_prestamos=DB::table('prestamos')->where('solicitud_id',$numero_de_solicitud);
+                $idPrestamo=$id_prestamos->pluck('id');
+
+                if(empty($idPrestamo['0'])){
+                    //dd('no tiene un prestamo asociado a esta solicitud');
+                        //continua con ciclo for en i++
+                }else{
+                    
+                    $idPrestamooo=$idPrestamo[0]; 
+                    $infoPrestamo = Prestamo::find($idPrestamooo);   
+                    $id_prestamo = $infoPrestamo->id;
+
+                    $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+                    $idSancion=$sancionTable->pluck('id');
+
+                    if(empty($idSancion['0'])){
+                        //dd('no tiene una sancion asociado a este prestamo');
+                            //continua con ciclo for en i++
+                    }else{
+                        //->where('prestamo_id',$id_prestamo);
+                        
+                        $idSancionn=$idSancion[0]; 
+                        $sancion= Sancion::find($idSancionn);
+                        $categoriaSancion=$sancion->categoria_id;
+
+                        if($categoriaSancion == $datosSancion['categoria']){
+                            //guarda en variable cont, la cantidad de sanciones que tiene en esa misma categoria
+                            $cont = $cont + 1;
+                        }
+
+                        }
+                    }
+                }
+                $terminarCiclo='2';
+            }
+
+            $fecha = date('Y-m-d');
+
+            for ($j=0; $j < 4 ; $j++) { 
+                if($datosSancion['categoria'] == 1){
+                    //si no tiene sanciones en esta categoria
+                    if($cont == 0){
+                        //agregamos su primera sancion, equivalente a 1 mes
+                        $nuevafecha = strtotime ( '+1 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+                        
+                    }elseif ($cont == 1){
+                        //agregamos su segunda sancion, equivalente a 5 mes
+                        $nuevafecha = strtotime ( '+5 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                        
+                    }elseif ($cont >= 2){
+                        //agregamos su tercera sancion, equivalente a 10 mes
+                        $nuevafecha = strtotime ( '+10 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                    }
+                }elseif($datosSancion['categoria'] == 2 || $datosSancion['categoria'] == 3){
+                    $nuevafecha = strtotime ( '+5 month' , strtotime ( $fecha ) ) ;
+                    $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+                }elseif($datosSancion['categoria'] == 4){
+                    $nuevafecha = strtotime ( '+3 month' , strtotime ( $fecha ) ) ;
+                    $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                }
+                
+            }
 
         $id_prestamo=Prestamo::find($request->prestamo)->id; 
            
@@ -289,7 +377,7 @@ class SancionController extends Controller
        $idSancion = DB::table('sancions')->insert([
              'descripcion'=>$datosSancion['descripcion'],
             'fecha_inicio'=>$datosSancion['fecha_inicio_sancion'],
-            'fecha_fin'=>$datosSancion['fecha_fin_sancion'],
+            'fecha_fin'=>$nuevafecha,
             'prestamo_id'=>$id_prestamo,
             'categoria_id'=>$datosSancion['categoria'],
             'estado_id' =>'1',
