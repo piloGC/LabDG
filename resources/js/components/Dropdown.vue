@@ -53,9 +53,10 @@ export default {
       existencias: [],
     };
   },
+  props: ["rutaCat","rutaEquipo","rutaExistencia"],
   methods: {
     getCategorias: function () {
-      axios.get("/getCategorias").then(
+      axios.get(this.rutaCat).then(
         function (response) {
           this.categorias = response.data;
         }.bind(this)
@@ -63,7 +64,7 @@ export default {
     },
     getEquipos: function () {
       axios
-        .get("/getEquipos", {
+        .get(this.rutaEquipo, {
           params: {
             categoria_id: this.categoria,
           },
@@ -76,7 +77,7 @@ export default {
     },
     getExistencias: function () {
       axios
-        .get("/getExistencias", {
+        .get(this.rutaExistencia, {
           params: {
             equipo_id: this.equipo,
           },

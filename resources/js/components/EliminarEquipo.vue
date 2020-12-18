@@ -29,7 +29,7 @@ export default {
 
           //enviar la peticion al servidor
           axios
-            .post(`/equipos/${this.equipoId}`, { params, _method: "delete" })
+            .post(`equipos/${this.equipoId}`, { params, _method: "delete" })
             .then((respuesta) => {
               // console.log(respuesta);
               this.$swal("Equipo eliminada", "Se eliminó el equipo", "success");

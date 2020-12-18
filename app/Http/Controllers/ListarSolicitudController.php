@@ -16,6 +16,7 @@ use App\PrestamoEstado;
 use App\ListarSolicitud;
 use App\SolicitudEstado;
 use Illuminate\Http\Request;
+use App\Mail\AprobarPrestamo; 
 use App\Mail\AprobarSolicitud; 
 use App\Mail\RechazarSolicitud;
 use App\Mail\CancelarSolicitud;  
@@ -171,6 +172,25 @@ class ListarSolicitudController extends Controller
 
          //actualizo la existencia
          DB::table('existencias')->where('id',$request->existencia)->update(['disponibilidad_id'=>2]);
+        
+        //Enviar correo indicando que se creo el prestamo   
+        $infoSolicitud = Solicitud::find($idSolicitud); 
+        $alumno_id = $infoSolicitud->user_id;
+        $infoAlumno = User::find($alumno_id); 
+        $mailusuario = $infoAlumno->email;
+
+        $infoEncargado =User::find(1);
+
+        //datos para el correo
+        $prestamo->infoEquipo = $infoSolicitud->existencia;
+        $prestamo->alumnoNombre = $infoAlumno->name;
+        $prestamo->alumnoApellido = $infoAlumno->lastname;
+        $prestamo->encargadoNombre = $infoEncargado->name;
+        $prestamo->encargadoApellido = $infoEncargado->lastname;  
+        $prestamo->infoSolicitud = $infoSolicitud;
+
+
+         Mail::to($mailusuario)->send(new AprobarPrestamo($prestamo));
 
          return redirect()->action('AdminController@index')->with('exito','Solicitud creada exitosamente!');
          }else{
@@ -272,7 +292,7 @@ class ListarSolicitudController extends Controller
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-  //  Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
+    Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
     
     return redirect()->action('ListarSolicitudController@entrantes');
 }
@@ -297,7 +317,7 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
- //   Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
+   Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
     return redirect()->action('ListarSolicitudController@rechazadas');
     }
     
@@ -321,7 +341,7 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
     $listarSolicitud->encargadoApellido = $apellido;
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
-  //  Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
+    Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
 
     return redirect()->action('ListarSolicitudController@canceladas');
     }
