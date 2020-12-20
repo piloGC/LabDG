@@ -25,12 +25,13 @@ Route::get('/login', function () {
 Route::resource('equipos','EquipoController');
 
 //rutas de sala
+
 Route::get('/horarios/salas/','SalaController@inicio')->name('salas.salas')->middleware(['auth','user']);
 Route::resource('salas','SalaController')->middleware(['auth','admin']);
+
 //rutas de reservas
-Route::get('/reservas/{reserva}/cambiar-fecha','ReservaController@formFecha')->name('form.fecha')->middleware(['auth','admin']);
-Route::put('/reservas/{reserva}/fecha','ReservaController@cambiarFecha')->name('cambiar.fecha')->middleware(['auth','admin']);
-Route::get('/eventos','ReservaController@eventos')->name('eventos.index')->middleware(['auth','user']);
+    //creacion de clases
+Route::get('/reservas-salas','ReservaController@reservas')->name('reservas.salas')->middleware(['auth','user']);
 Route::resource('reservas','ReservaController')->middleware(['auth','admin']);
 
 //rutas de prestamos

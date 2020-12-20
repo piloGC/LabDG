@@ -38,16 +38,22 @@
                             </div>
                         </div>
                         
+                        
                     @endforeach
                     @else
                     <h3 class="text-center titulos">No hay equipos disponibles...</h3>
                     @endif
-            </div></div></div>
-        </div>
                 @endforeach
+ 
+            </div>
             @endforeach
         @else
         <h3 class="text-center titulos">No hay equipos disponibles...</h3>
         @endif
+        </div>
+        
+        
+    </div>
+    
 </body>
 @endsection

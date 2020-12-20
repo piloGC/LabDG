@@ -18,11 +18,6 @@ class ReservaEstadoSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('reserva_estados')->insert([
-            'nombre' => 'Iniciado',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
-        DB::table('reserva_estados')->insert([
             'nombre' => 'Finalizado',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),

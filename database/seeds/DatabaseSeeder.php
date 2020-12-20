@@ -1,6 +1,7 @@
 <?php
 
 use App\ReservaEstado;
+use App\TipoReserva;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

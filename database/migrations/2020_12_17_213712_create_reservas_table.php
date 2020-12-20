@@ -21,9 +21,12 @@ class CreateReservasTable extends Migration
 
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->datetime('fecha_evento');
-            $table->string('encargado_evento');
-            $table->string('nombre_evento');
+            $table->string('nombre_reserva');
+            $table->string('encargado_reserva');
+            $table->datetime('dia_reserva');
+            $table->string('hora_inicio');
+            $table->string('hora_fin');
+            $table->string('tipo_publico');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('sala_id')->references('id')->on('salas');
             $table->foreignId('estado_id')->references('id')->on('reserva_estados');

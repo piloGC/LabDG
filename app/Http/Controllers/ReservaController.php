@@ -22,7 +22,7 @@ class ReservaController extends Controller
     public function index()
     {
         //
-         $reservas = Reserva::where('id',">",0)->orderBy('id','desc')->paginate(10);
+        $reservas = Reserva::where('id','>',0)->orderBy('id','desc')->paginate(10);
         return view ('encargado.reservas.index')->with('reservas',$reservas);
 
 
@@ -36,8 +36,9 @@ class ReservaController extends Controller
     public function create()
     {
         //
-        $salas=Sala::all(['id','nombre']);  
-        return view('encargado.reservas.create',compact('salas'));
+        $salas=Sala::all(['id','nombre']); 
+        $hoy=Carbon::now()->format('Y-m-d');
+        return view('encargado.reservas.create',compact('salas','hoy'));
     }
 
     /**
@@ -50,16 +51,22 @@ class ReservaController extends Controller
     {
         //validacion
         $datosReserva = $request->validate([
-            'nombre' => 'required|max:80',
-            'encargado' => 'required|max:40',
-            'fecha' => 'required',
+            'nombre' => 'required|string|max:80',
+            'encargado' => 'required|string|max:40',
+            'dia_reserva' => 'required',
+            'hora_inicio' => 'required|string|max:5',
+            'hora_fin' =>'required|string|max:5',
+            'tipo_publico'=> 'required|string|max:40',
             'sala' => 'required',
             
         ]);
         auth()->user()->reserva()->create([
-            'nombre_evento' =>$datosReserva['nombre'],
-            'encargado_evento'=> $datosReserva['encargado'],
-            'fecha_evento' => $datosReserva['fecha'],
+            'nombre_reserva' =>$datosReserva['nombre'],
+            'encargado_reserva'=> $datosReserva['encargado'],
+            'dia_reserva' => $datosReserva['dia_reserva'],
+            'hora_inicio' =>$datosReserva['hora_inicio'],
+            'hora_fin' =>$datosReserva['hora_fin'],
+            'tipo_publico' =>$datosReserva['tipo_publico'],
             'sala_id'=>$datosReserva['sala'],
             'estado_id'=>1,
         ]);
@@ -88,7 +95,8 @@ class ReservaController extends Controller
     {
         $salas=Sala::all(['id','nombre']);
         $estados=ReservaEstado::all();
-        return view('encargado.reservas.edit',compact('salas','reserva','estados'));
+        $hoy=Carbon::now()->format('Y-m-d');
+        return view('encargado.reservas.edit',compact('salas','reserva','estados','hoy'));
     }
 
     /**
@@ -104,29 +112,23 @@ class ReservaController extends Controller
         $datosReserva = $request->validate([
             'nombre' => 'required|max:80',
             'encargado' => 'required|max:40',
+            'dia_reserva' => 'required',
+            'hora_inicio' => 'required|string|max:5',
+            'hora_fin' =>'required|string|max:5',
+            'tipo_publico'=> 'required|string|max:40',
             'sala' => 'required',
             'estado' =>'required',
         ]);
-        $hoy=Carbon::today()->format('Y-m-d H:i:00');
         //asignar valores
-        $reserva->nombre_evento = $datosReserva['nombre'];
-        $reserva->encargado_evento = $datosReserva['encargado'];
+        $reserva->nombre_reserva = $datosReserva['nombre'];
+        $reserva->encargado_reserva = $datosReserva['encargado'];
+        $reserva->dia_reserva = $datosReserva['dia_reserva'];
+        $reserva->hora_inicio =$datosReserva['hora_inicio'];
+        $reserva->hora_fin  =$datosReserva['hora_fin'];
+        $reserva->tipo_publico = $datosReserva['tipo_publico'];
         $reserva->sala_id = $datosReserva['sala'];
         $reserva->estado_id = $datosReserva['estado'];
 
-        $reserva->save();
-        return redirect()->action('ReservaController@index');
-
-    }
-    public function formFecha(Reserva $reserva){
-        return view('encargado.reservas.fecha',compact('reserva'));
-    }
-
-    public function cambiarFecha(Request $request,Reserva $reserva){
-        request()->validate([
-            'fecha'=>'required',
-        ]);
-        $reserva->fecha_evento = $request->fecha;
         $reserva->save();
         return redirect()->action('ReservaController@index');
 
@@ -143,14 +145,12 @@ class ReservaController extends Controller
         //
     }
 
-    public function eventos(){
-        $eventoss = Reserva::Where('estado_id',1)->get();
-        $eventos=[];
-        foreach($eventoss as $evento){
-            $eventos[Str::slug(\Carbon\Carbon::parse($evento->fecha_evento)->isoFormat('DD [de] MMMM [del] YYYY'))][] = Reserva::Where('estado_id',1)->get();
-        }
-        return view('alumno.salas.eventos',compact('eventos'));
+    public function reservas(){
+        $hoy=Carbon::now()->format('Y-m-d');
+        $reservas = Reserva::Where('estado_id',1)->orderBy('dia_reserva','asc')->get();
+        return view('alumno.salas.reservas',compact('reservas','hoy'));
     }
-
-    
 }
+//Str::slug($reserva->nombre_reserva)
+// $now=Carbon::now()->isoFormat('dddd');
+// Str::slug(\Carbon\Carbon::parse($reserva->fecha_inicio_reserva)->isoFormat('DD [de] MMMM [del] YYYY'))

@@ -20,9 +20,12 @@
         <br>
         <div class="row">
             <div class="form-group col-md-4">
-                <h4 class="titulos">código solicitud</h4>
-                <h5 class="mt-3">{{ $sancion->prestamo->solicitud_id }}</h5>
-            </div>  
+                <h4 class="titulos">número solicitud</h4>
+                <h5 class="mt-3 titulos btn btn-outline-info">
+                    <a href="{{action ('SolicitudController@show',['solicitud' => $sancion->prestamo->solicitud_id])}}" 
+                        style="color:black">{{Str::words(strip_tags($sancion->prestamo->solicitud_id),9)}}</a>
+                </h5>
+            </div> 
             <div class="form-group col-md-4">
                 <h4 class="titulos">Desde</h4>
                 <fecha-formato fecha="{{$sancion->fecha_inicio}}"></fecha-formato>

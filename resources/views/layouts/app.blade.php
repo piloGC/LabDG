@@ -69,7 +69,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
                                 <a class="dropdown-item" href="{{route('salas.salas')}}">Salas</a>
-                                <a class="dropdown-item" href="{{route('eventos.index') }}">Eventos</a>
+                                <a class="dropdown-item" href="{{route('reservas.salas') }}">Reservas salas</a>
                               </div>
                         </li>
                         <li class="nav-item  ">

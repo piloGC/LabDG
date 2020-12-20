@@ -12,7 +12,7 @@
                 @csrf
                 <div class="row justify-content-center">
                     <div class="form-group col-md-4">
-                        <label for="nombre">Nombre evento</label>
+                        <label for="nombre">Nombre reserva</label>
                     <input id="nombre" 
                         type="text" 
                         name="nombre" 
@@ -26,7 +26,7 @@
                     @enderror
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="encargado">Encargado evento</label>
+                        <label for="encargado">Encargado reserva</label>
                     <input id="encargado" 
                         type="text" 
                         name="encargado" 
@@ -39,27 +39,73 @@
                         </span>
                     @enderror
                     </div>
-
-                </div>
-                <div class="row justify-content-center">
                     
                     <div class="form-group col-md-4">
-                        <label for="fecha">Fecha evento</label>
-                    <input id="fecha"
-                        type="datetime-local"
-                        name="fecha" 
-                        class="form-control @error('fecha') is-invalid @enderror" 
-                        placeholder="Ingrese fecha"
-                        value={{old ('fecha')}}
+                        <label for="tipo_publico">Público</label>
+                    <input id="tipo_publico" 
+                        type="text" 
+                        name="tipo_publico" 
+                        placeholder="Ej: todo público,sólo alumnos..."
+                        class="form-control @error('tipo_publico') is-invalid @enderror" 
+                        value={{old ('tipo_publico')}}
                     >
-                    @error('fecha')
+                    @error('tipo_publico')
+                        <span class="invalid_feedback d-block" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                    @enderror
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="dia_reserva">Día reserva</label>
+                    <input id="dia_reserva"
+                        type="date"
+                        name="dia_reserva" 
+                        min="{{$hoy}}"
+                        class="form-control @error('dia_reserva') is-invalid @enderror" 
+                        value={{old ('dia_reserva')}}
+                    >
+                    @error('dia_reserva')
                         <span class="invalid_feedback d-block" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
+                        <label for="hora_inicio">Hora inicio</label>
+                    <input id="hora_inicio"
+                        type="string"
+                        name="hora_inicio" 
+                        placeholder="Ej: 17:00"
+                        class="form-control @error('hora_inicio') is-invalid @enderror" 
+                        value={{old ('hora_inicio')}}
+                    >
+                    @error('hora_inicio')
+                        <span class="invalid_feedback d-block" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                    @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="hora_fin">Hora fin</label>
+                    <input id="hora_fin"
+                        type="string"
+                        name="hora_fin" 
+                        placeholder="Ej: 17:00"
+                        class="form-control @error('hora_fin') is-invalid @enderror" 
+                        value={{old ('hora_fin')}}
+                    >
+                    @error('hora_fin')
+                        <span class="invalid_feedback d-block" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                    @enderror
+                    </div>
+
+                    <div class="form-group col-md-3">
                         <label for="sala">Sala</label>
                         <select
                             name="sala" 

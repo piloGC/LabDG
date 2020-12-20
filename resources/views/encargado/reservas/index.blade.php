@@ -9,10 +9,13 @@
         <table class="table table-hover">
             <thead class="bg-olive text-light ">
                 <tr class="table-active">
-                    <th scole="col">#</th>
-                    <th scole="col">Nombre evento</th>
-                    <th scole="col">Encargado evento</th>
-                    <th scole="col">Fecha y Hora</th>
+                    <th scole="col">Nombre reserva</th>
+                    <th scole="col">Encargado reserva</th>
+                    <th scole="col">Dia reserva</th>
+                    <th scole="col">Hora inicio</th>
+                    <th scole="col">Hora fin</th>
+                    <th scole="col">Público</th>
+                    <th scole="col">Sala</th>
                     <th scole="col">Estado</th>
                     <th scole="col">Acciones</th>
                 </tr>
@@ -22,30 +25,25 @@
 
                 @foreach($reservas as $reserva)
                 <tr>
-                    <td>{{$reserva->id}}</td>
-                    <td>{{$reserva->nombre_evento}}</td>
-                    <td>{{$reserva->encargado_evento}}</td>
-                    <td>
-                        <fecha-index fecha="{{$reserva->fecha_evento}}"></fecha-index>
-                            <br>
-                        <formato-hora fecha="{{$reserva->fecha_evento}}"></formato-hora>
-                    </td>
+                    <td>{{$reserva->nombre_reserva}}</td>
+                    <td>{{$reserva->encargado_reserva}}</td>
+                    <td><fecha-index fecha="{{$reserva->dia_reserva}}"></fecha-index></td>
+                    <td>{{$reserva->hora_inicio}}</td>
+                    <td>{{$reserva->hora_fin}}</td>
+                    <td>{{$reserva->tipo_publico}}</td>
+                    <td>{{$reserva->sala->nombre}}</td>
                     <td> @if ($reserva->estado->id == 1)
                         <h5> <span class="badge badge-pill badge-info">{{$reserva->estado->nombre}}</span> </h5>
                          @endif
                          @if ($reserva->estado->id == 2)
-                        <h5><span class="badge badge-pill badge-success">{{$reserva->estado->nombre}}</span></h5>
-                         @endif
-                         @if ($reserva->estado->id == 3)
                         <h5><span class="badge badge-pill badge-secondary">{{$reserva->estado->nombre}}</span></h5>
                          @endif
-                         @if ($reserva->estado->id == 4)
+                         @if ($reserva->estado->id == 3)
                          <h5><span class="badge badge-pill badge-secondary">{{$reserva->estado->nombre}}</span></h5>
                           @endif</td>
                     <td>
                         <div class="btn-group mr-1" role="group" >
                             <a href="{{ route('reservas.edit', ['reserva'=> $reserva->id]) }}" class="btn btn-success  mb-2">Editar</a>
-                            <a href="{{ route('form.fecha', ['reserva'=> $reserva->id]) }}" class="btn btn-secondary  mb-2">Cambiar fecha</a>
                               {{-- <eliminar-equipo reserva-id={{$reserva->id}} ruta-equipo="{{route('reserva.destroy')}}"></eliminar-equipo> --}}
                           </div> 
                                                 
@@ -64,4 +62,5 @@
         {{$reservas->links()}}
     </div> 
 </div>
+
 @endsection

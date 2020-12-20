@@ -19,7 +19,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-4">
                             <h5 class="text-uppercase"> <strong>¡Recuerda!</strong> </h5>
-                            <p> <strong>NO</strong> ingresar a los laboratorios con alimentos
+                            <p> <strong>NO</strong> puedes consumir alimentos ni líquidos en los laboratorios
                             </p>
                         </div>
                     </div>
@@ -35,7 +35,6 @@
                             </div>
                             <hr class="mt-2 mb-3">
                             <div>
-                                <h6 class="text-primary font-weight-bold text-center">{{$sala->estado}} </h6>
                                 @if ($sala->aire_acondicionado == 'Si')
                                 <h6 class="text-primary font-weight-bold text-center">Aire acondicionado <i class="fas fa-check"></i></h6> 
                                 @else
@@ -47,6 +46,7 @@
                                 @else
                                 <h6 class="text-primary font-weight-bold text-center">Internet <i class="fas fa-times"></i></h6> 
                                 @endif
+                                
                             </div>
                             
                         </div>

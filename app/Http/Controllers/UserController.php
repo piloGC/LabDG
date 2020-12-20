@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Equipo;
-use Carbon\Carbon;
+use App\Reserva;
 use App\Solicitud;
+use Carbon\Carbon;
 use App\Asignatura;
 use App\Existencia;
 use App\CategoriaEquipo;
@@ -23,10 +24,11 @@ class UserController extends Controller
         $this->middleware(['auth','user']);
     }
     public function index(){
-        
-        $usuario =auth()->user();
+        $hoy=Carbon::now()->format('Y-m-d 00:00:00');
+        $reservas = Reserva::Where('dia_reserva',$hoy)->where('estado_id',1)->get();
 
-        return view('alumno.index',compact('usuario'));
+        $usuario =auth()->user();
+        return view('alumno.index',compact('usuario','reservas'));
     }
     public function create(Existencia $existencia){
         

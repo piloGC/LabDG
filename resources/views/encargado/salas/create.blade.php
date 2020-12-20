@@ -42,16 +42,17 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="estado">Estado</label>
-                            <select name="aire_acondicionado" id="aire_acondicionado" class="form-control @error('aire_acondicionado') is-invalid @enderror" >
+                            <label for="estado">Internet</label>
+                            <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror" >
                                 <option value="0">-- Seleccione una opción --</option>
-                                <option value="Disponible"  {{ old('aire_acondicionado') == "Disponible" ? 'selected' : '' }}>Disponible</option>
-                                <option value="No disponible"  {{ old('aire_acondicionado') == "No disponible" ? 'selected' : '' }}>No disponible</option>
+                                <option value="Disponible"  {{ old('estado') == "Disponible" ? 'selected' : '' }}>Disponible</option>
+                                <option value="No disponible"  {{ old('estado') == "No disponible" ? 'selected' : '' }}>No disponible</option>
                               </select>
-                    @error('estado')
-                        <span class="invalid_feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+                            @error('estado')
+                                <span class="invalid_feedback d-block" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
