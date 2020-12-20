@@ -54,9 +54,7 @@
                                 <a class="dropdown-item" href="{{route('catalogo.videos')}}">Cámaras de video</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tripodes')}}">Trípodes</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tabletas')}}">Tabletas</a>
-                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de DVD</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{route('catalogo.equipos')}}">Todos los equipos</a>
+                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de CD</a>
                               </div>
                             
                         </li>

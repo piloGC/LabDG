@@ -47,7 +47,6 @@ Route::resource('prestamos','PrestamoController');
 //index de user
 Route::get('/','UserController@index')->name('user');
 Route::get('/catalogo', 'UserController@catalogo')->name('catalogo.categorias');
-Route::get('/catalogo/todos-los-equipos', 'UserController@todosEquipos')->name('catalogo.equipos');
 Route::get('/catalogo/camaras-fotograficas', 'UserController@camarasFot')->name('catalogo.fotograficas');
 Route::get('/catalogo/camaras-video', 'UserController@camarasVid')->name('catalogo.videos');
 Route::get('/catalogo/tripodes', 'UserController@tripode')->name('catalogo.tripodes');

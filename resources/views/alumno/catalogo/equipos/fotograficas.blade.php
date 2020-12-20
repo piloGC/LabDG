@@ -5,7 +5,6 @@
     <div class="container py-4" >
         <h1 class="text-center mb-3 titulos">CÁMARAS FOTOGRÁFICAS</h1>
         <hr>
-
         @if (count($existencias) > 0)
         @foreach ($existencias as $key => $grupo)
         
@@ -22,8 +21,8 @@
                                 <img class="card-img-top imagen-catalogo" src="/storage/{{$existencia->equipo->imagen}}" alt="imagen categoria" >
                                 <div class="card-body">
                                     <div>
-                                        <span class="text-primary font-weight-bold">Categoría: </span>
-                                        {{$existencia->equipo->categoria->nombre}}
+                                        <span class="text-primary font-weight-bold">Modelo: </span>
+                                        {{$existencia->equipo->modelo}}
                                     </div>
                                     <div>
                                         <span class="text-primary font-weight-bold">Número de equipo:  </span>

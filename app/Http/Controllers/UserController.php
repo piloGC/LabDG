@@ -49,19 +49,6 @@ class UserController extends Controller
     }
 
      //return desde catalogo categorías
-     public function todosEquipos(){
-         
-        $equipos=Equipo::all()->where('en_catalogo',1);
-        $existencias=[];
-        foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->nombre)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
-            
-        }
-       // return $existencias;
-        return view('alumno.catalogo.equipos.equipos',compact('existencias'));
-    }
-
-     //return desde catalogo categorías
      public function camarasFot(){
 
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',1)->get();

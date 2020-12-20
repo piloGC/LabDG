@@ -21,8 +21,8 @@
                                 <img class="card-img-top imagen-catalogo" src="/storage/{{$existencia->equipo->imagen}}" alt="imagen categoria" >
                                 <div class="card-body">
                                     <div>
-                                        <span class="text-primary font-weight-bold">Categoría: </span>
-                                        {{$existencia->equipo->categoria->nombre}}
+                                        <span class="text-primary font-weight-bold">Modelo: </span>
+                                        {{$existencia->equipo->modelo}}
                                     </div>
                                     <div>
                                         <span class="text-primary font-weight-bold">Número de equipo:  </span>
