@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url({{ asset('../images/fondo10.png') }}) ">
+<body style="background-image:url({{ asset('/images/fondo10.png') }}) ">
     <div class="container py-4" id="app">
         <div>
             <h1 class="text-center titulos">HORARIOS</h1>

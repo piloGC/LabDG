@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
- <body style="background-image:url({{ asset('../images/fondo18.png') }})">
+ <body style="background-image:url({{ asset('/images/fondo18.png') }})">
      {{-- <div class="jumbotron jumbotron-fluid" style="height: 15em;background-image:url('../images/inicio2.png')">  
       <h1 class="display-4 ml-3 text-uppercase font-weight-bold ">Laboratorio de Computación y Multimedia</h1>
     <h3 class=" ml-3 font-weight-bold" >Escuela de Diseño Gráfico</h3>  
@@ -22,7 +22,7 @@
     <div class="row justify-content-center">
 
       <div class="card col-md-3 m-2" style="width: 18rem;">
-        <img class="card-img-top" src="{{ asset('../images/catalogo.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="{{ asset('/images/catalogo.jpg') }}" alt="Card image cap">
         <div class="card-body">
           <p class="card-text text-center">
             ¡Encontrarás todos los equipos disponibles para solicitar!
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="card col-md-3 m-2" style="width: 18rem;">
-         <img class="card-img-top " src="{{ asset('../images/solicitud.jpeg') }}" alt="Card image cap"> 
+         <img class="card-img-top " src="{{ asset('/images/solicitud.jpeg') }}" alt="Card image cap"> 
         <div class="card-body">
           <p class="card-text text-center">
             ¡Llena el formulario y solicita el equipo que necesitas!
@@ -41,7 +41,7 @@
       </div>
 
       <div class="card col-md-3 m-2" style="width: 18rem;">
-        <img class="card-img-top" src="{{ asset('../images/reglas.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="{{ asset('/images/reglas.jpg') }}" alt="Card image cap">
         <div class="card-body">
           <p class="card-text text-center">
             Recuerda leer el reglamento y evita problemas

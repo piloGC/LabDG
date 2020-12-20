@@ -36,6 +36,7 @@ class SancionController extends Controller
         // $usuario =auth()->user();
         // $id_solicitud = DB::table('solicituds')->where('user_id',Auth::id());
         $cont = 0;
+        $cantidadsancion=0;
         $usuario = Auth::id();
         if($usuario == '1'){
 
@@ -63,6 +64,8 @@ class SancionController extends Controller
                         //dd('no tiene un prestamo asociado a esta solicitud');
                             //continua con ciclo for en i++
                     }else{
+                        $cantidadsancion++;
+
                         $id_sancion=$idSancionn[0]; 
                         $infoSancion = Sancion::find($id_sancion);   
                         $id_sancione = $infoSancion->id;
@@ -92,15 +95,18 @@ class SancionController extends Controller
 
                             
                         }
-               
-
                     }
                 }
                 $terminarCiclo='2';
             }
-            $count = $h;
+            // $count = $h;
             // dd($data);
-            return view('encargado.sanciones.index',$data);
+            if($cantidadsancion == 0){
+                return view('encargado.sanciones.indexVacio');
+            }else{
+                return view('encargado.sanciones.index',$data);
+            }
+            
 
         }else{
             $terminarCiclo = 1;

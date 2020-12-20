@@ -1910,54 +1910,52 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-var _props$data$props$met;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = (_props$data$props$met = {
-  props: ["oldData"],
+/* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categoria: 0,
@@ -1967,56 +1965,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       existencia: 0,
       existencias: []
     };
-  }
-}, _defineProperty(_props$data$props$met, "props", ["rutaCat", "rutaEquipo", "rutaExistencia"]), _defineProperty(_props$data$props$met, "methods", {
-  getCategorias: function getCategorias() {
-    axios.get(this.rutaCat).then(function (response) {
-      this.categorias = response.data;
-    }.bind(this));
   },
-  getEquipos: function getEquipos() {
-    axios.get(this.rutaEquipo, {
-      params: {
-        categoria_id: this.categoria
-      }
-    }).then(function (response) {
-      this.equipos = response.data;
-    }.bind(this));
+  props: ["rutaCat", "rutaEquipo", "rutaExistencia"],
+  methods: {
+    getCategorias: function getCategorias() {
+      axios.get(this.rutaCat).then(function (response) {
+        this.categorias = response.data;
+      }.bind(this));
+    },
+    getEquipos: function getEquipos() {
+      axios.get(this.rutaEquipo, {
+        params: {
+          categoria_id: this.categoria
+        }
+      }).then(function (response) {
+        this.equipos = response.data;
+      }.bind(this));
+    },
+    getExistencias: function getExistencias() {
+      axios.get(this.rutaExistencia, {
+        params: {
+          equipo_id: this.equipo
+        }
+      }).then(function (response) {
+        this.existencias = response.data;
+      }.bind(this));
+    }
   },
-  getExistencias: function getExistencias() {
-    axios.get(this.rutaExistencia, {
-      params: {
-        equipo_id: this.equipo
+  validations: {
+    categoria: {
+      data: {
+        id: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        }
       }
-    }).then(function (response) {
-      this.existencias = response.data;
-    }.bind(this));
-  }
-}), _defineProperty(_props$data$props$met, "validations", {
-  categoria: {
-    data: {
-      id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    equipo: {
+      data: {
+        id: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        }
+      }
+    },
+    existencia: {
+      data: {
+        id: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        }
       }
     }
   },
-  equipo: {
-    data: {
-      id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-      }
-    }
-  },
-  existencia: {
-    data: {
-      id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-      }
-    }
+  created: function created() {
+    this.getCategorias(), this.getExistencias();
   }
-}), _defineProperty(_props$data$props$met, "created", function created() {
-  this.getCategorias(), this.getExistencias();
-}), _props$data$props$met);
+});
 
 /***/ }),
 
@@ -2329,7 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['fecha'],
   computed: {
     formatearFecha: function formatearFecha() {
-      return moment(this.fecha).locale('es').format('H:m');
+      return moment(this.fecha).locale('es').format('HH:mm');
     }
   }
 });
