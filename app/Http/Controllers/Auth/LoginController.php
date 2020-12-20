@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use App\User;
 use App\Equipo;
+use App\Reserva;
 use App\Sancion;
+
 use App\Prestamo;
 use App\Solicitud;
 use Carbon\Carbon;
 use App\Asignatura;
 use App\Existencia;
-
 use App\Mail\SancionTerminada; 
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Mail;   
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -46,7 +47,7 @@ class LoginController extends Controller
             case 1:
                 
                 $hoy = Carbon::today()->format('Y-m-d 00:00:00');
-                $now = Carbon::now();
+                $now=Carbon::now();
                 $sanciones = Sancion::where('estado_id',1);
                 $id_sanciones=$sanciones->pluck('id');
                 $cantidad = count($id_sanciones);  
@@ -92,9 +93,30 @@ class LoginController extends Controller
                         }
                     }
                 }
+
+                //para actualizar estado de reservas
+                $fecha_comparacion = Carbon::now()->format('Y-m-d');
+                $reservas=Reserva::Where('estado_id',1)->get();
+                foreach ($reservas as $reserva) {
+                    if($reserva->dia_reserva < $fecha_comparacion){
+                        $reserva->estado_id = 2;
+                        $reserva->save();
+                    }
+                }
+
                 return $this->redirectTo= '/admin';
                 break;
             case 2:
+                //para actualizar estado de reservas
+                $fecha_comparacion = Carbon::now()->format('Y-m-d 00:00:00');
+                $reservas=Reserva::Where('estado_id',1)->get();
+                foreach ($reservas as $reserva) {
+                    if($reserva->dia_reserva < $fecha_comparacion ){
+                        $reserva->estado_id = 2;
+                        $reserva->save();
+                    }
+                }
+
                return $this->redirectTo= '/';
            break;
             default:

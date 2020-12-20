@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Sala;
+use App\Reserva;
+use Carbon\Carbon;
 use App\Asignatura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +47,7 @@ class SalaController extends Controller
     {
         //validacion
         $datos = $request->validate([
-            'codigo_interno' => 'required|max:40',
+            'codigo_interno' => 'required|max:40|unique:salas',
             'nombre' => 'required|max:40',
             'estado' => 'required|max:40',
             'capacidad' => 'required',       
@@ -101,7 +103,7 @@ class SalaController extends Controller
     {
         //dd($request->nombre);
         $datos = $request->validate([
-            'codigo_interno' => 'required|max:40',
+            'codigo_interno' => 'required|max:40|unique:salas',
             'nombre' => 'required|max:40',
             'estado' => 'required|max:40',
             'capacidad' => 'required',       
@@ -135,7 +137,8 @@ class SalaController extends Controller
     }
 
     public function inicio(){
-
+        $hoy=Carbon::now()->format('Y-m-d h:m:00');
+       // $reservas = Reserva::Where('fecha_inicio_evento','>=',$hoy)->where('estado_id',1)->get();
         $salas=Sala::all();
         return view('alumno.salas.salas',compact('salas'));
     }

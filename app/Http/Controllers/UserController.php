@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Equipo;
-use Carbon\Carbon;
+use App\Reserva;
 use App\Solicitud;
+use Carbon\Carbon;
 use App\Asignatura;
 use App\Existencia;
 use App\CategoriaEquipo;
@@ -23,10 +24,11 @@ class UserController extends Controller
         $this->middleware(['auth','user']);
     }
     public function index(){
-        
-        $usuario =auth()->user();
+        $hoy=Carbon::now()->format('Y-m-d 00:00:00');
+        $reservas = Reserva::Where('dia_reserva',$hoy)->where('estado_id',1)->get();
 
-        return view('alumno.index',compact('usuario'));
+        $usuario =auth()->user();
+        return view('alumno.index',compact('usuario','reservas'));
     }
     public function create(Existencia $existencia){
         
@@ -44,19 +46,6 @@ class UserController extends Controller
     //return desde navbar e inicio
     public function catalogo(){
         return view('alumno.catalogo.catalogo');
-    }
-
-     //return desde catalogo categorías
-     public function todosEquipos(){
-         
-        $equipos=Equipo::all()->where('en_catalogo',1);
-        $existencias=[];
-        foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->nombre)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
-            
-        }
-       // return $existencias;
-        return view('alumno.catalogo.equipos.equipos',compact('existencias'));
     }
 
      //return desde catalogo categorías

@@ -54,9 +54,7 @@
                                 <a class="dropdown-item" href="{{route('catalogo.videos')}}">Cámaras de video</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tripodes')}}">Trípodes</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tabletas')}}">Tabletas</a>
-                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de DVD</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{route('catalogo.equipos')}}">Todos los equipos</a>
+                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de CD</a>
                               </div>
                             
                         </li>
@@ -69,7 +67,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
                                 <a class="dropdown-item" href="{{route('salas.salas')}}">Salas</a>
-                                <a class="dropdown-item" href="{{route('eventos.index') }}">Eventos</a>
+                                <a class="dropdown-item" href="{{route('reservas.salas') }}">Reservas salas</a>
                               </div>
                         </li>
                         <li class="nav-item  ">

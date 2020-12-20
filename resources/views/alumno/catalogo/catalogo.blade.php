@@ -6,12 +6,6 @@
 <div class="container py-4">
 
       <div class="row justify-content-center">
-        <a class="card col-md-3 m-2 " style="text-decoration:none;" href="{{route('catalogo.equipos')}}">
-            <div class="card-body">
-                <img class="card-img-top" src="{{ asset('/images/catalogo.jpg') }}"> 
-            </div>
-            <div class="card-footer"><h5 class="text-center color-texto3 titulos" >VER TODO</h5></div> 
-        </a>
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.fotograficas')}}">
             <div class="card-body">
                 <img class="card-img-top" src="{{ asset('/images/camara-fotografica.jpeg') }}">         
@@ -24,14 +18,14 @@
             </div>
             <div class="card-footer"><h5 class="text-center color-texto titulos" >CÁMARA DE VIDEO</h5></div> 
         </a>
-      </div>
-      <div class="row justify-content-center">
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.tripodes')}}">
             <div class="card-body">
                 <img class="card-img-top" src="{{ asset('/images/tripode.jpg') }}"> 
             </div>
             <div class="card-footer"><h5 class="text-center color-texto2 titulos" >TRÍPODE</h5></div> 
         </a> 
+      </div>
+      <div class="row justify-content-center">
         <a class="card col-md-3 m-2" style="text-decoration:none;" href="{{route('catalogo.tabletas')}}">
             <div class="card-body">
                 <img class="card-img-top" src="{{ asset('/images/tableta.jpg') }}"> 

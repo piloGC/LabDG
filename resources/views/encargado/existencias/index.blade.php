@@ -10,7 +10,7 @@
             <thead class="bg-olive text-light ">
                 <tr class="table-active">
                     <th scole="col">#</th>
-                    <th scole="col">Codigo</th>
+                    <th scole="col">Número de existencia</th>
                     <th scole="col">Fecha Adquisicion</th>
                     <th scole="col">Estado</th>
                     <th scole="col">Disponibilidad</th>

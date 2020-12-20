@@ -25,12 +25,13 @@ Route::get('/login', function () {
 Route::resource('equipos','EquipoController');
 
 //rutas de sala
+
 Route::get('/horarios/salas/','SalaController@inicio')->name('salas.salas')->middleware(['auth','user']);
 Route::resource('salas','SalaController')->middleware(['auth','admin']);
+
 //rutas de reservas
-Route::get('/reservas/{reserva}/cambiar-fecha','ReservaController@formFecha')->name('form.fecha')->middleware(['auth','admin']);
-Route::put('/reservas/{reserva}/fecha','ReservaController@cambiarFecha')->name('cambiar.fecha')->middleware(['auth','admin']);
-Route::get('/eventos','ReservaController@eventos')->name('eventos.index')->middleware(['auth','user']);
+    //creacion de clases
+Route::get('/reservas-salas','ReservaController@reservas')->name('reservas.salas')->middleware(['auth','user']);
 Route::resource('reservas','ReservaController')->middleware(['auth','admin']);
 
 //rutas de prestamos
@@ -46,7 +47,6 @@ Route::resource('prestamos','PrestamoController');
 //index de user
 Route::get('/','UserController@index')->name('user');
 Route::get('/catalogo', 'UserController@catalogo')->name('catalogo.categorias');
-Route::get('/catalogo/todos-los-equipos', 'UserController@todosEquipos')->name('catalogo.equipos');
 Route::get('/catalogo/camaras-fotograficas', 'UserController@camarasFot')->name('catalogo.fotograficas');
 Route::get('/catalogo/camaras-video', 'UserController@camarasVid')->name('catalogo.videos');
 Route::get('/catalogo/tripodes', 'UserController@tripode')->name('catalogo.tripodes');

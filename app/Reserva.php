@@ -8,7 +8,7 @@ class Reserva extends Model
 {
     //
     protected $fillable = [
-        'nombre_evento' ,'encargado_evento','fecha_evento','estado_id', 'sala_id'
+        'nombre_reserva' ,'encargado_reserva','dia_reserva','hora_inicio','hora_fin','tipo_publico','estado_id', 'sala_id'
     ];
     public function estado(){
         return $this->belongsTo(ReservaEstado::class);
