@@ -33,7 +33,7 @@
                 <a class="navbar-brand" href="{{route('user')}}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     
-                    <img src="{{ asset('../vendor/img/LOGOH.png') }}" alt="Logo" height="70px">
+                    <img src="{{ asset('/vendor/img/LOGOH.png') }}" alt="Logo" height="70px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

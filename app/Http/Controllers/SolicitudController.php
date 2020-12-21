@@ -66,20 +66,21 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //validacion de datos 
+    {   
+        //validacion
         $datosSolicitud = $request->validate([
-            'motivo' => 'required|string|max:200',
-            'fecha_inicio'=> 'required|date',
-            'fecha_fin'=> 'required|date|after:fecha_inicio',
-            'asignatura' =>'required',
-            'existencia'=>'required',
-            'estado'=>'required',
-            'condiciones' => 'required',
-        ]);
+           'motivo' => 'required|string|max:200',
+           'fecha_inicio'=> 'required|date',
+           'fecha_fin'=> 'required|date|after:fecha_inicio',
+           'asignatura' =>'required',
+           'existencia'=>'required',
+           'estado'=>'required',
+           'condiciones' => 'required',
+       ]);
 
-        $continuar = '1';
-        while($continuar == '1'){
+       //Validacion para ver si usuario esta sancionado o tiene alguna solcitud en sistema con misma categoria
+        $consultaValidacion = '1';
+        while($consultaValidacion == '1'){
             //todas sus solicitudes en la variable id_solicitud
             $id_solicitud = DB::table('solicituds')->where('user_id',Auth::id());
             $id_solicitudd=$id_solicitud->pluck('id');
@@ -88,61 +89,135 @@ class SolicitudController extends Controller
             for ($i=0; $i <= $cantidadSolicitud; $i++) { 
                 //si no posee alguna solicitud en el sistema registrada, se sale del ciclo while
                 if(empty($id_solicitudd[$i])){
-                    $continuar='2';
+                    $consultaValidacion='2';
                 }else{
-                    //al ya poseer alguna solicitud en el sistema, buscamos algun prestamo sancionado, y si este posee el estado activo
+                    //rescatamos la info de la solicitud en el sistema
                     $idSolicitud=$id_solicitudd[$i]; 
+                    $infoSolicitud = Solicitud::find($idSolicitud);
+                    $estadoSolicitud = $infoSolicitud->estado_id;
 
+                    $idExistencia= $infoSolicitud->existencia_id;
+                    $idExistenciaRequest = $request->existencia;
+                    $infoExistencia = Existencia::find($idExistencia);
+                    $infoExistenciaRequest = Existencia::find($idExistenciaRequest);
+
+                    $idEquipo= $infoExistencia->equipo_id;
+                    $idEquipoRequest= $infoExistenciaRequest->equipo_id;
+                    $infoEquipo = Equipo::find($idEquipo);
+                    $infoEquipoRequest = Equipo::find($idEquipoRequest);
+
+                    //Recuperamos la categoria del Request y la categoria de la solicitud, para asi realizar las diversas validaciones
+                    $idCategoria= $infoEquipo->categoria_id;
+                    $idCategoriaRequest= $infoEquipoRequest->categoria_id;
+
+                    $infoCategoria = CategoriaEquipo::find($idCategoria);
+
+                    //buscamos si esta solicitud tiene algun prestamo vinculado
                     $idPrestamo = DB::table('prestamos')->where('solicitud_id',$idSolicitud);
                     $idPrestamoo=$idPrestamo->pluck('id');
+
                     if(empty($idPrestamoo[0])){
                         //si esta solicitud no tiene prestamo, volver a consultar con la siguiente solicitud
+
+                        if ($idCategoria == $idCategoriaRequest && $estadoSolicitud == '2') { //aprobada
+                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud aprobada con un equipo correspondiente a la categoria '.$infoCategoria->nombre);
+                        }
+                        if ($idCategoria == $idCategoriaRequest && $estadoSolicitud == '1') {   //pendiente
+                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud pendiende por revisar correspondiente a la categoria '.$infoCategoria->nombre);
+                        }
                     }else{
-                        //Recuperamos la categoria del Request y la categoria del prestamo para asi compararlas si es que existe una sancion
+
+                        //si esta solicitud tiene generado un prestamo, rescatamos su info
                         $idPrestamooo=$idPrestamoo[0]; 
                         $infoPrestamo = Prestamo::find($idPrestamooo);   
                         $estadoPrestamo = $infoPrestamo->estado_id;
-                        
-                        $infoSolicitud = Solicitud::find($idSolicitud);
-                        $idExistencia= $infoSolicitud->existencia_id;
-                        $idExistenciaRequest = $request->existencia;
-                        
-                        $infoExistencia = Existencia::find($idExistencia);
-                        $infoExistenciaRequest = Existencia::find($idExistenciaRequest);
-                        $idEquipo= $infoExistencia->equipo_id;
-                        $idEquipoRequest= $infoExistenciaRequest->equipo_id;
-                        
-                        $infoEquipo = Equipo::find($idEquipo);
-                        $infoEquipoRequest = Equipo::find($idEquipoRequest);
-                        $idCategoria= $infoEquipo->categoria_id;
-                        $idCategoriaRequest= $infoEquipoRequest->categoria_id;
-                        
+        
                         //seccion Sancion
                         $idSancion = DB::table('sancions')->where('prestamo_id',$idPrestamooo);
                         $idSancionn=$idSancion->pluck('id');
                         
-                        //si no estoy sancionado
+                        //si no estoy sancionado, verificar el estado del prestamo correspondiente a su solicitud
                         if(empty($idSancionn[0])){
-                            //consulta si tengo alguna solicitud pendiente en el sistema, y si la categoria del equipo de esta
-                            //coincide con la categoria de la solicitud que estoy realizando ahora mismoa
-                            if ($idCategoria == $idCategoriaRequest && $estadoPrestamo == '1') {
-                                return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud en el sistema con un equipo correspondiente a esa categoria');
+                            if ($idCategoria == $idCategoriaRequest && $estadoPrestamo == '1') {    //iniciado
+                                return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, no se ha dado por concluido su solicitud anterior, referente al equipo '.$infoEquipoRequest->nombre);
                             }
+
+                            //si me encuentro sancionado, verificar el estado de la sancion
                         }else{
-                            
                             $idSancionnn=$idSancionn[0];    
                             $infoSancion = Sancion::find($idSancionnn);
                             $estadoSancion = $infoSancion->estado_id;
-                            //si es que estoy sancionado   ->> condicion para categoria idCategoria == $idCategoriaRequest && 
-                            if($estadoSancion == '1'){  //1=iniciada    2=terminada
+                            if($estadoSancion == '1'){  //1=iniciada 
                                 return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, se encuentra Sancionado');
                             }
                         }
                     }
                 }
             } // fin for
+            $consultaValidacion = '2';
         }//fin while
         
+
+
+        //validacion para que su el equipo solicitado este disponible en esas fechas
+        $consultaDisponibilidadExistencia = '1';
+        $fecha = Carbon::now();
+        $nuevafecha = strtotime ( '7 days' , strtotime ( $fecha ) ) ;
+        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+        while($consultaDisponibilidadExistencia == '1'){
+            //todas  en la variable id_solicitud
+            $id_solicitud = DB::table('solicituds')->where('existencia_id',$datosSolicitud['existencia'])->where('fecha_inicio','>','nuevafecha');
+            $id_solicitudd=$id_solicitud->pluck('id');
+            $cantidadSolicitud = count($id_solicitudd);
+
+            for ($i=0; $i <= $cantidadSolicitud; $i++) { 
+                //si no existe alguna solicitud con ese equipo en el sistema, se sale del ciclo while
+                if(empty($id_solicitudd[$i])){
+                    $consultaDisponibilidadExistencia='2';
+                }else{
+                    //al ya poseer una solicitud en el sistema con ese misma existencia, consultar por las fechas
+                    $idSolicitud=$id_solicitudd[$i]; 
+                    $infoSolicitud = Solicitud::find($idSolicitud); 
+                    $estadoSolicitud = $infoSolicitud->estado_id;
+                    if($estadoSolicitud == '3' || $estadoSolicitud == '5' || $estadoSolicitud == '6'){  //rechazada, terminada, cancelada
+                        //revisar siguiente solicitud
+                    }else{
+                        //el estado de la solicitud esta pendiente, aprobada o en curso, comparamos sus fechas, para verificar si es posible la solicitud deseada por el estudiante
+
+
+                        $fis = Carbon::parse($infoSolicitud->fecha_inicio);
+                        // $dfecha_inicio_sis = $fis->day;
+                        // $mfecha_inicio_sis = $fis->month;
+                        $ffs = Carbon::parse($infoSolicitud->fecha_fin);
+                        $fi = Carbon::parse($datosSolicitud['fecha_inicio']);
+                        $ff = Carbon::parse($datosSolicitud['fecha_fin']);
+
+                        if($fi == $fis ){
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                        }elseif($fi > $fis && $fi < $ffs){
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                        }elseif($fi == $ffs){
+                            $consultaDisponibilidadExistencia='2';
+                        }
+                    
+                        if($ff == $fis){
+                            $consultaDisponibilidadExistencia='2';
+                        }else
+                        if($ff > $fis && $fi < $fis){
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                        }
+
+                        if($fi < $fis && $ff > $ffs){
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                        }
+                    }
+
+                }
+            }//fin ciclo for
+            $consultaDisponibilidadExistencia='2';
+        }//fin ciclo while
+
         $solicitud = auth()->user()->solicitud()->create([
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
@@ -158,15 +233,8 @@ class SolicitudController extends Controller
         $solicitud->user_name = Auth::User()->name;
         $solicitud->user_lastname = Auth::User()->lastname;
         $solicitud->equipo = Equipo::find($datosSolicitud['existencia'])->nombre;
+
         //Notificar al Encargado
-        //auth()->user()->notify(new SolicitudNotificacion($solicitud));
-        // User::all()
-        //     ->except($solicitud->user_id)
-        //     ->each(function(User $user) use ($solicitud){
-        //         user()->notify(new SolicitudNotificacion($solicitud));
-        //     });
-        //metodo Notificacion con Evento y Listener  -> para todos
-        // event (new SolicitudEvent($solicitud));
         $NotificarEncargado = User::find(1);
         $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
         
