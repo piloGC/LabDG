@@ -37,7 +37,7 @@
                                 @forelse(auth()->user()->unreadNotifications as $notification)
                                         <div class="alert alert-default-danger">
                                             <div class="row">
-                                                <div class="col-md-2">Solicitud ID: {{ $notification->data['solicitud'] }} </div>
+                                                <div class="col-md-2">Número de solicitud: {{ $notification->data['solicitud'] }} </div>
                                                 <div class="col-md-2"> Equipo: {{ $notification->data['equipo'] }} </div>
                                                 <div class="col-md-2"> Estudiante: {{ $notification->data['nombre'] }} {{ $notification->data['apellido'] }} </div>
                                                 <div class="col-md-3">Fecha Solicitada: {{ $notification->data['fecha_inicio'] }}  / {{ $notification->data['fecha_fin'] }} </div>

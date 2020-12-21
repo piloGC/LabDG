@@ -30,7 +30,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="descripcion">Descripcion</label>
+                    <label for="descripcion">Descripción</label>
                     <input type="hidden" name="descripcion" value="{{$sancion->descripcion}}" id="descripcion">
                     <trix-editor class="form-control @error ('descripcion') is-invalid @enderror"
                     placeholder="Breve descripción del motivo de la sanción" input="descripcion"></trix-editor>
