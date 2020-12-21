@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,3 +135,9 @@ Route::get('/admin/perfil', function () {
 Route::get('/perfil', function () {
     return view('alumno.perfil');
 })->name('alumno.perfil')->middleware(['auth','user']);
+
+
+//para el storage
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
