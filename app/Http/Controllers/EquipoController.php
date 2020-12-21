@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 
 class EquipoController extends Controller
@@ -28,7 +29,7 @@ class EquipoController extends Controller
         $catalogos = CatalogoEquipo::all(['id','disponible']);
 
         $datos ['equipos']=Equipo::paginate(10);
-        return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);
+        return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);;
     }
 
 
@@ -159,8 +160,8 @@ class EquipoController extends Controller
         if (request('imagen')){
 
             //Storage::delete('public/'.$equipo->imagen);
-            $ruta_imagen= $request['imagen']->store('uploads','public');
-            $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
+            $ruta_imagen= $request['imagen']->store('public');
+            $img = Image::make(public_path("public/{$ruta_imagen}"))->fit(400,400);
             $img->save();
             $equipo->imagen = $datosEquipo['imagen'];
         }
@@ -179,10 +180,8 @@ class EquipoController extends Controller
      */
     public function destroy($id)
     {
-        //Storage::delete('public/uploads'.$equipo->imagen);
-        // $equipo->delete();
-        // return redirect()->action('EquipoController@index');
         $equipo = Equipo::find($id);
+        Storage::disk('public')->delete($equipo->imagen);
         $equipo->delete();
         return redirect('/equipos');
         
