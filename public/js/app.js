@@ -2061,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
             id: _this.equipoId
           }; //enviar la peticion al servidor
 
-          axios.post("equipos/".concat(_this.equipoId), {
+          axios.post("equipos/" + _this.equipoId, {
             params: params,
             _method: "delete"
           }).then(function (respuesta) {
@@ -2122,7 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
             id: _this.existenciaId
           }; //enviar la peticion al servidor
 
-          axios.post("/existencias/".concat(_this.existenciaId), {
+          axios.post("existencias/" + _this.existenciaId, {
             params: params,
             _method: "delete"
           }).then(function (respuesta) {
@@ -2183,7 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
             id: _this.equipoId
           }; //enviar la peticion al servidor
 
-          axios.post("/salas/".concat(_this.salaId), {
+          axios.post("salas/" + _this.salaId, {
             params: params,
             _method: "delete"
           }).then(function (respuesta) {
@@ -2244,7 +2244,7 @@ __webpack_require__.r(__webpack_exports__);
             id: _this.sancionId
           }; //enviar la peticion al servidor
 
-          axios.post("/sanciones/".concat(_this.sancionId), {
+          axios.post("sanciones/" + _this.sancionId, {
             params: params,
             _method: "delete"
           }).then(function (respuesta) {

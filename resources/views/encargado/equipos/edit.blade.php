@@ -17,7 +17,7 @@
                 @method('PUT')
 <div class="row">
     <div class="form-group col-md-3">
-                    <label for="categoria">Categoria</label>
+                    <label for="categoria">Categoría</label>
 
                     <select
                         name="categoria" 

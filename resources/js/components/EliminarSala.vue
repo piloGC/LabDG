@@ -29,7 +29,7 @@ export default {
 
           //enviar la peticion al servidor
           axios
-            .post(`/salas/${this.salaId}`, { params, _method: "delete" })
+            .post("salas/"+this.salaId, { params, _method: "delete" })
             .then((respuesta) => {
               // console.log(respuesta);
               this.$swal("Sala eliminada", "Se eliminó la sala asignada", "success");

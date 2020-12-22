@@ -29,7 +29,7 @@ export default {
 
           //enviar la peticion al servidor
           axios
-            .post(`/existencias/${this.existenciaId}`, { params, _method: "delete" })
+            .post("existencias/"+this.existenciaId, { params, _method: "delete" })
             .then((respuesta) => {
               // console.log(respuesta);
               this.$swal("Existencia eliminada", "Se eliminó la existencia", "success");

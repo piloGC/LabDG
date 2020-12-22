@@ -17,7 +17,7 @@
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <label for="categoria">Categoria</label>
+                        <label for="categoria">Categoría</label>
 
                         <select
                             name="categoria" 
@@ -45,7 +45,7 @@
                         type="text" 
                         name="nombre" 
                         class="form-control @error('nombre') is-invalid @enderror" 
-                        placeholder="Ingrese Nombre Referido"
+                        placeholder="Ingrese Nombre"
                         value={{ old ('nombre') }}
                     >
                     @error('nombre')
@@ -91,12 +91,14 @@
                         <input id="descripcion" 
                         type="hidden" 
                         name="descripcion" 
-                        value="{{old ('descripcion')}}"
+                        value={{old ('descripcion')}}
                         >
                         <trix-editor 
                             class="form-control @error('descripcion') is-invalid @enderror" 
                             placeholder="Ingrese descripción del equipo"
-                            input="descripcion">
+                            input="descripcion"
+                            value={{old ('descripcion')}}
+                            >
                         </trix-editor>
     
                         @error('descripcion')
@@ -138,10 +140,10 @@
                         </select>
     
                         @error('catalogo')
-                            <span class="invalid-feedback d-block" role="alert">
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
+                        <span class="invalid_feedback d-block" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                    @enderror
                     </div>
                 </div>
                 <div class="form-group float-right mt-3">

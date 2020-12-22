@@ -95,7 +95,7 @@
                 </div>
                 <div class="row justify-content-center"> 
                     <div class="form-group col-md">
-                        <label for="descripcion">Descripcion</label>
+                        <label for="descripcion">Descripción</label>
                         <input type="hidden" name="descripcion" id="descripcion" value="{{old('descripcion')}}" >
                         <trix-editor class="form-control @error('descripcion') is-invalid @enderror"
                         placeholder="Breve descripción del motivo de la solicitud" input="descripcion"></trix-editor>

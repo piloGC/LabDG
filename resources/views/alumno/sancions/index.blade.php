@@ -13,8 +13,8 @@
         <thead class="bg-success text-light">
            <tr class="table-active">
 
-            <th scole="col">ID Solicitud</th>
-            <th scole="col">Descripcion</th>
+            <th scole="col">Número solicitud</th>
+            <th scole="col">Descripción</th>
             <th scole="col">Desde</th>
             <th scole="col">Hasta</th>
             <th scole="col">Estado</th>
