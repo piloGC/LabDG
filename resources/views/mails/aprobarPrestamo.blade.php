@@ -12,6 +12,7 @@
         <p>De acuerdo a lo solicitado, informo a usted que se realizo un prestamo en base a su solicitud nº {{ $info->solicitud_id }}. <br>
         Ústed se presento en el laboratorio de Diseño Gráfico el día del {{ \Carbon\Carbon::parse($info->infoSolicitud->fecha_retiro_equipo)}} a retirar su equipo. <br>
             Al momento de realizar su devolución, debera proporcionar el numero de su solicitud "{{ $info->solicitud_id }}" y su carnet de identidad.
+            Esta devolución, debe ser realizada a mas tardar al medio día de su fecha de devolución.
         </p>
     </h4>
     <h4>    

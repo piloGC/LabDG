@@ -10,6 +10,7 @@
     <h3> Estimado(a) {{ $info->usuario->name }} {{ $info->usuario->lastname }}:</h3>
     <h4>
         De acuerdo a lo solicitado, informo a usted que su solicitud nº {{ $info->id }} fue cancelada según su criterio.
+        {!! $info->motivocancelar !!}
     </h4>
 
         <h4>

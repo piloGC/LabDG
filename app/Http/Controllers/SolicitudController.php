@@ -78,7 +78,7 @@ class SolicitudController extends Controller
            'condiciones' => 'required',
        ]);
 
-       //Validacion para ver si usuario esta sancionado o tiene alguna solcitud en sistema con misma categoria
+       //Validacion para ver si usuario esta sancionado o tiene alguna solicitud en sistema con misma categoria
         $consultaValidacion = '1';
         while($consultaValidacion == '1'){
             //todas sus solicitudes en la variable id_solicitud
@@ -123,7 +123,7 @@ class SolicitudController extends Controller
                             return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud aprobada con un equipo correspondiente a la categoria '.$infoCategoria->nombre);
                         }
                         if ($idCategoria == $idCategoriaRequest && $estadoSolicitud == '1') {   //pendiente
-                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud pendiende por revisar correspondiente a la categoria '.$infoCategoria->nombre);
+                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud pendiende correspondiente a la categoria '.$infoCategoria->nombre);
                         }
                     }else{
 
@@ -194,9 +194,9 @@ class SolicitudController extends Controller
                         $ff = Carbon::parse($datosSolicitud['fecha_fin']);
 
                         if($fi == $fis ){
-                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
                         }elseif($fi > $fis && $fi < $ffs){
-                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
                         }elseif($fi == $ffs){
                             $consultaDisponibilidadExistencia='2';
                         }
@@ -205,11 +205,11 @@ class SolicitudController extends Controller
                             $consultaDisponibilidadExistencia='2';
                         }else
                         if($ff > $fis && $fi < $fis){
-                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
                         }
 
                         if($fi < $fis && $ff > $ffs){
-                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta solicitado entre el rango de las fechas ingresadas');
+                            return redirect()->action('SolicitudController@create')->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
                         }
                     }
 

@@ -11,7 +11,7 @@
     <h4>
         <p>Su Sancion referida a su solicitud n° {{ $info->infoSolicitud->id }} se ha dado por concluido</p>
         <p>
-            Desde ahora, usted podra volver a solicitar equipos en el laboratorio de Diseño Gráfico. <br>
+            Desde ahora, usted podra volver a solicitar equipos en el Laboratorio de Diseño Gráfico. <br>
             <p>
                 Fecha de inicio sanción: {{ \Carbon\Carbon::parse($info->fecha_inicio)->isoFormat('DD [de] MMMM [del] YYYY')}}<br>
                 Fecha termino de sanción: {{ \Carbon\Carbon::parse($info->fecha_fin)->isoFormat('DD [de] MMMM [del] YYYY')}} <br>

@@ -27,7 +27,7 @@ class CategoriaEquipoController extends Controller
     {
         //estado 1 es bueno, 2 malo, 3 otro
         //disponible 1, no disponible 2, 3 en laboratorio
-        $data = Existencia::where('equipo_id', $request->equipo_id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+        $data = Existencia::where('equipo_id', $request->equipo_id)->where('estado_id',1)->get();
         return response()->json($data);
     }
 

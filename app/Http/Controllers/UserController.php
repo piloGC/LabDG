@@ -54,7 +54,7 @@ class UserController extends Controller
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',1)->get();
         $existencias=[];
         foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->get();
             
         }
         return view('alumno.catalogo.equipos.fotograficas',compact('existencias'));
@@ -65,7 +65,7 @@ class UserController extends Controller
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',2)->get();
         $existencias=[];
         foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->get();
             
         } 
         return view('alumno.catalogo.equipos.videos',compact('existencias'));
@@ -77,7 +77,7 @@ class UserController extends Controller
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',5)->get();
         $existencias=[];
         foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->get();
             
         } 
         return view('alumno.catalogo.equipos.tripodes',compact('existencias'));
@@ -87,7 +87,7 @@ class UserController extends Controller
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',4)->get();
         $existencias=[];
         foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->get();
             
         }
         return view('alumno.catalogo.equipos.tabletas',compact('existencias'));
@@ -97,7 +97,7 @@ class UserController extends Controller
         $equipos=Equipo::where('en_catalogo',1)->where('categoria_id',3)->get();
         $existencias=[];
         foreach($equipos as $equipo){
-            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->where('disponibilidad_id',1)->get();
+            $existencias[Str::slug($equipo->marca)][]= Existencia::where('equipo_id',$equipo->id)->where('estado_id',1)->get();
             
         }
         return view('alumno.catalogo.equipos.lectores',compact('existencias'));

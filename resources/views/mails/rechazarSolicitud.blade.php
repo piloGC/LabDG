@@ -11,8 +11,8 @@
     <h4>
         De acuerdo a lo solicitado, informo a usted que su solicitud nº {{ $info->id }} fue rechazada.
     </h4>
-        <h4>El motivo de su rechazo se genero, al evaluar el motivo que ingreso para su solicitud:
-            {!! $info ->motivo !!}
+        <h4>El motivo de su rechazo fue:
+            {!! $info ->motivorechazo !!}
 
         </h4>
 
