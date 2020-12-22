@@ -20,14 +20,14 @@ class AdminController extends Controller
     public function index(Request $request){
         //reporte solicitudes
         $inicioAnio=Carbon::now()->startOfYear()->format('Y-m-d 00:00:00');
-        $hoy=Carbon::now()->format('Y-m-d 00:00:00');
-        $totalSolicitudes=Solicitud::whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesEntrantes =Solicitud::Where('estado_id',1)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesAceptadas =Solicitud::Where('estado_id',2)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesRechazadas =Solicitud::Where('estado_id',3)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesEnCurso =Solicitud::Where('estado_id',4)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesTerminadas =Solicitud::Where('estado_id',5)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
-        $solicitudesCanceladas =Solicitud::Where('estado_id',6)->whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
+        $finAnio=Carbon::now()->endOfYear()->format('Y-m-d 00:00:00');
+        $totalSolicitudes=Solicitud::whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesEntrantes =Solicitud::Where('estado_id',1)->WhereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesAceptadas =Solicitud::Where('estado_id',2)->whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesRechazadas =Solicitud::Where('estado_id',3)->whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesEnCurso =Solicitud::Where('estado_id',4)->whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesTerminadas =Solicitud::Where('estado_id',5)->whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
+        $solicitudesCanceladas =Solicitud::Where('estado_id',6)->whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
         $sanciones =Sancion::all();
 
         //para buscar solicitudes
@@ -36,8 +36,9 @@ class AdminController extends Controller
        // $solicitudes =Solicitud::where('user_id','like','%' . $busqueda . '%')->paginate(3);
         $users->appends(['nombre' => $busqueda]);
 
+        $hoy=Carbon::now()->format('Y-m-d');
         //reporte sanciones
-        $totalSanciones=Sancion::whereBetween('fecha_inicio', [$inicioAnio, $hoy])->get();
+        $totalSanciones=Sancion::whereBetween('fecha_inicio', [$inicioAnio, $finAnio])->get();
         $sancionesActivas =Sancion::where('estado_id',1)->get();
         $sancionPlazo =Sancion::where('estado_id',1)->get();
         $sancionDaño =Sancion::where('estado_id',2)->get();
