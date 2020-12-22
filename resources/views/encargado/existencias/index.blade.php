@@ -2,8 +2,19 @@
 @include('encargado.notificacion')
 @section('content')
 <div id="app">
-    <h1 class="text-center">Existencia equipos</h1>
-     <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar ítem</a>
+    <h1 class="text-center">Existencias</h1>
+     <a href="{{route('existencias.create')}}"class="btn btn-secondary">Agregar existencia</a>
+     <div class="row justify-content-end mr-5">
+        <form action="{{route('existencias.buscar')}}">
+            <div class="input-group mb-3">
+                <input type="search" name="existencia" class="form-control" placeholder="Código de existencia" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-info" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form> 
+       
+    </div>
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
         <table class="table table-hover">
@@ -23,7 +34,7 @@
 
                 @foreach($existencias as $existencia)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
+                    <td>{{$existencia->id}}</td>
                     <td>{{$existencia->codigo}}</td>
                     <td><fecha-index fecha="{{$existencia->fecha_adquisicion}}"></fecha-index></td>
                     <td>{{$existencia->estado->nombre}}</td>

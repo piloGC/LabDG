@@ -30,6 +30,16 @@
    </div>
 
 <hr>
+<div class="row">
+    <div class="form-group col-md-3">
+        <h4 >Solicitado por</h4>
+        <span class="mt-3">{{$listarSolicitud->usuario->name}} {{$listarSolicitud->usuario->lastname}}</span>
+    </div> 
+    <div class="form-group col-md-3">
+        <h4 >Run</h4>
+        <span class="mt-3">{{$listarSolicitud->usuario->run}}</span>
+    </div> 
+</div><br>
 
     <h3 class="text-bold text-uppercase">Información del Equipo:</h3>
             <br>

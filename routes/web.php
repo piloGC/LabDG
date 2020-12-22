@@ -21,6 +21,15 @@ Route::get('/login', function () {
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
+//buscador de solicitudes
+Route::get('/admin/buscar', 'AdminController@index')->name('buscar.show');
+Route::get('/listarSolicitud/entrantes/buscar','ListarSolicitudController@entrantes')->name('entrantes.buscar');
+Route::get('/listarSolicitud/aprobadas/buscar','ListarSolicitudController@aprobadas')->name('aprobadas.buscar');
+Route::get('/listarSolicitud/rechazadas/buscar','ListarSolicitudController@rechazadas')->name('rechazadas.buscar');
+Route::get('/listarSolicitud/canceladas/buscar','ListarSolicitudController@canceladas')->name('canceladas.buscar');
+Route::get('/listarSolicitud/encursos/buscar','ListarSolicitudController@encursos')->name('encursos.buscar');
+Route::get('/listarSolicitud/terminadas/buscar','ListarSolicitudController@terminadas')->name('terminadas.buscar');
+
 
 //rutas de equipos
 Route::resource('equipos','EquipoController');
@@ -32,6 +41,8 @@ Route::resource('salas','SalaController')->middleware(['auth','admin']);
 
 //rutas de reservas
     //creacion de clases
+    Route::get('/reservas/reservas-hoy','ReservaController@reservasHoy')->name('reservas.hoy')->middleware(['auth','admin']);
+Route::get('/reservas/buscar','ReservaController@index')->name('reservas.buscar')->middleware(['auth','admin']);
 Route::get('/reservas-salas','ReservaController@reservas')->name('reservas.salas')->middleware(['auth','user']);
 Route::resource('reservas','ReservaController')->middleware(['auth','admin']);
 
@@ -91,6 +102,7 @@ Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->
 Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencias.devolver');
 Route::put('/existencias/{existencia}','ExistenciaController@prestarPrestamo')->name('existencias.prestarPrestamo');
 // Route::put('/existencias/{existencia}','ExistenciaController@devolverPrestamo')->name('existencias.devolverPrestamo');
+Route::get('/existencias/buscar','ExistenciaController@index')->name('existencias.buscar');
 Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones
@@ -137,7 +149,10 @@ Route::get('/perfil', function () {
 })->name('alumno.perfil')->middleware(['auth','user']);
 
 
-//para el storage
+//para iniciar el storage
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
+
+
+

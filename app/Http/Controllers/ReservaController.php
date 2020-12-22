@@ -19,10 +19,12 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $reservas = Reserva::where('id','>',0)->orderBy('id','desc')->paginate(10);
+        $busqueda=$request['reserva'];
+        $reservas = Reserva::where('id','>',0)->where('nombre_reserva','like','%' . $busqueda . '%')->orderBy('id','desc')->paginate(10);
+        $reservas->appends(['reserva' => $busqueda]);
         return view ('encargado.reservas.index')->with('reservas',$reservas);
 
 
@@ -147,8 +149,15 @@ class ReservaController extends Controller
 
     public function reservas(){
         $hoy=Carbon::now()->format('Y-m-d');
-        $reservas = Reserva::Where('estado_id',1)->orderBy('dia_reserva','asc')->get();
+        $reservas = Reserva::Where('estado_id',1)->orderBy('dia_reserva','asc')->paginate(20);
         return view('alumno.salas.reservas',compact('reservas','hoy'));
+    }
+
+    public function reservasHoy(){
+        $hoy=Carbon::now()->format('Y-m-d');
+        $reservas = Reserva::Where('estado_id',1)->where('dia_reserva',$hoy)->paginate(20);
+        return view('encargado.reservas.reservas',compact('reservas','hoy'));
+
     }
 }
 //Str::slug($reserva->nombre_reserva)

@@ -63,6 +63,9 @@
         @endif
            
     </div>
+    <div class="col-12 mt-4 justify-content-center d-flex">
+        {{$reservas->links()}}
+    </div>
 </body>
 
 @endsection
