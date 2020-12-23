@@ -32,7 +32,7 @@ class AdminController extends Controller
 
         //para buscar solicitudes
         $busqueda = $request['nombre'];
-        $users = User::where('role_id',2)->where('name','like','%' . $busqueda . '%')->paginate(3);
+        $users = User::where('role_id',2)->where('name','like','%' . $busqueda . '%')->orWhere('lastname','like','%' . $busqueda . '%')->paginate(3);
        // $solicitudes =Solicitud::where('user_id','like','%' . $busqueda . '%')->paginate(3);
         $users->appends(['nombre' => $busqueda]);
 
