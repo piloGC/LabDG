@@ -66,15 +66,15 @@
                         <div class="inner">
                             @if(count($reservas) == 1)
                                     <h3>{{count($reservas)}}</h3>
-                                    <p>Reserva hoy</p>
-                            @endif
+                                    <p>Reservas de salas hoy</p>
+                                    @endif
                             @if(count($reservas) > 1)
                                     <h3>{{count($reservas)}}</h3>
-                                    <p>Reservas hoy</p>
-                            @endif
+                                    <p>Reservas de salas hoy</p>
+                                    @endif
                             @if(count($reservas) == 0)
                                 <h3 class="text-uppercase">No hay</h3>
-                                <p>Reservas hoy</p>
+                                <p>Reservas de salas hoy</p>
                             @endif
                         </div>
                         <div class="icon">
