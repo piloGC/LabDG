@@ -132,9 +132,9 @@
         </div>
             <div class="form-group mt-3">
                 <label for="motivo">Motivo solicitud:</label>
-                <input type="hidden" name="motivo" value="{{old('motivo')}}" id="motivo">
-                <trix-editor class="form-control @error ('motivo') is-invalid @enderror"
-                placeholder="Breve descripción del motivo de la solicitud" input="motivo"></trix-editor>
+                <input type="hidden" id="motivo" name="motivo" value="{{old('motivo')}}" >
+                <trix-editor input="motivo" class="form-control @error ('motivo') is-invalid @enderror"
+                placeholder="Breve descripción del motivo de la solicitud" style="overflow-y:auto;" ></trix-editor>
                 @error('motivo')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>

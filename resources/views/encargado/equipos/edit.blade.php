@@ -92,12 +92,14 @@
                     <label for="descripcion">Descripción</label>
                     <input id="descripcion" 
                     type="hidden" 
+                    id="descripcion"
                     name="descripcion" 
                     value="{{ $equipo->descripcion }}"
                     >
                     <trix-editor 
+                    input="descripcion"
                         class="form-control @error('descripcion') is-invalid @enderror" 
-                        input="descripcion"
+                        style="overflow-y:auto"
                     ></trix-editor>
                     @error('descripcion')
                     <span class="invalid_feedback d-block" role="alert">
