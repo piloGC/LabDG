@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <h4 class="titulos">Asignatura</h4>
-                    <h5 class="mt-3">{{$solicitud->asignatura->nombre}}</h5>
+                    <h5 class="mt-3">{{$solicitud->asignatura}}</h5>
                 </div>   
                 <div class="form-group col-md-3">
                     <h4 class="titulos">Solicitud creada el:</h4>

@@ -45,13 +45,18 @@
 
     <div class="form-group col-md-4">
         <label for="estado">Estado</label>
-        <input id="estado"
+        {{-- <input id="estado"
             type="text"
             name="estado" 
             class="form-control @error('estado') is-invalid @enderror" 
             placeholder="Ingrese el Estado correspondiente"
             value="{{ $sala->estado}}"
-        >
+        > --}}
+        <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror" value="{{$sala->estado}}">
+            <option value="0">-- Seleccione una opción --</option>
+            <option value="Disponible"  {{ $sala->estado == "Disponible" ? 'selected' : '' }}>Disponible</option>
+            <option value="No disponible"  {{ $sala->estado == "No disponible" ? 'selected' : '' }}>No disponible</option>
+          </select>
         @error('estado')
             <span class="invalid_feedback d-block" role="alert">
                 <strong>{{$message}}</strong>
@@ -79,13 +84,18 @@
 
     <div class="form-group col-md-4">
         <label for="internet">Internet</label>
-        <input id="internet"
+        {{-- <input id="internet"
             type="text"
             name="internet" 
             class="form-control @error('internet') is-invalid @enderror" 
             placeholder="Ingrese si corresponde el servicio"
             value="{{ $sala->internet}}"
-        >
+        > --}}
+        <select name="internet" id="internet" class="form-control @error('internet') is-invalid @enderror" >
+            <option value="0">-- Seleccione una opción --</option>
+            <option value="Si"  {{ $sala->internet == "Si" ? 'selected' : '' }}>Si</option>
+            <option value="No"  {{ $sala->internet  == "No" ? 'selected' : '' }}>No</option>
+          </select>
         @error('internet')
             <span class="invalid_feedback d-block" role="alert">
                 <strong>{{$message}}</strong>
@@ -95,13 +105,18 @@
 
     <div class="form-group col-md-4">
         <label for="aire_acondicionado">Aire Acondicionado</label>
-        <input id="aire_acondicionado"
+        {{-- <input id="aire_acondicionado"
             type="text"
             name="aire_acondicionado" 
             class="form-control @error('aire_acondicionado') is-invalid @enderror" 
             placeholder="Ingrese si corresponde el servicio"
             value="{{ $sala->aire_acondicionado}}"
-        >
+        > --}}
+        <select name="aire_acondicionado" id="aire_acondicionado" class="form-control @error('aire_acondicionado') is-invalid @enderror" >
+            <option value="0">-- Seleccione una opción --</option>
+            <option value="Si"  {{ $sala->aire_acondicionado == "Si" ? 'selected' : '' }}>Si</option>
+            <option value="No"  {{ $sala->aire_acondicionado == "No" ? 'selected' : '' }}>No</option>
+          </select>
         @error('aire_acondicionado')
             <span class="invalid_feedback d-block" role="alert">
                 <strong>{{$message}}</strong>

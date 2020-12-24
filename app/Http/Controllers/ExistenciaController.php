@@ -113,7 +113,7 @@ class ExistenciaController extends Controller
     {
         //validacion
         $datosExistencia = $request->validate([
-            'codigo' => 'required|max:40|unique:existencias',
+            'codigo' => 'required|max:40',
          //   'fecha_adquisicion' => 'required|date',
          //   'estado' => 'required|max:40',
             'disponibilidad' => 'required|max:200',

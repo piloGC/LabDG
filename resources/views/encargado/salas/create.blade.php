@@ -42,7 +42,6 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="estado">Estado</label>
-                            <label for="estado">Internet</label>
                             <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror" >
                                 <option value="0">-- Seleccione una opción --</option>
                                 <option value="Disponible"  {{ old('estado') == "Disponible" ? 'selected' : '' }}>Disponible</option>

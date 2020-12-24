@@ -103,7 +103,7 @@ class SalaController extends Controller
     {
         //dd($request->nombre);
         $datos = $request->validate([
-            'codigo_interno' => 'required|max:40|unique:salas',
+            'codigo_interno' => 'required|max:40',
             'nombre' => 'required|max:40',
             'estado' => 'required|max:40',
             'capacidad' => 'required',       

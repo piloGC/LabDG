@@ -46,8 +46,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-5 m-2"><h3 class="card-title text-uppercase">Buscador de solicitudes</h3></div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 m-2"><h6 class="card-title text-uppercase">Buscador de solicitudes por nombre</h6></div>
+                        <div class="col-md-5">
                             <form action="{{route('buscar.show')}}">
                                 <div class="input-group mb-3">
                                     <input type="search" name="nombre" class="form-control" placeholder="Ingrese nombre alumno" aria-describedby="basic-addon2">

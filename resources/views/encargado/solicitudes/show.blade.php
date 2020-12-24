@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <h4>Asignatura</h4>
-                    <span class="mt-3">{{$listarSolicitud->asignatura->nombre}}</span>
+                    <span class="mt-3">{{$listarSolicitud->asignatura}}</span>
                 </div>   
                  <div class="form-group col-md-3">
                     <h4 >Solicitud creada el:</h4>
