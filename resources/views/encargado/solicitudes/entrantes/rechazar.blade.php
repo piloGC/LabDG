@@ -16,9 +16,9 @@
                 
                 <div class="form-group">
                     <label for="motivo_estado">Motivo</label>
-                    <input type="hidden" name="motivo_estado" value="{{$listarSolicitud->motivo_estado}}" id="motivo_estado">
+                    <input type="hidden" name="motivo_estado"  id="motivo_estado">
                     <trix-editor class="form-control @error ('motivo_estado') is-invalid @enderror"
-                    placeholder="Breve descripción del motivo de la sanción" input="motivo_estado"></trix-editor>
+                    placeholder="Breve descripción del motivo de la sanción" input="motivo_estado" style="overflow-y:auto"></trix-editor>
                     
                     @error('motivo_estado')
                     <span class="invalid_feedback d-block" role="alert">

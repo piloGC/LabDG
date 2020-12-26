@@ -181,6 +181,7 @@ class ListarSolicitudController extends Controller
                     if($estadoSolicitud == '3' || $estadoSolicitud == '5' || $estadoSolicitud == '6'){  //rechazada, terminada, cancelada
                         //revisar siguiente solicitud
                     }else{
+                        //pendiente, aprobada, en curso
                         //el estado de la solicitud esta pendiente, aprobada o en curso, comparamos sus fechas, para verificar si es posible la solicitud deseada por el estudiante
 
 
@@ -322,7 +323,7 @@ class ListarSolicitudController extends Controller
     }
 
     public function entrantes(){ 
-        $solicitudes = Solicitud::where('estado_id',1)->paginate(15);
+        $solicitudes = Solicitud::where('estado_id',1)->orderBy('existencia_id','ASC')->orderBy('created_at','asc')->paginate(15);
         return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
 
     }
@@ -353,18 +354,88 @@ class ListarSolicitudController extends Controller
 
     public function cambiarEstadoAprobada(Solicitud $listarSolicitud)
 {
-    $listarSolicitud->estado_id = 2;
-    $listarSolicitud->save();
-    //valores de añadido a solicitud para realizar la notificación
-    $nombre = auth()->user()->name;
-    $apellido = auth()->user()->lastname;
-    $listarSolicitud->encargadoNombre = $nombre;
-    $listarSolicitud->encargadoApellido = $apellido;
-    //Enviar correo indicando el apruebo de solicitud
-    $mailusuario = $listarSolicitud->usuario->email;
-    Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
+    //validad que se pueda aprobar antes del dia solicitado
+    $hoy = Carbon::now();
+    if($listarSolicitud->fecha_inicio >= $hoy){
+
+        //validacion para que su el equipo solicitado este disponible en esas fechas
+        $consultaDisponibilidadExistencia = '1';
+        $fecha = Carbon::now();
+        $nuevafecha = strtotime ( '5 days' , strtotime ( $fecha ) ) ;
+        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+        $contador=0;
+        while($consultaDisponibilidadExistencia == '1'){
+            //todas  en la variable id_solicitud
+            $id_solicitud = DB::table('solicituds')->where('existencia_id',$listarSolicitud->existencia_id)->where('fecha_inicio','>','nuevafecha');
+            $id_solicitudd=$id_solicitud->pluck('id');
+            $cantidadSolicitud = count($id_solicitudd);
+
+        for ($i=0; $i <= $cantidadSolicitud; $i++) { 
+             //si no existe alguna solicitud con ese equipo en el sistema, se sale del ciclo while
+             if(empty($id_solicitudd[$i])){
+                 $consultaDisponibilidadExistencia='2';
+             }else{
+
+                 //al ya poseer una solicitud en el sistema con ese misma existencia, consultar por las fechas
+                 $idSolicitud=$id_solicitudd[$i]; 
+                 $infoSolicitud = Solicitud::find($idSolicitud); 
+                 $estadoSolicitud = $infoSolicitud->estado_id;
+                 if($estadoSolicitud == '3' || $estadoSolicitud == '5' || $estadoSolicitud == '6'){  //rechazada, terminada, cancelada
+                     //revisar siguiente solicitud, si no existe alguna solicitud en sistema con otro estado, aprueba la solicitud
+                 }elseif($estadoSolicitud == '1'){  //pendiente
+                    $contador++;
+                 }else{
+                     //el estado de la solicitud esta pendiente, aprobada o en curso, comparamos sus fechas, para verificar si es posible la solicitud deseada por el estudiante
+
+
+                     $fis = Carbon::parse($infoSolicitud->fecha_inicio);
+                     // $dfecha_inicio_sis = $fis->day;
+                     // $mfecha_inicio_sis = $fis->month;
+                     $ffs = Carbon::parse($infoSolicitud->fecha_fin);
+                     $fi = Carbon::parse($datosSolicitud['fecha_inicio']);
+                     $ff = Carbon::parse($datosSolicitud['fecha_fin']);
+
+                     if($fi == $fis ){
+                        return redirect()->action('ListarSolicitudController@entrantes')->with('fracaso','Ya existe una solicitud aprobada, en el rango de fecha solicitada');
+                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                     }elseif($fi > $fis && $fi < $ffs){
+                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                     }elseif($fi == $ffs){
+                         $consultaDisponibilidadExistencia='2';
+                     }
+                 
+                     if($ff == $fis){
+                         $consultaDisponibilidadExistencia='2';
+                     }else
+                     if($ff > $fis && $fi < $fis){
+                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                     }
+
+                     if($fi < $fis && $ff > $ffs){
+                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                     }
+                 }
+
+             }
+         }//fin ciclo for
+         $consultaDisponibilidadExistencia='2';
+     }//fin ciclo while
+
+        $listarSolicitud->estado_id = 2;
+        $listarSolicitud->save();
+        //valores de añadido a solicitud para realizar la notificación
+        $nombre = auth()->user()->name;
+        $apellido = auth()->user()->lastname;
+        $listarSolicitud->encargadoNombre = $nombre;
+        $listarSolicitud->encargadoApellido = $apellido;
+        //Enviar correo indicando el apruebo de solicitud
+        $mailusuario = $listarSolicitud->usuario->email;
+        Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
+        
+        return redirect()->action('ListarSolicitudController@entrantes');
+    }  
     
-    return redirect()->action('ListarSolicitudController@entrantes');
+    return redirect()->back()->with('fracaso','Solicitud fuera de plazo, favor rechazar la solicitud');
 }
 
 public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolicitud)

@@ -120,7 +120,7 @@ class SolicitudController extends Controller
                         //si esta solicitud no tiene prestamo, volver a consultar con la siguiente solicitud
 
                         if ($idCategoria == $idCategoriaRequest && $estadoSolicitud == '2') { //aprobada
-                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud aprobada con un equipo correspondiente a la categoria '.$infoCategoria->nombre);
+                            return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud reservada con un equipo correspondiente a la categoria '.$infoCategoria->nombre);
                         }
                         if ($idCategoria == $idCategoriaRequest && $estadoSolicitud == '1') {   //pendiente
                             return redirect()->action('SolicitudController@create')->with('fracaso','No puede realizar la solicitud, ya posee una solicitud pendiende correspondiente a la categoria '.$infoCategoria->nombre);
@@ -162,7 +162,7 @@ class SolicitudController extends Controller
         //validacion para que su el equipo solicitado este disponible en esas fechas
         $consultaDisponibilidadExistencia = '1';
         $fecha = Carbon::now();
-        $nuevafecha = strtotime ( '7 days' , strtotime ( $fecha ) ) ;
+        $nuevafecha = strtotime ( '5 days' , strtotime ( $fecha ) ) ;
         $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
         while($consultaDisponibilidadExistencia == '1'){
@@ -180,7 +180,7 @@ class SolicitudController extends Controller
                     $idSolicitud=$id_solicitudd[$i]; 
                     $infoSolicitud = Solicitud::find($idSolicitud); 
                     $estadoSolicitud = $infoSolicitud->estado_id;
-                    if($estadoSolicitud == '3' || $estadoSolicitud == '5' || $estadoSolicitud == '6'){  //rechazada, terminada, cancelada
+                    if($estadoSolicitud == '1' || $estadoSolicitud == '3' || $estadoSolicitud == '5' || $estadoSolicitud == '6'){  //pendiente rechazada, terminada, cancelada
                         //revisar siguiente solicitud
                     }else{
                         //el estado de la solicitud esta pendiente, aprobada o en curso, comparamos sus fechas, para verificar si es posible la solicitud deseada por el estudiante
