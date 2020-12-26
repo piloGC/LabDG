@@ -224,7 +224,7 @@ class ListarSolicitudController extends Controller
              'motivo' => $datosSolicitud['motivo'],
               'fecha_inicio' => $datosSolicitud['fecha_inicio'],
               'fecha_fin' => $datosSolicitud['fecha_fin'],
-              'asignatura_id' => $datosSolicitud['asignatura'],
+              'asignatura' => $datosSolicitud['asignatura'],
               'existencia_id' => $datosSolicitud['existencia'],
               'estado_id' => 4,
              'user_id' => $id,
@@ -322,32 +322,45 @@ class ListarSolicitudController extends Controller
         //
     }
 
-    public function entrantes(){ 
-        $solicitudes = Solicitud::where('estado_id',1)->orderBy('existencia_id','ASC')->orderBy('created_at','asc')->paginate(15);
+    public function entrantes(Request $request){ 
+        $busqueda=$request['solicitud'];
+        $solicitudes = Solicitud::where('estado_id',1)->where('id','like','%' . $busqueda . '%')->orderBy('existencia_id','ASC')->orderBy('created_at','asc')->paginate(15);
+        $solicitudes->appends(['solicitud' => $busqueda]);
         return view('encargado.solicitudes.entrantes.index',compact('solicitudes'));
 
     }
 
-    public function aprobadas(){
+    public function aprobadas(Request $request){
         $hoy= Carbon::today();
-        $solicitudes = Solicitud::where('estado_id',2)->orderBy('id','DESC')->paginate(15);
+        $busqueda=$request['solicitud'];
+        $solicitudes = Solicitud::where('estado_id',2)->where('id','like','%' . $busqueda . '%')->orderBy('id','DESC')->paginate(15);
+        $solicitudes->appends(['solicitud' => $busqueda]);
 
         return view('encargado.solicitudes.aprobadas.index',compact('solicitudes','hoy'));
     }
 
-    public function encursos(){ 
+    public function encursos(Request $request){ 
         $hoy= Carbon::now();
-        $solicitudes = Solicitud::where('estado_id',4)->paginate(15);
+        $busqueda=$request['solicitud'];
+        $solicitudes = Solicitud::where('estado_id',4)->where('id','like','%' . $busqueda . '%')->paginate(15);
+        $solicitudes->appends(['solicitud' => $busqueda]);
+
         return view('encargado.solicitudes.encursos.index',compact('solicitudes','hoy'));
 
     }
-    public function rechazadas(){
-        $solicitudes = Solicitud::where('estado_id',3)->orderBy('id','DESC')->paginate(15);
+    public function rechazadas(Request $request){
+        $busqueda=$request['solicitud'];
+        $solicitudes = Solicitud::where('estado_id',3)->where('id','like','%' . $busqueda . '%')->orderBy('id','DESC')->paginate(15);
+        $solicitudes->appends(['solicitud' => $busqueda]);
+
         return view('encargado.solicitudes.rechazadas.index',compact('solicitudes'));
     }
 
-    public function canceladas(){
-        $solicitudes = Solicitud::where('estado_id',6)->orderBy('id','DESC')->paginate(15);
+    public function canceladas(Request $request){
+        $busqueda=$request['solicitud'];
+        $solicitudes = Solicitud::where('estado_id',6)->where('id','like','%' . $busqueda . '%')->orderBy('id','DESC')->paginate(15);
+        $solicitudes->appends(['solicitud' => $busqueda]);
+
         return view('encargado.solicitudes.canceladas.index',compact('solicitudes'));
     }
     

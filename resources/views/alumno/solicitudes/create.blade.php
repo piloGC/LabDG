@@ -73,13 +73,19 @@
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
-                <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
+                {{-- <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
                     <option value="">-- Seleccione una opcion --</option>
                     @foreach ($asignaturas as $asignatura)
                         <option value="{{ $asignatura->id }}" {{ old('asignatura') == $asignatura->id ? 'selected' : '' }}>
                             {{ $asignatura->nombre }}</option>
                     @endforeach
-                </select>
+                </select> --}}
+                <input id="asignatura"
+                        type="text"
+                        name="asignatura" 
+                        class="form-control @error('asignatura') is-invalid @enderror" 
+                        value={{old ('asignatura')}}
+                    >
                 @error('asignatura')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -112,9 +118,9 @@
         </div>
             <div class="form-group mt-3">
                 <label for="motivo">Motivo solicitud:</label>
-                <input type="hidden" name="motivo" value="{{old('motivo')}}" id="motivo">
-                <trix-editor class="form-control @error ('motivo') is-invalid @enderror"
-                placeholder="Breve descripción del motivo de la solicitud" input="motivo"></trix-editor>
+                <input type="hidden" id="motivo" name="motivo" value="{{old('motivo')}}" >
+                <trix-editor input="motivo" class="form-control @error ('motivo') is-invalid @enderror"
+                placeholder="Breve descripción del motivo de la solicitud" style="overflow-y:auto"></trix-editor>
                 @error('motivo')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>

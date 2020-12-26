@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Equipo extends Model
@@ -10,6 +10,10 @@ class Equipo extends Model
     protected $fillable =[
         'nombre', 'marca' , 'modelo', 'descripcion', 'imagen', 'categoria_id', 'en_catalogo'
     ];
+
+    use SoftDeletes;
+        protected $dates = ['deleted_at'];
+
     //obtiene la categoria del equipo via fk
     public function categoria(){
         return $this->belongsTo(CategoriaEquipo::class);

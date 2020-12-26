@@ -4,6 +4,17 @@
 <div id="app">
     <h1 class="text-center ">Control de Reservas</h1>
     <a href="{{route('reservas.create')}}" class="btn btn-secondary">Agregar reserva</a>
+    <div class="row justify-content-end mr-5">
+        <form action="{{route('reservas.buscar')}}">
+            <div class="input-group mb-3">
+                <input type="search" name="reserva" class="form-control" placeholder="Nombre de reserva" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-info" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form> 
+       
+    </div>
     <div class="container mx-auto bg-white">
         <div class="table-responsive">
         <table class="table table-hover">

@@ -22,11 +22,14 @@ class ExistenciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $datos ['existencias']=Existencia::paginate(10);
-        return view ('encargado.existencias.index',$datos);
+        $busqueda=$request['existencia'];
+        $existencias=Existencia::where('codigo','like','%' . $busqueda . '%')->paginate(10);
+        $existencias->appends(['existencia' => $busqueda]);
+
+        return view ('encargado.existencias.index',compact('existencias'));
     }
 
     /**
@@ -110,7 +113,7 @@ class ExistenciaController extends Controller
     {
         //validacion
         $datosExistencia = $request->validate([
-            'codigo' => 'required|max:40|unique:existencias',
+            'codigo' => 'required|max:40',
          //   'fecha_adquisicion' => 'required|date',
          //   'estado' => 'required|max:40',
             'disponibilidad' => 'required|max:200',
@@ -143,145 +146,6 @@ class ExistenciaController extends Controller
         return redirect()->action('ExistenciaController@index');
     }
 
-    public function prestar( Existencia $existencia){
-        $hoy=Carbon::today()->format('Y-m-d');
-        $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
-        return view('encargado.existencias.prestar',compact('existencia','disponibilidads','hoy'));
-    }
-
-    public function prestarUpdate(Request $request, Existencia $existencia)
-    {
-        try{
-        //validacion
-        $datosExistencia = $request->validate([
-            'codigo' => 'required|max:40',
-            'disponibilidad' => 'required|max:200',
-            'solicitud' => 'required',
-           
-        ]);
-        $id_existencia=$existencia->id;
-        
-        //rescato valores para crear prestamo
-        $hoy=Carbon::today()->format('Y-m-d 00:00:00');
-        $now=Carbon::now();
-        $devolucion=Carbon::parse() ;
-        $devolucion=null;
-        $usuario = auth()->user()->id;
-        $id_solicitud= $request->solicitud;
-        $solicitud=Solicitud::findOrFail($id_solicitud);
-    //    $solicitud=DB::table('solicituds')->where('id',$id_solicitud);
-        $fecha_inicio=$solicitud->pluck('fecha_inicio');
-        $fecha=$fecha_inicio[0];
-        $solicitud_id=$solicitud->pluck('id');
-        $id=$solicitud_id[0];
-        $estado_id=$solicitud->pluck('estado_id');
-        $estado_sol=$estado_id[0];
-
-        //rescato valores para cambiar la existencia
-        $existencia_id=$solicitud->pluck('existencia_id');
-        $exis=$existencia_id[0];
-        $estado=1;
-        /*condicion para ver si la fecha de hoy coincide con el de la solicitud, 
-            si el id de solicitud coincide con el equipo seleccionado
-        */
-        if($id_solicitud == $id){
-            if($hoy == $fecha){
-              if($exis == $id_existencia){
-                if($estado_sol == 2){
-                        //asigna valores actualizados a existencia
-                       //   $existencia->codigo = $datosExistencia['codigo'];
-                          $existencia->disponibilidad_id = 2;
-                          $existencia->save();
-          
-                         $id=  DB::table('prestamos')->insertGetId(
-                           ['fecha_retiro_equipo'=> $fecha ,'fecha_devolucion'=>$devolucion,'estado_id'=>$estado,'solicitud_id'=> $id, 'user_id'=> $usuario,'created_at'=>$now,'updated_at'=>$now]);
-                  // //         return 'hola';
-                       return redirect()->action('ExistenciaController@index')->with('exito','Se ha generado el préstamo correctamente!');
-            }else{
-             $existencia_id=$existencia->id;
-                      return redirect()->route('existencias.prestar', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido crear el préstamo! Esta solicitud no está aprobada');
-          }
-            }else{
-             $existencia_id=$existencia->id;
-                      return redirect()->route('existencias.prestar', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido crear el préstamo! El equipo no corresponde');
-          }
-            }else{
-              $existencia_id=$existencia->id;
-                      return redirect()->route('existencias.prestar', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido crear el préstamo! Las fechas no corresponde');
-            }
-            
-          }else{
-            $existencia_id=$existencia->id;
-                      return redirect()->route('existencias.prestar', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido crear el préstamo! La solicitud no corresponde');
-          }
-        }catch (ModelNotFoundException $ex) {
-            return redirect()->route('existencias.prestar', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido crear el préstamo! La solicitud no existe');
-
-          }
-           
-      //  return redirect()->action('ExistenciaController@index')->with('mensaje','Se ha generado el préstamo correctamente!');
-    }
-
-    public function devolver( Existencia $existencia){
-        $hoy=Carbon::today()->format('Y-m-d');
-        $disponibilidads = ExistenciaDisponibilidad::all(['id','nombre']);
-        return view('encargado.existencias.devolver',compact('existencia','disponibilidads','hoy'));
-    }
-
-     public function devolverUpdate(Request $request, Existencia $existencia){
-         try{
-         //validacion
-         $datosExistencia = $request->validate([
-             'codigo' => 'required|max:40',
-             'disponibilidad' => 'required|max:200',
-             'solicitud' =>'required',
-             'fecha_devolucion' => 'required|date',
-         ]);
-        $now=Carbon::now();
-          //rescato valores para modificar prestamo
-        $fecha_devolucion=$request->fecha_devolucion;
-        $devolucion=Carbon::parse($fecha_devolucion)->format('Y-m-d 00:00:00');
-     //   $devolucion=$request->fecha_devolucion->format('d-m-Y');
-        $id_solicitud=$request->solicitud;
-        $id_existencia =$existencia->id;
-        $solicitud=Solicitud::findOrFail($id_solicitud);
-     //   $solicitud = DB::table('solicituds')->where('id',$id_solicitud);
-
-        //para verificar datos de devolucion
-        $fecha_fin=$solicitud->pluck('fecha_fin');
-        $fecha=$fecha_fin[0];
-        
-        $solicitud_id=$solicitud->pluck('id');
-        $id=$solicitud_id[0];
-
-        $existencia_id=$solicitud->pluck('existencia_id');
-        $exis=$existencia_id[0];
-
-        $estado_id=$solicitud->pluck('estado_id');
-        $estado_sol=$estado_id[0];
-        
-        //rescato valores de prestamo 
-        $prestamo=DB::table('prestamos')->where('solicitud_id',$id_solicitud);
-        $estado_prestamo=$prestamo->pluck('estado_id');
-        $estado_pres=$estado_prestamo[0];
-
-            //condicion  para vefificar datos de la solicitud y formulario de devolucion
-        if($devolucion <= $fecha && $exis == $id_existencia && $id == $id_solicitud && $estado_sol == 2 && $estado_pres == 1){
-              $existencia->disponibilidad_id = 1;
-              $existencia->save();
-            
-         DB::table('solicituds')->where('id',$id_solicitud)->update(['estado_id' => 4]);
-         DB::table('prestamos')->where('solicitud_id',$id_solicitud)->update(['estado_id' => 2]);
-           
-            return redirect()->action('ExistenciaController@index')->with('exito','Se ha devuleto el equipo correctamente!');
-        }else{
-            $existencia_id=$existencia->id;
-            return redirect()->route('existencias.devolver', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido devolver el equipo!');
-           
-        }
-    }catch (ModelNotFoundException $ex) {
-        return redirect()->route('existencias.devolver', ['existencia'=> $existencia->id])->with('fracaso','No se ha podido devolver el equipo! La solicitud no existe');
-      }
-}
+    
 
 }

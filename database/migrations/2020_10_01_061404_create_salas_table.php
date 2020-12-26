@@ -21,6 +21,7 @@ class CreateSalasTable extends Migration
             $table->integer ('capacidad');
             $table->string ('internet');
             $table->string ('aire_acondicionado');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

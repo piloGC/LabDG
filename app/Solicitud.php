@@ -8,13 +8,9 @@ class Solicitud extends Model
 {
     //datos a insertar
     protected $fillable = [
-        'motivo' ,'fecha_inicio' ,'fecha_fin'  ,'asignatura_id','existencia_id','estado_id',
+        'motivo' ,'fecha_inicio' ,'fecha_fin'  ,'asignatura','existencia_id','estado_id',
     ];
 
-
-    public function asignatura(){
-        return $this->belongsTo(Asignatura::class);
-    }
 
     public function estado(){
         return $this->belongsTo(SolicitudEstado::class);

@@ -222,7 +222,7 @@ class SolicitudController extends Controller
             'motivo'=> $datosSolicitud['motivo'],
             'fecha_inicio'=> $datosSolicitud['fecha_inicio'],
             'fecha_fin'=> $datosSolicitud['fecha_fin'],
-            'asignatura_id' =>$datosSolicitud['asignatura'],
+            'asignatura' =>$datosSolicitud['asignatura'],
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);

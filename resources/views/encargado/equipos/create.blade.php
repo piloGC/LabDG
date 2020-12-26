@@ -90,15 +90,16 @@
                         <label for="descripcion">Descripción</label>
                         <input id="descripcion" 
                         type="hidden" 
+                        id="descripcion"
                         name="descripcion" 
                         value={{old ('descripcion')}}
                         >
                         <trix-editor 
+                        input="descripcion"
                             class="form-control @error('descripcion') is-invalid @enderror" 
                             placeholder="Ingrese descripción del equipo"
-                            input="descripcion"
                             value={{old ('descripcion')}}
-                            >
+                            style="overflow-y:auto">
                         </trix-editor>
     
                         @error('descripcion')
