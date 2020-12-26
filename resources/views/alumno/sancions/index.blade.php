@@ -14,7 +14,7 @@
            <tr class="table-active">
 
             <th scole="col">Número solicitud</th>
-            <th scole="col">Descripción</th>
+            <th scole="col">Categoría</th>
             <th scole="col">Desde</th>
             <th scole="col">Hasta</th>
             <th scole="col">Estado</th>
@@ -26,7 +26,8 @@
                     <tr>
 
                         <td>{{$sanciones->prestamo->solicitud_id}}</td>
-                        <td>{!! $sanciones->descripcion !!}</td> 
+                        {{--  <td>{!! $sanciones->descripcion !!}</td>   --}}
+                        <td>{{ $sanciones->categoria->nombre}}</td>
                         <td><fecha-index fecha="{{$sanciones->fecha_inicio}}">-</fecha-index></td>
                         <td><fecha-index fecha="{{$sanciones->fecha_fin}}">-</fecha-index></td>
                         {{--  <td><fecha-equipo fecha="{{$sancion->fecha_inicio}}">-</fecha-equipo></td>
