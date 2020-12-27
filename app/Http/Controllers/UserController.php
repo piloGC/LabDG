@@ -32,10 +32,9 @@ class UserController extends Controller
     }
     public function create(Existencia $existencia){
         
-        $asignaturas = Asignatura::all(['id', 'nombre']);
         $estados = SolicitudEstado::all(['id', 'nombre']);
         $hoy = Carbon::now();
-        return view('alumno.catalogo.equipos.create',compact('asignaturas','hoy','estados','existencia'));
+        return view('alumno.catalogo.equipos.create',compact('hoy','estados','existencia'));
     }
 
 

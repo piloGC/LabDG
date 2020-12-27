@@ -13,12 +13,6 @@ class CreateSolicitudsTable extends Migration
      */
     public function up()
     {
-        Schema::create('asignaturas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('codigo');
-            $table->timestamps();
-        });
 
         Schema::create('solicitud_estados', function (Blueprint $table) {
             $table->id();
@@ -48,7 +42,6 @@ class CreateSolicitudsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asignaturas');
         Schema::dropIfExists('solicituds');
         Schema::dropIfExists('solicitud_estados');
     }
