@@ -368,7 +368,7 @@ class ListarSolicitudController extends Controller
     public function cambiarEstadoAprobada(Solicitud $listarSolicitud)
 {
     //validad que se pueda aprobar antes del dia solicitado
-    $hoy = Carbon::now();
+    $hoy = Carbon::now()->format('Y-m-d 00:00:00');
     if($listarSolicitud->fecha_inicio >= $hoy){
 
         //validacion para que su el equipo solicitado este disponible en esas fechas
