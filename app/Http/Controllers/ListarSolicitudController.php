@@ -47,12 +47,11 @@ class ListarSolicitudController extends Controller
     public function create()
     {
         //
-        $asignaturas = Asignatura::all(['id', 'nombre']);
         $estados = SolicitudEstado::all(['id', 'nombre']);
         $existencias = Existencia::all(['id','codigo','equipo_id']);
      //   $usuario =auth()->user();
         $hoy = Carbon::now()->format('Y-m-d');
-        return view('encargado.solicitudes.encursos.create',compact('asignaturas','estados','hoy','existencias'));
+        return view('encargado.solicitudes.encursos.create',compact('estados','hoy','existencias'));
     }
 
     /**

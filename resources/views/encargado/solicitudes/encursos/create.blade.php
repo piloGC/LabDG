@@ -21,6 +21,7 @@
                 <input 
                 value="{{old('run')}}"
                     type="text" 
+                    placeholder="Ingrese con puntos y guión"
                     name="run" 
                     id="run"
                     class="form-control @error('run') is-invalid @enderror"  >
@@ -38,13 +39,12 @@
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
-                <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($asignaturas as $asignatura)
-                        <option value="{{ $asignatura->id }}" {{ old('asignatura') == $asignatura->id ? 'selected' : '' }}>
-                            {{ $asignatura->nombre }}</option>
-                    @endforeach
-                </select>
+                <input id="asignatura"
+                        type="text"
+                        name="asignatura" 
+                        class="form-control @error('asignatura') is-invalid @enderror" 
+                        value={{old ('asignatura')}}
+                    >
                 @error('asignatura')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>

@@ -51,12 +51,11 @@ class SolicitudController extends Controller
     public function create()
     {
         //
-        $asignaturas = Asignatura::all(['id', 'nombre']);
         $estados = SolicitudEstado::all(['id', 'nombre']);
         $existencias = Existencia::all(['id','codigo','equipo_id']);
         $hoy = Carbon::now();
 
-        return view('alumno.solicitudes.create',compact('asignaturas','estados','hoy','existencias'));
+        return view('alumno.solicitudes.create',compact('estados','hoy','existencias'));
     }
 
     /**

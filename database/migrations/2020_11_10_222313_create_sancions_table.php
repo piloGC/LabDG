@@ -16,7 +16,6 @@ class CreateSancionsTable extends Migration
         Schema::create('categoria_sancions',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
             $table->timestamps();
         });
         Schema::create('estado_sancions',function(Blueprint $table){
