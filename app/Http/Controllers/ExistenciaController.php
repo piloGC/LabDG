@@ -118,7 +118,6 @@ class ExistenciaController extends Controller
          //   'estado' => 'required|max:40',
             'disponibilidad' => 'required|max:200',
          //   'equipo' => 'required',
-         'solicitud' => 'required',
            
         ]);
 

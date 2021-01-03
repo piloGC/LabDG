@@ -37,13 +37,18 @@ class SancionController extends Controller
         // $id_solicitud = DB::table('solicituds')->where('user_id',Auth::id());
         $cont = 0;
         $cantidadsancion=0;
-        $usuario = Auth::id();
-        if($usuario == '1'){
+        $usuario = Auth::user();
+        $encargado = Auth::user()->where('role_id',1);
+        $encargado_id = $encargado->pluck('id');
+        $id =$encargado_id[0];
+        
+        $role_id = $usuario->role_id;
+        if($role_id == 1){
 
             $terminarCiclo = 1;
-            while($terminarCiclo ==1){
-                //recuperamos los id de las solicitudes que ha generado ese alumno                
-                $cantidadPrestamos=DB::table('prestamos')->where('user_id','1')->pluck('id');
+            while($terminarCiclo ==1){        
+                //cantidad de prestamos que posee el encargado en base a los generados por los alumnos    
+                $cantidadPrestamos=DB::table('prestamos')->where('user_id',$id)->pluck('id');
                 $cantidadPrestamoss = count($cantidadPrestamos);  
 
                 if($cantidadPrestamoss == 0){
@@ -108,7 +113,9 @@ class SancionController extends Controller
             }
             
 
-        }else{
+        }
+        if($role_id == 2){
+            //sección para alumno
             $terminarCiclo = 1;
             while($terminarCiclo ==1){
                 //recuperamos los id de las solicitudes que ha generado ese alumno                
@@ -442,7 +449,9 @@ class SancionController extends Controller
      */
     public function show(Sancion $sancion)
     {
-        $usuario = Auth::id();
+
+        $usuario = Auth::user();
+        
         $prestamoid = $sancion->prestamo_id;
         $infoPrestamo= Prestamo::find($prestamoid);
 
@@ -455,7 +464,10 @@ class SancionController extends Controller
         $sancion->alumnoApellido = $infoAlumno->lastname;
         $sancion->rutAlumno = $infoAlumno->run;
 
-        if($usuario == '1'){
+        
+        $role_id = $usuario->pluck('role_id');
+        $role =$role_id[0];
+        if($role == 1){
             return view('encargado.sanciones.show')->with('sancion',$sancion);
         }else{
             return view('alumno.sancions.show')->with('sancion',$sancion);
