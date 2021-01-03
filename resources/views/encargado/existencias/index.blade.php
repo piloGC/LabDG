@@ -20,7 +20,7 @@
         <table class="table table-hover">
             <thead class="bg-olive text-light ">
                 <tr class="table-active">
-                    <th scole="col">#</th>
+                
                     <th scole="col">Número de existencia</th>
                     <th scole="col">Fecha Adquisicion</th>
                     <th scole="col">Estado</th>
@@ -34,7 +34,7 @@
 
                 @foreach($existencias as $existencia)
                 <tr>
-                    <td>{{$existencia->id}}</td>
+
                     <td>{{$existencia->codigo}}</td>
                     <td><fecha-index fecha="{{$existencia->fecha_adquisicion}}"></fecha-index></td>
                     <td>{{$existencia->estado->nombre}}</td>

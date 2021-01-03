@@ -71,7 +71,7 @@ class SolicitudController extends Controller
            'motivo' => 'required|string|max:200',
            'fecha_inicio'=> 'required|date',
            'fecha_fin'=> 'required|date|after:fecha_inicio',
-           'asignatura' =>'required',
+           'asignatura' =>'required|string',
            'existencia'=>'required',
            'estado'=>'required',
            'condiciones' => 'required',

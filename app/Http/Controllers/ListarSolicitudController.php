@@ -63,10 +63,10 @@ class ListarSolicitudController extends Controller
     public function store(Request $request)
     {
           $datosSolicitud = $request->validate([
-              'motivo' => 'required|max:200',
+              'motivo' => 'required|string|max:200',
               'fecha_inicio'=> 'required|date',
               'fecha_fin'=> 'required|date|after:fecha_inicio',
-              'asignatura' =>'required',
+              'asignatura' =>'required|string',
               'existencia'=>'required',
               'estado'=>'required',
               'run' =>'required|exists:users'
@@ -75,6 +75,13 @@ class ListarSolicitudController extends Controller
         $now=Carbon::now();
         $run=$request->run;
         $usuario=User::where('run',$run);
+        $role_id = $usuario->pluck('role_id');
+        $role =$role_id[0];
+        if($role == 1){
+
+            return redirect()->back()->with('fracaso','La solicitud debe estar asociado a un alumno');
+
+        }else{
         $run_usuario=$usuario->pluck('run');
         $run_user=$run_usuario[0];
         $id_usuario=$usuario->pluck('id');
@@ -262,10 +269,11 @@ class ListarSolicitudController extends Controller
 
          Mail::to($mailusuario)->send(new AprobarPrestamo($prestamo));
 
-         return redirect()->action('AdminController@index')->with('exito','Solicitud creada exitosamente!');
+         return redirect()->action('AdminController@index')->with('mensaje','Solicitud creada exitosamente!');
          }else{
             return redirect()->back()->with('fracaso','No se pudo crear la solicitud!');
          }
+        }
     }
 
     /**
@@ -341,7 +349,7 @@ class ListarSolicitudController extends Controller
     public function encursos(Request $request){ 
         $hoy= Carbon::now();
         $busqueda=$request['solicitud'];
-        $solicitudes = Solicitud::where('estado_id',4)->where('id','like','%' . $busqueda . '%')->paginate(15);
+        $solicitudes = Solicitud::where('estado_id',4)->where('id','like','%' . $busqueda . '%')->orderBy('id','DESC')->paginate(15);
         $solicitudes->appends(['solicitud' => $busqueda]);
 
         return view('encargado.solicitudes.encursos.index',compact('solicitudes','hoy'));
@@ -444,7 +452,7 @@ class ListarSolicitudController extends Controller
         $mailusuario = $listarSolicitud->usuario->email;
         Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
         
-        return redirect()->action('ListarSolicitudController@entrantes');
+        return redirect()->action('ListarSolicitudController@entrantes')->with('mensaje','Solicitud n°'.$idSolicitud.' aprobada satisfactoriamente  ');
     }  
     
     return redirect()->back()->with('fracaso','Solicitud fuera de plazo, favor rechazar la solicitud');
@@ -453,7 +461,7 @@ class ListarSolicitudController extends Controller
 public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolicitud)
 {
     $datosRechazo = request()->validate([
-        'motivo_estado' => 'required|max:200',
+        'motivo_estado' => 'required|string|max:200',
     ]);
 
     DB::table('solicituds')->update([
@@ -473,14 +481,13 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
     //Enviar correo indicando el apruebo de solicitud
     $mailusuario = $listarSolicitud->usuario->email;
    Mail::to($mailusuario)->send(new RechazarSolicitud($listarSolicitud));
-    return redirect()->action('ListarSolicitudController@rechazadas');
+    return redirect()->action('ListarSolicitudController@rechazadas')->with('mensaje','Solicitud n°'.$listarSolicitud->id.' rechazada satisfactoriamente  ');
     }
     
     
     public function cambiarEstadoCancelada(Request $request, Solicitud $listarSolicitud){
-
         $datosCancelar = request()->validate([
-            'motivo_estado' => 'required|max:200',
+            'motivo_estado' => 'required|string|max:200',
         ]);
     
         DB::table('solicituds')->update([
@@ -499,7 +506,8 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
     $mailusuario = $listarSolicitud->usuario->email;
     Mail::to($mailusuario)->send(new CancelarSolicitud($listarSolicitud));
 
-    return redirect()->action('ListarSolicitudController@canceladas');
+    return redirect()->action('ListarSolicitudController@canceladas')->with('mensaje','Solicitud n°'.$listarSolicitud->id.' cancelada satisfactoriamente  ');
+    ;
     }
     
 }

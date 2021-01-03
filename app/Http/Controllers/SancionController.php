@@ -431,7 +431,7 @@ class SancionController extends Controller
         // $id_prestamo=Prestamo::findOrFail($request->prestamo); 
         // DB::table('prestamos')->where('id',$id_prestamo)->update(['sancion_id' => ]);
         //return
-        return redirect()->action('AdminController@index')->with('exito','Se ha concluido su prestamo! y se ha sancionado');
+        return redirect()->action('AdminController@index')->with('mensaje','Se ha concluido su prestamo! y se ha sancionado');
     }
 
     /**

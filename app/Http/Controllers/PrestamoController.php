@@ -35,7 +35,7 @@ class PrestamoController extends Controller
         $usuario =auth()->user();
         
         //prestamos CON paginacion
-        $prestamos = Prestamo::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(5);
+        $prestamos = Prestamo::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(15);
 
 
         return view('encargado.prestamos.index',compact('prestamos','usuario','hoy'));
@@ -107,7 +107,7 @@ class PrestamoController extends Controller
      
         Mail::to($mailusuario)->send(new AprobarPrestamo($correo));
 
-        return redirect()->action('ListarSolicitudController@aprobadas')->with('exito','Se ha generado el préstamo correctamente!');
+        return redirect()->action('ListarSolicitudController@aprobadas')->with('mensaje','Se ha generado el préstamo correctamente!');
     }
 
     /**
@@ -172,10 +172,10 @@ class PrestamoController extends Controller
             
             Mail::to($mailusuario)->send(new TerminarPrestamo($correo));
 
-            return redirect()->action('PrestamoController@index')->with('exito','Se ha concluido su prestamo!');
+            return redirect()->action('PrestamoController@index')->with('mensaje','Se ha concluido su prestamo!');
         
         }else{
-            return redirect()->action('PrestamoController@index')->with('fracaso','Error guacho concluido su prestamo!');
+            return redirect()->action('PrestamoController@index')->with('fracaso','Error no se ha concluido su prestamo!');
         }
 
     }
