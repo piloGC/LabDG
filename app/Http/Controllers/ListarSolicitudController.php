@@ -256,14 +256,15 @@ class ListarSolicitudController extends Controller
         $infoAlumno = User::find($alumno_id); 
         $mailusuario = $infoAlumno->email;
 
-        $infoEncargado =User::find(1);
+        $nombre = auth()->user()->name;
+        $apellido = auth()->user()->lastname;
 
         //datos para el correo
         $prestamo->infoEquipo = $infoSolicitud->existencia;
         $prestamo->alumnoNombre = $infoAlumno->name;
         $prestamo->alumnoApellido = $infoAlumno->lastname;
-        $prestamo->encargadoNombre = $infoEncargado->name;
-        $prestamo->encargadoApellido = $infoEncargado->lastname;  
+        $prestamo->encargadoNombre = $nombre;
+        $prestamo->encargadoApellido = $apellido; 
         $prestamo->infoSolicitud = $infoSolicitud;
 
 

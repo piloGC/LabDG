@@ -77,6 +77,53 @@ class SolicitudController extends Controller
            'condiciones' => 'required',
        ]);
 
+
+       $fechaundia = strtotime ( '1 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
+       $fechaundiaformato = date ( 'Y-m-d 00:00:00' , $fechaundia );
+
+       $fechats_inicio = strtotime($datosSolicitud['fecha_inicio']); //a timestamp
+       $fechats_fin = strtotime($datosSolicitud['fecha_fin']); //a timestamp
+
+       //el parametro w en la funcion date indica que queremos el dia de la semana
+       //lo devuelve en numero 0 domingo, 1 lunes,....
+       switch (date('w', $fechats_inicio)){
+           case 0:  //domingo                           
+                return redirect()->action('SolicitudController@create')->with('fracaso','No puede crear una solicitud para un día domingo');
+                break;
+           case 1: //lunes
+                break;
+           case 2: //martes
+                break;
+           case 3: //miercoles
+                break;
+           case 4: //"Jueves"
+                break;
+           case 5: //viernes
+                break;
+           case 6: 
+            return redirect()->action('SolicitudController@create')->with('fracaso','No puede crear una solicitud para un día sabado');
+            break;
+       } 
+       switch (date('w', $fechats_fin)){
+        case 0:  //domingo                           
+             return redirect()->action('SolicitudController@create')->with('fracaso','No puede finalizar una solicitud para un día domingo');
+             break;
+        case 1: //lunes
+             break;
+        case 2: //martes
+             break;
+        case 3: //miercoles
+             break;
+        case 4: //"Jueves"
+             break;
+        case 5: //viernes
+             break;
+        case 6: 
+         return redirect()->action('SolicitudController@create')->with('fracaso','No puede finalizar una solicitud para un día sabado');
+         break;
+    } 
+
+
        //Validacion para ver si usuario esta sancionado o tiene alguna solicitud en sistema con misma categoria
         $consultaValidacion = '1';
         while($consultaValidacion == '1'){
@@ -225,17 +272,28 @@ class SolicitudController extends Controller
             'existencia_id'=> $datosSolicitud['existencia'],
             'estado_id'=>$datosSolicitud['estado'],
         ]);
+        $infoExistencia = Existencia::find($datosSolicitud['existencia']);
+        $idEquipo= $infoExistencia->equipo_id;
+        $infoEquipo = Equipo::find($idEquipo);
+
         $datosSolicitud['user_id'] = Auth::id();
         $datosSolicitud['user_name'] =Auth::User()->name;
         $datosSolicitud['user_lastname'] =Auth::User()->lastname;
-        $datosSolicitud['equipo'] = Equipo::find($datosSolicitud['existencia'])->nombre;
+        $datosSolicitud['equipo'] = $infoEquipo->nombre;
         $solicitud->user_name = Auth::User()->name;
         $solicitud->user_lastname = Auth::User()->lastname;
-        $solicitud->equipo = Equipo::find($datosSolicitud['existencia'])->nombre;
+        $solicitud->equipo = $infoEquipo->nombre;
 
         //Notificar al Encargado
-        $NotificarEncargado = User::find(1);
-        $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
+        $encargados = db::table('users')->where('role_id',1);
+        $id_encargados=$encargados->pluck('id');
+        $cantidad = count($id_encargados);
+
+        for ($i=0; $i < $cantidad; $i++) { 
+            $id=$id_encargados[$i]; 
+            $NotificarEncargado = User::find($id);
+            $NotificarEncargado->notify(new SolicitudNotificacion($solicitud));
+        }
         
         return redirect()->action('SolicitudController@index')->with('mensaje','Solicitud enviada!');
     }
