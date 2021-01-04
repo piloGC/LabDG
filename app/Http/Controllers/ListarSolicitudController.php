@@ -232,7 +232,7 @@ class ListarSolicitudController extends Controller
               'fecha_fin' => $datosSolicitud['fecha_fin'],
               'asignatura' => $datosSolicitud['asignatura'],
               'existencia_id' => $datosSolicitud['existencia'],
-              'estado_id' => 4,
+              'estado_id' => 3,
              'user_id' => $id,
              'created_at'=>$now,
              'updated_at'=>$now

@@ -78,8 +78,14 @@ class SolicitudController extends Controller
        ]);
 
 
-       $fechaundia = strtotime ( '1 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
-       $fechaundiaformato = date ( 'Y-m-d 00:00:00' , $fechaundia );
+       $fecha_un_dia = strtotime ( '1 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
+       $fecha_un_diaformato = date ( 'Y-m-d' , $fecha_un_dia );
+
+       $fecha_dos_dia = strtotime ( '2 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
+       $fecha_dos_diaformato = date ( 'Y-m-d' , $fecha_dos_dia );
+
+       $fecha_tres_dia = strtotime ( '3 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
+       $fecha_tres_diaformato = date ( 'Y-m-d' , $fecha_tres_dia );
 
        $fechats_inicio = strtotime($datosSolicitud['fecha_inicio']); //a timestamp
        $fechats_fin = strtotime($datosSolicitud['fecha_fin']); //a timestamp
@@ -91,14 +97,39 @@ class SolicitudController extends Controller
                 return redirect()->action('SolicitudController@create')->with('fracaso','No puede crear una solicitud para un día domingo');
                 break;
            case 1: //lunes
+                //si fecha fin es distinto que martes o miercoles
+                if($datosSolicitud['fecha_fin'] != $fecha_un_diaformato && $datosSolicitud['fecha_fin'] != $fecha_dos_diaformato ){
+                    return redirect()->action('SolicitudController@create')->with('fracaso','Puede solicitar un equipo por máximo de 2 días');
+                    break;
+                }
                 break;
            case 2: //martes
+                //si fecha fin es distinto que  miercoles o jueves
+                if($datosSolicitud['fecha_fin'] != $fecha_un_diaformato && $datosSolicitud['fecha_fin'] != $fecha_dos_diaformato ){
+                    return redirect()->action('SolicitudController@create')->with('fracaso','Puede solicitar un equipo por máximo de 2 días');
+                    break;
+                }
                 break;
            case 3: //miercoles
+                //si fecha fin es distinto que  jueves o viernes
+                if($datosSolicitud['fecha_fin'] != $fecha_un_diaformato && $datosSolicitud['fecha_fin'] != $fecha_dos_diaformato ){
+                    return redirect()->action('SolicitudController@create')->with('fracaso','Puede solicitar un equipo por máximo de 2 días');
+                    break;
+                }
                 break;
            case 4: //"Jueves"
+                //si fecha fin es distinto que  viernes
+                if($datosSolicitud['fecha_fin'] != $fecha_un_diaformato){
+                    return redirect()->action('SolicitudController@create')->with('fracaso','Puede solicitar un equipo por máximo de 2 días');
+                    break;
+                }
                 break;
            case 5: //viernes
+                //si fecha fin es distinto que lunes
+                if($datosSolicitud['fecha_fin'] != $fecha_tres_diaformato){
+                    return redirect()->action('SolicitudController@create')->with('fracaso','Solo puedes pedir el equipo hasta el día lunes');
+                    break;
+                }
                 break;
            case 6: 
             return redirect()->action('SolicitudController@create')->with('fracaso','No puede crear una solicitud para un día sabado');
