@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Equipo;
+use App\Sancion;
 use App\Prestamo;
 use App\Solicitud;
-use App\Sancion;
 use Carbon\Carbon;
 use App\Existencia;
 use App\PrestamoEstado;
@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Mail\AprobarPrestamo;
 use App\Mail\TerminarPrestamo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;   
 
 class PrestamoController extends Controller
@@ -32,10 +33,10 @@ class PrestamoController extends Controller
     {
         //
         $hoy= Carbon::now();
-        $usuario =auth()->user();
+        $usuario =Auth::user();
         
         //prestamos CON paginacion
-        $prestamos = Prestamo::where('user_id', $usuario->id)->orderBy('id','DESC')->paginate(15);
+        $prestamos = Prestamo::orderBy('id','DESC')->paginate(15);
 
 
         return view('encargado.prestamos.index',compact('prestamos','usuario','hoy'));
