@@ -69,7 +69,7 @@ class EquipoController extends Controller
             'marca' => 'required|max:40',
             'modelo' => 'required|max:40',
             'descripcion' => 'required|max:200',
-            'imagen' => 'required|image|size:1000',
+            'imagen' => 'required|image',
             'categoria' =>'required',
             'catalogo' => 'required',
             
@@ -153,7 +153,7 @@ class EquipoController extends Controller
             'descripcion' => 'required|max:200',
             'catalogo' => 'required',
             'categoria' =>'required',
-            'imagen' => 'image|size:2000',
+            'imagen' => 'image',
         ]);
         $now=Carbon::now();
         //Asignar los valores

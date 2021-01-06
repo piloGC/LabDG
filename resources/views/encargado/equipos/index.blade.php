@@ -30,7 +30,7 @@
                     <td>{{$equipo->categoria->nombre}}</td>
                     <td>{{$equipo->nombre}}</td>
                     <td>
-                        <img src="/storage/{{$equipo->imagen}}" style="width:100px" ></td>
+                        <img src="storage/{{$equipo->imagen}}" style="width:100px" ></td>
                     <td>{{$equipo->catalogo->disponible}}</td>
                     <td>
                         <div class="btn-group mr-1" role="group" >

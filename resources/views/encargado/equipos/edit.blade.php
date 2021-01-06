@@ -117,8 +117,8 @@
                     >
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="imagen">Imagen actual</label>
-                        <img src="/storage/{{$equipo->imagen}}" style="width:170px" >
+                        <label>Imagen actual</label>
+                        <img src="../public/storage/{{$equipo->imagen}}" style="width:170px" >
                     </div>
 
 

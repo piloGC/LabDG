@@ -40,7 +40,7 @@
             <div class="form-group col-md-3">
                 <h4 class="titulos">Imagen referencial</h4>
                 <br>
-                <img src="/storage/{{$existencia->equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" alt="imagen no diponible">
+                <img src="../storage/{{$existencia->equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" alt="imagen no diponible">
             </div>
             <div class="form-group col-md-8">
                 <h4 class="titulos">Descripción</h4>

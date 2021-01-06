@@ -19,7 +19,7 @@
                     @foreach ($existencias as $existencia)
                         <div class="col-md-3 mb-3 ">
                             <div class="card shadow">
-                                <img class="card-img-top imagen-catalogo" src="/storage/{{$existencia->equipo->imagen}}" alt="imagen no diponible" >
+                                <img class="card-img-top imagen-catalogo" src="../storage/{{$existencia->equipo->imagen}}" alt="imagen no diponible" >
                                 <div class="card-body">
                                     <div>
                                         <span class="text-primary font-weight-bold">Modelo: </span>

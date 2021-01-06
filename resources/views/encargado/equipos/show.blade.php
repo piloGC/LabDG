@@ -46,7 +46,7 @@
         <div class="form-group col-md-3">
             <h4 >Imagen referencial</h4>
             <br>
-            <img src="/storage/{{$equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" >
+            <img src="../storage/{{$equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" >
         </div>
         <div class="form-group col-md-8">
             <h4 >Descripción</h4>

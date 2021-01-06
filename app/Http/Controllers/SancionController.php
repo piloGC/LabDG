@@ -442,7 +442,7 @@ class SancionController extends Controller
      */
     public function show(Sancion $sancion)
     {
-        $usuario = Auth::id();
+        $usuario = Auth::user();
         $prestamoid = $sancion->prestamo_id;
         $infoPrestamo= Prestamo::find($prestamoid);
 
@@ -455,7 +455,7 @@ class SancionController extends Controller
         $sancion->alumnoApellido = $infoAlumno->lastname;
         $sancion->rutAlumno = $infoAlumno->run;
 
-        if($usuario == '1'){
+        if($usuario->role_id == 1){
             return view('encargado.sanciones.show')->with('sancion',$sancion);
         }else{
             return view('alumno.sancions.show')->with('sancion',$sancion);
