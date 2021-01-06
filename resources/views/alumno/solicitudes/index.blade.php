@@ -23,7 +23,7 @@
             @foreach ($solicitudes as $solicitud)
             <tr>
                 <td>{{$solicitud->id}}</td>
-                <td>{{$solicitud->existencia->codigo}}</td>
+                <td>{{$solicitud->existencia->equipo->nombre}}</td>
                 <td><fecha-index fecha="{{$solicitud->fecha_inicio}}">-</fecha-index></td>
                 <td><fecha-index fecha="{{$solicitud->fecha_fin}}">-</fecha-index></td>
                 <td>

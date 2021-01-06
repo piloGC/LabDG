@@ -26,7 +26,7 @@ class ExistenciaController extends Controller
     {
         //
         $busqueda=$request['existencia'];
-        $existencias=Existencia::where('codigo','like','%' . $busqueda . '%')->paginate(10);
+        $existencias=Existencia::where('codigo','like','%' . $busqueda . '%')->orderBy('codigo', 'asc')->orderBy('disponibilidad_id','asc')->paginate(10);
         $existencias->appends(['existencia' => $busqueda]);
 
         return view ('encargado.existencias.index',compact('existencias'));
@@ -118,7 +118,6 @@ class ExistenciaController extends Controller
          //   'estado' => 'required|max:40',
             'disponibilidad' => 'required|max:200',
          //   'equipo' => 'required',
-         'solicitud' => 'required',
            
         ]);
 

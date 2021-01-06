@@ -55,8 +55,8 @@
              <div class="form-group col-md-4 mt-3">
                 <label for="fecha_inicio">Desde:</label>
                 <input type="date"  value="{{$hoy}}"
-                name="fecha_inicio" id="fecha_inicio" 
-                class="form-control @error ('fecha_inicio') is-invalid @enderror" readonly>
+                name="fecha_inicio" id="fecha_inicio" min="{{$hoy}}"
+                class="form-control @error ('fecha_inicio') is-invalid @enderror" >
                 @error('fecha_inicio') 
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
