@@ -143,9 +143,9 @@ class SancionController extends Controller
                         $infoPrestamo = Prestamo::find($idPrestamooo);   
                         $id_prestamo = $infoPrestamo->id;
 
-                        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+                        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo)->get();
                         $idSancion=$sancionTable->pluck('id');
-
+                        
                         if(empty($idSancion['0'])){
                             //dd('no tiene una sancion asociado a este prestamo');
                                 //continua con ciclo for en i++
@@ -153,13 +153,16 @@ class SancionController extends Controller
                             //->where('prestamo_id',$id_prestamo);
                             
                             $idSancionn=$idSancion[0]; 
-                            $sancion= Sancion::find($idSancionn);
-                            $estadoSancion=$sancion->estado_id;
-                            if($estadoSancion == '1'){
-                                $data['sanciones']=  Sancion::find($idSancionn);
+                            $sanciones= Sancion::orderBy('estado_id','asc')->paginate(15);
+                            $solicitudes=Solicitud::Where('estado_id',5)->get();
                             
-                                return view('alumno.sancions.index',$data);
-                            }
+                            //  $estadoSancion=$sanciones[0];
+                            // // dd($estadoSancion);
+                            // if($estadoSancion == '1' && $estadoSancion == '2'){
+                            //     $data['sanciones']=  Sancion::all();
+
+                                return view('alumno.sancions.index',compact('sanciones','solicitudes'));
+                         //   }
                         }
                     }
                 }
