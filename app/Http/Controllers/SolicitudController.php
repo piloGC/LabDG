@@ -76,7 +76,10 @@ class SolicitudController extends Controller
            'estado'=>'required',
            'condiciones' => 'required',
        ]);
-
+        
+       if($datosSolicitud['existencia']==0){
+        return redirect()->action('SolicitudController@create');
+       }
 
        $fecha_un_dia = strtotime ( '1 days' , strtotime ( $datosSolicitud['fecha_inicio'] ) ) ;
        $fecha_un_diaformato = date ( 'Y-m-d' , $fecha_un_dia );

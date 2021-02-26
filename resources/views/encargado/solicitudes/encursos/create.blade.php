@@ -21,7 +21,7 @@
                 <input 
                 value="{{old('run')}}"
                     type="text" 
-                    placeholder="Ingrese con puntos y guión"
+                    placeholder="Ingrese con puntos y guion"
                     name="run" 
                     id="run"
                     class="form-control @error('run') is-invalid @enderror"  >

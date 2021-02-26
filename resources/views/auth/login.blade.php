@@ -24,7 +24,7 @@
                 
                 <div class="col-md-6">
                     <input id="run" type="text" 
-                     placeholder="Ingrese con puntos y guión" 
+                     placeholder="Ingrese con puntos y guion" 
                     class="form-control @error('run') is-invalid @enderror" 
                     name="run" value="{{ old('run') }}" required autocomplete="run" autofocus>
                    

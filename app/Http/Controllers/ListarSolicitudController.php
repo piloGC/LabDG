@@ -62,7 +62,7 @@ class ListarSolicitudController extends Controller
      */
     public function store(Request $request)
     {
-          $datosSolicitud = $request->validate([
+        $datosSolicitud = $request->validate([
               'motivo' => 'required|string|max:200',
               'fecha_inicio'=> 'required|date',
               'fecha_fin'=> 'required|date|after:fecha_inicio',
@@ -70,8 +70,12 @@ class ListarSolicitudController extends Controller
               'existencia'=>'required',
               'estado'=>'required',
               'run' =>'required|exists:users'
-          ]);
+        ]);
 
+        if($datosSolicitud['existencia']==0){
+            return redirect()->back();
+        }
+          
         $now=Carbon::now();
         $run=$request->run;
         $usuario=User::where('run',$run);
@@ -232,7 +236,7 @@ class ListarSolicitudController extends Controller
               'fecha_fin' => $datosSolicitud['fecha_fin'],
               'asignatura' => $datosSolicitud['asignatura'],
               'existencia_id' => $datosSolicitud['existencia'],
-              'estado_id' => 3,
+              'estado_id' => 2,
              'user_id' => $id,
              'created_at'=>$now,
              'updated_at'=>$now
@@ -418,9 +422,9 @@ class ListarSolicitudController extends Controller
 
                      if($fi == $fis ){
                         return redirect()->action('ListarSolicitudController@entrantes')->with('fracaso','Ya existe una solicitud aprobada, en el rango de fecha solicitada');
-                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                         return redirect()->back()->with('fracaso','Este equipo ya está reservado entre el rango de las fechas ingresadas');
                      }elseif($fi > $fis && $fi < $ffs){
-                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                         return redirect()->back()->with('fracaso','Este equipo ya está reservado entre el rango de las fechas ingresadas');
                      }elseif($fi == $ffs){
                          $consultaDisponibilidadExistencia='2';
                      }
@@ -429,11 +433,11 @@ class ListarSolicitudController extends Controller
                          $consultaDisponibilidadExistencia='2';
                      }else
                      if($ff > $fis && $fi < $fis){
-                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                         return redirect()->back()->with('fracaso','Este equipo ya está reservado entre el rango de las fechas ingresadas');
                      }
 
                      if($fi < $fis && $ff > $ffs){
-                         return redirect()->back()->with('fracaso','Este equipo ya esta reservado entre el rango de las fechas ingresadas');
+                         return redirect()->back()->with('fracaso','Este equipo ya está reservado entre el rango de las fechas ingresadas');
                      }
                  }
 
@@ -453,7 +457,7 @@ class ListarSolicitudController extends Controller
         $mailusuario = $listarSolicitud->usuario->email;
         Mail::to($mailusuario)->send(new AprobarSolicitud($listarSolicitud));
         
-        return redirect()->action('ListarSolicitudController@entrantes')->with('mensaje','Solicitud n°'.$idSolicitud.' aprobada satisfactoriamente  ');
+        return redirect()->action('ListarSolicitudController@entrantes')->with('mensaje','Solicitud n°'.$idSolicitud.' aprobada satisfactoriamente');
     }  
     
     return redirect()->back()->with('fracaso','Solicitud fuera de plazo, favor rechazar la solicitud');
@@ -465,7 +469,7 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
         'motivo_estado' => 'required|string|max:200',
     ]);
 
-    DB::table('solicituds')->update([
+    DB::table('solicituds')->where('id',$listarSolicitud->id)->update([
         'motivo_estado' => $datosRechazo['motivo_estado'],
       //  'estado_id' => 3
     ]);
@@ -491,7 +495,7 @@ public function cambiarEstadoRechazada(Request $request, Solicitud $listarSolici
             'motivo_estado' => 'required|string|max:200',
         ]);
     
-        DB::table('solicituds')->update([
+        DB::table('solicituds')->where('id',$listarSolicitud->id)->update([
             'motivo_estado' => $datosCancelar['motivo_estado'],
            // 'estado_id' => 6
         ]);
