@@ -17,7 +17,7 @@
                 @method('PUT')
 <div class="row">
     <div class="form-group col-md-3">
-                    <label for="categoria">Categoria</label>
+                    <label for="categoria">Categoría</label>
 
                     <select
                         name="categoria" 
@@ -92,12 +92,14 @@
                     <label for="descripcion">Descripción</label>
                     <input id="descripcion" 
                     type="hidden" 
+                    id="descripcion"
                     name="descripcion" 
                     value="{{ $equipo->descripcion }}"
                     >
                     <trix-editor 
+                    input="descripcion"
                         class="form-control @error('descripcion') is-invalid @enderror" 
-                        input="descripcion"
+                        style="overflow-y:auto"
                     ></trix-editor>
                     @error('descripcion')
                     <span class="invalid_feedback d-block" role="alert">
@@ -115,8 +117,8 @@
                     >
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="imagen">Imagen actual</label>
-                        <img src="/storage/{{$equipo->imagen}}" style="width:170px" >
+                        <label>Imagen actual</label>
+                        <img src="../public/storage/{{$equipo->imagen}}" style="width:170px" >
                     </div>
 
 

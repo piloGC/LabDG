@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url('../images/fondo10.png') ">
+<body style="background-image:url({{ asset('/images/fondo19.png') }}) ">
 <div class="container py-4">
-<h1 class="text-center mb-3 titulos">SAncion</h1>
+<h1 class="text-center mb-3 titulos">Sancion</h1>
 
 <hr>
 <div class="row justify-content-center mt-4">
@@ -13,8 +13,8 @@
         <thead class="bg-success text-light">
            <tr class="table-active">
 
-            <th scole="col">ID Solicitud</th>
-            <th scole="col">Descripcion</th>
+            <th scole="col">Número de solicitud</th>
+            <th scole="col">Categoría</th>
             <th scole="col">Desde</th>
             <th scole="col">Hasta</th>
             <th scole="col">Estado</th>

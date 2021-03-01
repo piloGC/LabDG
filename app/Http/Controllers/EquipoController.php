@@ -9,7 +9,9 @@ use App\CategoriaEquipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 
 class EquipoController extends Controller
@@ -27,7 +29,7 @@ class EquipoController extends Controller
         $categorias = CategoriaEquipo::all(['id','nombre']);
         $catalogos = CatalogoEquipo::all(['id','disponible']);
 
-        $datos ['equipos']=Equipo::paginate(10);
+        $datos ['equipos']=Equipo::orderBy('categoria_id','asc')->paginate(10);
         return view ('encargado.equipos.index',$datos)->with('categorias',$categorias)->with('catalogos',$catalogos);;
     }
 
@@ -75,11 +77,16 @@ class EquipoController extends Controller
 
         //consulta si es que viene imagen, que modifique su ruta para guardar
         //if ($request->hasFile('imagen')){
-        $ruta_imagen = $request['imagen']->store('uploads','public');
-
+        $ruta_imagen = $request['imagen'];
+        // ->store('uploads','public');
+        
+        $imagen = time().'.'.$ruta_imagen->getClientOriginalExtension();
         //resize image
-        $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(600,550);
-        $img->save();
+
+        Storage::disk('public')->put($imagen, File::get($ruta_imagen));
+
+        //   $img = Image::make(public_path("public/{$imagen}"))->fit(600,550);
+        //   $img->save();
       
         $now= Carbon::now();
         //insertar en bdd sin modelo
@@ -88,7 +95,7 @@ class EquipoController extends Controller
             'marca' => $datosEquipo['marca'],
             'modelo' => $datosEquipo['modelo'],
             'descripcion' => $datosEquipo['descripcion'],
-            'imagen' => $ruta_imagen,
+            'imagen' => $imagen,
             'categoria_id' => $datosEquipo['categoria'],
             'en_catalogo' => $datosEquipo['catalogo'],
             'created_at' => $now,
@@ -146,6 +153,7 @@ class EquipoController extends Controller
             'descripcion' => 'required|max:200',
             'catalogo' => 'required',
             'categoria' =>'required',
+            'imagen' => 'image',
         ]);
         $now=Carbon::now();
         //Asignar los valores
@@ -159,10 +167,14 @@ class EquipoController extends Controller
         if (request('imagen')){
 
             //Storage::delete('public/'.$equipo->imagen);
-            $ruta_imagen= $request['imagen']->store('uploads','public');
-            $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(400,400);
-            $img->save();
-            $equipo->imagen = $datosEquipo['imagen'];
+            // $ruta_imagen= $request['imagen']->store('public');
+            // $img = Image::make(public_path("public/{$ruta_imagen}"))->encode('jpg', 75)->fit(600,550);
+            // $img->save();
+            $ruta_imagen = $request['imagen'];
+            $imagen = time().'.'.$ruta_imagen->getClientOriginalExtension();
+            Storage::disk('public')->put($imagen, File::get($ruta_imagen));
+
+            $equipo->imagen = $imagen;
         }
 
         $equipo->save();
@@ -179,10 +191,8 @@ class EquipoController extends Controller
      */
     public function destroy($id)
     {
-        //Storage::delete('public/uploads'.$equipo->imagen);
-        // $equipo->delete();
-        // return redirect()->action('EquipoController@index');
         $equipo = Equipo::find($id);
+        Storage::disk('public')->delete($equipo->imagen);
         $equipo->delete();
         return redirect('/equipos');
         

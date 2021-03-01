@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image: url(../images/fondo16.png)">
+<body style="background-image: url({{ asset('/images/fondo16.png') }})">
     <div class="container py-4" >
         <h1 class="text-center mb-3 titulos">CÁMARAS FOTOGRÁFICAS</h1>
         <hr>
-
         @if (count($existencias) > 0)
         @foreach ($existencias as $key => $grupo)
         
@@ -19,11 +18,11 @@
                     @foreach ($existencias as $existencia)
                         <div class="col-md-3 mb-3">
                             <div class="card shadow">
-                                <img class="card-img-top imagen-catalogo" src="/storage/{{$existencia->equipo->imagen}}" alt="imagen categoria" >
+                                <img class="card-img-top imagen-catalogo" src="../storage/{{$existencia->equipo->imagen}}" alt="imagen no diponible" >
                                 <div class="card-body">
                                     <div>
-                                        <span class="text-primary font-weight-bold">Categoría: </span>
-                                        {{$existencia->equipo->categoria->nombre}}
+                                        <span class="text-primary font-weight-bold">Modelo: </span>
+                                        {{$existencia->equipo->modelo}}
                                     </div>
                                     <div>
                                         <span class="text-primary font-weight-bold">Número de equipo:  </span>

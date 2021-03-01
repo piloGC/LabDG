@@ -11,13 +11,13 @@
     <h4>
         De acuerdo a lo solicitado, informo a usted que su solicitud nº {{ $info->id }} fue rechazada.
     </h4>
-        <h4>El motivo de su rechazo se genero, al evaluar el motivo que ingreso para su solicitud:
-            {!! $info ->motivo !!}
+        <h4>El motivo de su rechazo fue:
+            {!! $info ->motivorechazo !!}
 
         </h4>
 
         <h4>
-            Solicitud rechazada por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}
+            Solicitud rechazada por {{ $info->encargadoNombre }}  {{ $info->encargadoApellido }} con fecha de {{ \Carbon\Carbon::parse($info->updated_at)->isoFormat('DD [de] MMMM [del] YYYY')}}.
         </h4> 
         <h4> Saludos cordiales <br> <br> Laboratorio de Diseño Gráfico <br> Universidad del BÍO-BÍO</h4>
 </body>

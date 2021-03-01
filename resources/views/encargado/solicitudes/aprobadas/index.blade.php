@@ -3,7 +3,17 @@
 @section('content')
     <div id="app">
 <h1 class="text-center mb-5">Solicitudes de préstamo Aprobadas</h1>
-
+<div class="row justify-content-end mr-5">
+    <form action="{{route('aprobadas.buscar')}}">
+        <div class="input-group mb-3">
+            <input type="search" name="solicitud" class="form-control" placeholder="Número de solicitud" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-info" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form> 
+   
+</div>
 <div class="container mx-auto bg-white">
     <div class="table-responsive">
     <table class="table table-hover ">
@@ -36,7 +46,10 @@
                         <a href="#">
                              @include('encargado.prestamos.create')
                         </a>
-                        <a href="{{action ('ListarSolicitudController@cambiarEstadoCancelada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-secondary text-white" >Cancelar</a>
+
+                        <a href="{{ route('listarSolicitud.edit', ['listarSolicitud'=> $solicitud->id]) }}" class="btn btn-secondary text-white">Cancelar</a>
+
+                        {{-- <a href="{{action ('ListarSolicitudController@cambiarEstadoCancelada',['listarSolicitud' => $solicitud->id])}}" class="btn btn-secondary text-white" >Cancelar</a> --}}
                       </div> 
                 </td> 
             </tr>

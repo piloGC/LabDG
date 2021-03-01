@@ -15,12 +15,13 @@ class CreateSalasTable extends Migration
     {
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
-            $table->string ('codigo_interno');
+            $table->string ('codigo_interno')->unique();
             $table->string ('nombre');
             $table->string ('estado');
             $table->integer ('capacidad');
             $table->string ('internet');
             $table->string ('aire_acondicionado');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

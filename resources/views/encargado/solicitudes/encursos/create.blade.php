@@ -5,6 +5,7 @@
         integrity="sha512-EQF8N0EBjfC+2N2mlaH4tNWoUXqun/APQIuFmT1B+ThTttH9V1bA0Ors2/UyeQ55/7MK5ZaVviDabKbjcsnzYg=="
         crossorigin="anonymous" />
 @endsection
+
 @include('encargado.notificacion')
 @section('content')
 <div class="container py-2" id="app">
@@ -20,6 +21,7 @@
                 <input 
                 value="{{old('run')}}"
                     type="text" 
+                    placeholder="Ingrese con puntos y guion"
                     name="run" 
                     id="run"
                     class="form-control @error('run') is-invalid @enderror"  >
@@ -31,18 +33,18 @@
             </div> 
         </div> 
         
-             <dropdown-solicitud></dropdown-solicitud> 
+        <dropdown-solicitud ruta-cat="{{route('dropdown.categorias')}}" ruta-equipo="{{route('dropdown.equipos')}}"
+        ruta-existencia="{{route('dropdown.existencias')}}"></dropdown-solicitud>
 
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
-                <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($asignaturas as $asignatura)
-                        <option value="{{ $asignatura->id }}" {{ old('asignatura') == $asignatura->id ? 'selected' : '' }}>
-                            {{ $asignatura->nombre }}</option>
-                    @endforeach
-                </select>
+                <input id="asignatura"
+                        type="text"
+                        name="asignatura" 
+                        class="form-control @error('asignatura') is-invalid @enderror" 
+                        value={{old ('asignatura')}}
+                    >
                 @error('asignatura')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -53,8 +55,8 @@
              <div class="form-group col-md-4 mt-3">
                 <label for="fecha_inicio">Desde:</label>
                 <input type="date"  value="{{$hoy}}"
-                name="fecha_inicio" id="fecha_inicio" 
-                class="form-control @error ('fecha_inicio') is-invalid @enderror" readonly>
+                name="fecha_inicio" id="fecha_inicio" min="{{$hoy}}"
+                class="form-control @error ('fecha_inicio') is-invalid @enderror" >
                 @error('fecha_inicio') 
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -114,9 +116,3 @@
 </div>
 @endsection
 
-@section('js')
-  <script src="{{ asset('/js/app.js')}}"></script> 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"
- integrity="sha512-S9EzTi2CZYAFbOUZVkVVqzeVpq+wG+JBFzG0YlfWAR7O8d+3nC+TTJr1KD3h4uh9aLbfKIJzIyTWZp5N/61k1g==" crossorigin="anonymous" defer></script>
- @endsection

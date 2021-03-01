@@ -7,7 +7,7 @@
         props: ['fecha'],
         computed: {
             formatearFecha() {
-                return moment(this.fecha).locale('es').format('H:m')
+                return moment(this.fecha).locale('es').format('HH:mm')
             }
         }
     }

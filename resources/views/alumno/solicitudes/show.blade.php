@@ -2,8 +2,8 @@
 
 
 @section('content')
-<body style="background-image:url('../images/fondo17.jpg') ">
-<div class="container py-4">
+<body style="background-image:url({{ asset('images/fondo17.jpg') }}) ">
+<div class="container py-4" id="app">
             <div >
                 <h1 class="text-center titulos">Solicitud #{{$solicitud->id}}</h1>
                 <div class="row justify-content-end mr-5">
@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <h4 class="titulos">Asignatura</h4>
-                    <h5 class="mt-3">{{$solicitud->asignatura->nombre}}</h5>
+                    <h5 class="mt-3">{{$solicitud->asignatura}}</h5>
                 </div>   
                 <div class="form-group col-md-3">
                     <h4 class="titulos">Solicitud creada el:</h4>
@@ -90,6 +90,30 @@
                     <div><h5>{!! $solicitud->motivo !!}</h5></div>
                 </div>           
             </div>
+
+            @if ($solicitud->estado->id == 3)
+            <br>
+            <h3 class="mb-4 titulo-categoria">motivo estado:</h3>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h4 class="titulos">Motivo del rechazo</h4>
+                    <div><h5>{!! $solicitud->motivo_estado !!}</h5></div>
+                </div>           
+            </div>
+            @endif
+
+            @if ($solicitud->estado->id == 6)
+            <br>
+            <h3 class="mb-4 titulo-categoria">motivo estado:</h3>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h4 class="titulos">Motivo la cancelación</h4>
+                    <div><h5>{!! $solicitud->motivo_estado !!}</h5></div>
+                </div>           
+            </div>
+            @endif
     </div></body>
 
 @endsection

@@ -30,9 +30,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="{{route('user')}}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <img src="../../vendor/img/LOGOH.png" alt="Logo" height="70px">
+                    
+                    <img src="{{ asset('/vendor/img/LOGOH.png') }}" alt="Logo" height="70px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,10 +43,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item  ">
-                            <a class="nav-link1 text-dark titulos" href="/"><h5>INICIO</h5></a>
+                            <a class="nav-link1 text-dark titulos" href="{{route('user')}}"><h5>INICIO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link2 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link2 text-dark titulos" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <h5>CATÁLOGO</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
@@ -53,9 +54,7 @@
                                 <a class="dropdown-item" href="{{route('catalogo.videos')}}">Cámaras de video</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tripodes')}}">Trípodes</a>
                                 <a class="dropdown-item" href="{{route('catalogo.tabletas')}}">Tabletas</a>
-                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de DVD</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{route('catalogo.equipos')}}">Todos los equipos</a>
+                                <a class="dropdown-item" href="{{route('catalogo.lectores')}}">Lectores de CD</a>
                               </div>
                             
                         </li>
@@ -63,12 +62,12 @@
                             <a class="nav-link3 text-dark titulos" href="{{ route('solicitud.create') }}"><h5>SOLICITUD DE PRÉSTAMO</h5></a>
                         </li>
                         <li class="nav-item  dropdown">
-                            <a class="nav-link4 text-dark titulos" href="/catalogo" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5>HORARIOS</h5>
+                            <a class="nav-link4 text-dark titulos" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <h5>HORARIOs</h5>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
-                                <a class="dropdown-item" href="{{route('salas.salaA')}}">Laboratorio A</a>
-                                <a class="dropdown-item" href="{{route('salas.salaB')}}">Laboratorio B</a>
+                                <a class="dropdown-item" href="{{route('salas.salas')}}">Salas</a>
+                                <a class="dropdown-item" href="{{route('reservas.salas') }}">Reservas salas</a>
                               </div>
                         </li>
                         <li class="nav-item  ">
@@ -97,7 +96,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/perfil">
+                                    <a class="dropdown-item" href={{ route ('alumno.perfil')}}>
                                         {{ __('Mi Perfil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('solicitud.index') }}">
@@ -137,10 +136,25 @@
                     </div>
                 @endif
             </div>
+            <div class="container-fluid">
+                @if (session('fracaso'))
+                    <div class="row mb-2 ">
+                        <div class="col-lg-12 py-2">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <h3>{{session('fracaso')}}</h3>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>
-    <script src="/us/app.js"></script>
+     <script src="/us/app.js"></script> 
+    {{-- <script src="{{ asset('js/app.js')}}"></script>  --}}
     @yield('scripts')
 </body>
 </html>

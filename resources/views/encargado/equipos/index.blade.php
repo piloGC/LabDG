@@ -30,7 +30,7 @@
                     <td>{{$equipo->categoria->nombre}}</td>
                     <td>{{$equipo->nombre}}</td>
                     <td>
-                        <img src="/storage/{{$equipo->imagen}}" style="width:100px" ></td>
+                        <img src="storage/{{$equipo->imagen}}" style="width:100px" ></td>
                     <td>{{$equipo->catalogo->disponible}}</td>
                     <td>
                         <div class="btn-group mr-1" role="group" >
@@ -50,7 +50,9 @@
             {{-- <a href="{{route('admin')}}" class="btn btn-primary mr-2">Volver a Inicio</a> --}}
 
     </div>
-
+    <div class="col-12 mt-4 justify-content-center d-flex">
+        {{$equipos->links()}}
+    </div>
 </div>
 
 @endsection

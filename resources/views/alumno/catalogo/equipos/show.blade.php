@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image: url(../images/fondo1.jpg)">
+<body style="background-image: url({{ asset('/images/fondo1.jpg') }})">
     <div class="container py-4" >
         <div >
             <h1 class="text-center titulos">{{$existencia->equipo->marca}} {{$existencia->equipo->modelo}}</h1>
@@ -40,11 +40,11 @@
             <div class="form-group col-md-3">
                 <h4 class="titulos">Imagen referencial</h4>
                 <br>
-                <img src="/storage/{{$existencia->equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" >
+                <img src="../storage/{{$existencia->equipo->imagen}}" style="width:200px; border: 1px solid; border-color:black" alt="imagen no diponible">
             </div>
             <div class="form-group col-md-8">
                 <h4 class="titulos">Descripción</h4>
-                <div><h5>{!! $existencia->equipo->->descripcion !!}</h5></div>
+                <div><h5>{!! $existencia->equipo->descripcion !!}</h5></div>
             </div>
             {{-- <div class="form-group col-md-4"></div> --}}
 

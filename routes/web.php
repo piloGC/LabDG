@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,30 @@ Route::get('/login', function () {
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
+//buscador de solicitudes
+Route::get('/admin/buscar', 'AdminController@index')->name('buscar.show');
+Route::get('/listarSolicitud/entrantes/buscar','ListarSolicitudController@entrantes')->name('entrantes.buscar');
+Route::get('/listarSolicitud/aprobadas/buscar','ListarSolicitudController@aprobadas')->name('aprobadas.buscar');
+Route::get('/listarSolicitud/rechazadas/buscar','ListarSolicitudController@rechazadas')->name('rechazadas.buscar');
+Route::get('/listarSolicitud/canceladas/buscar','ListarSolicitudController@canceladas')->name('canceladas.buscar');
+Route::get('/listarSolicitud/encursos/buscar','ListarSolicitudController@encursos')->name('encursos.buscar');
+Route::get('/listarSolicitud/terminadas/buscar','ListarSolicitudController@terminadas')->name('terminadas.buscar');
+
 
 //rutas de equipos
 Route::resource('equipos','EquipoController');
 
 //rutas de sala
-Route::get('/horarios/sala-A','SalaController@salaA')->name('salas.salaA')->middleware(['auth','user']);
-Route::get('/horarios/sala-B/','SalaController@salaB')->name('salas.salaB')->middleware(['auth','user']);
-Route::resource('salas','SalaController')->middleware(['auth','admin']);;
+
+Route::get('/horarios/salas/','SalaController@inicio')->name('salas.salas')->middleware(['auth','user']);
+Route::resource('salas','SalaController')->middleware(['auth','admin']);
+
+//rutas de reservas
+    //creacion de clases
+    Route::get('/reservas/reservas-hoy','ReservaController@reservasHoy')->name('reservas.hoy')->middleware(['auth','admin']);
+Route::get('/reservas/buscar','ReservaController@index')->name('reservas.buscar')->middleware(['auth','admin']);
+Route::get('/reservas-salas','ReservaController@reservas')->name('reservas.salas')->middleware(['auth','user']);
+Route::resource('reservas','ReservaController')->middleware(['auth','admin']);
 
 //rutas de prestamos
 Route::get('/prestamos/{prestamo}/devolver','PrestamoController@devolver')->name('prestamo.devolver');
@@ -42,7 +59,6 @@ Route::resource('prestamos','PrestamoController');
 //index de user
 Route::get('/','UserController@index')->name('user');
 Route::get('/catalogo', 'UserController@catalogo')->name('catalogo.categorias');
-Route::get('/catalogo/todos-los-equipos', 'UserController@todosEquipos')->name('catalogo.equipos');
 Route::get('/catalogo/camaras-fotograficas', 'UserController@camarasFot')->name('catalogo.fotograficas');
 Route::get('/catalogo/camaras-video', 'UserController@camarasVid')->name('catalogo.videos');
 Route::get('/catalogo/tripodes', 'UserController@tripode')->name('catalogo.tripodes');
@@ -74,9 +90,9 @@ Route::get('markAsRead', function(){
 Route::post('/mark-as-read', 'SolicitudController@markNotification' ) ->name('markNotification');
 
 //rutas para dropdown dependiente formulario solicitud
-Route::get('getCategorias', 'CategoriaEquipoController@getCategorias');
-Route::get('getEquipos', 'CategoriaEquipoController@getEquipos');
-Route::get('getExistencias', 'CategoriaEquipoController@getExistencias');
+Route::get('getCategorias', 'CategoriaEquipoController@getCategorias')->name('dropdown.categorias');
+Route::get('getEquipos', 'CategoriaEquipoController@getEquipos')->name('dropdown.equipos');
+Route::get('getExistencias', 'CategoriaEquipoController@getExistencias')->name('dropdown.existencias');
 
 //rutas de autenticacion
 Auth::routes();
@@ -86,6 +102,7 @@ Route::get('/existencias/{existencia}/prestar','ExistenciaController@prestar')->
 Route::get('/existencias/{existencia}/devolver','ExistenciaController@devolver')->name('existencias.devolver');
 Route::put('/existencias/{existencia}','ExistenciaController@prestarPrestamo')->name('existencias.prestarPrestamo');
 // Route::put('/existencias/{existencia}','ExistenciaController@devolverPrestamo')->name('existencias.devolverPrestamo');
+Route::get('/existencias/buscar','ExistenciaController@index')->name('existencias.buscar');
 Route::resource('existencias', 'ExistenciaController');
 
 //rutas de sanciones
@@ -111,10 +128,13 @@ Route::get('/listarSolicitud/entrantes','ListarSolicitudController@entrantes')->
 Route::get('/listarSolicitud/aprobadas','ListarSolicitudController@aprobadas')->name('aprobadas.index');
 Route::get('/listarSolicitud/rechazadas','ListarSolicitudController@rechazadas')->name('rechazadas.index');
 Route::get('/listarSolicitud/canceladas','ListarSolicitudController@canceladas')->name('canceladas.index');
-Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
+ Route::get('/listarSolicitud/encursos','ListarSolicitudController@encursos')->name('encursos.index');
+// Route::get('/listarSolicitud/{listarSolicitud}/Cancelar','ListarSolicitudController@encursos')->name('cancelar.edit');
+// Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@encursos')->name('rechazar.index');
 Route::get('/listarSolicitud/{listarSolicitud}/Aprobar','ListarSolicitudController@cambiarEstadoAprobada')->name('cambiarEstadoAprobada.index');
-Route::get('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
-Route::get('/listarSolicitud/{listarSolicitud}/Cancelar','ListarSolicitudController@cambiarEstadoCancelada')->name('cambiarEstadoCancelada.index');
+Route::put('/listarSolicitud/{listarSolicitud}/cancelar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
+Route::put('/listarSolicitud/{listarSolicitud}/rechazar','ListarSolicitudController@cambiarEstadoCancelada')->name('cambiarEstadoCancelada.index');
+//Route::put('/listarSolicitud/{listarSolicitud}/Rechazar','ListarSolicitudController@cambiarEstadoRechazada')->name('cambiarEstadoRechazada.index');
 
 Route::resource('listarSolicitud','ListarSolicitudController');
 
@@ -127,3 +147,12 @@ Route::get('/admin/perfil', function () {
 Route::get('/perfil', function () {
     return view('alumno.perfil');
 })->name('alumno.perfil')->middleware(['auth','user']);
+
+
+//para iniciar el storage
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
+
+
+

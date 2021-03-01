@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
- <body style="background-image:url('/images/fondo2.png')"> 
+ <body style="background-image:url({{ asset('/images/fondo2.png') }})"> 
 <div class="container py-4">
      
 <h1 class="text-center mb-3 titulos">Formulario de Solicitud</h1>
@@ -87,13 +87,13 @@
             <div class="row">
              <div class="form-group col-md-4 mt-3">
                 <label for="asignatura">Asignatura:</label>
-                <select name="asignatura" id="asignatura" class="form-control @error('asignatura') is-invalid @enderror">
-                    <option value="">-- Seleccione una opcion --</option>
-                    @foreach ($asignaturas as $asignatura)
-                        <option value="{{ $asignatura->id }}" {{ old('asignatura') == $asignatura->id ? 'selected' : '' }}>
-                            {{ $asignatura->nombre }}</option>
-                    @endforeach
-                </select>
+                
+                <input id="asignatura"
+                        type="text"
+                        name="asignatura" 
+                        class="form-control @error('asignatura') is-invalid @enderror" 
+                        value={{old ('asignatura')}}
+                    >
                 @error('asignatura')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -126,9 +126,9 @@
         </div>
             <div class="form-group mt-3">
                 <label for="motivo">Motivo solicitud:</label>
-                <input type="hidden" name="motivo" value="{{old('motivo')}}" id="motivo">
-                <trix-editor class="form-control @error ('motivo') is-invalid @enderror"
-                placeholder="Breve descripción del motivo de la solicitud" input="motivo"></trix-editor>
+                <input type="hidden" id="motivo" name="motivo" value="{{old('motivo')}}" >
+                <trix-editor input="motivo" class="form-control @error ('motivo') is-invalid @enderror"
+                placeholder="Breve descripción del motivo de la solicitud" style="overflow-y:auto;" ></trix-editor>
                 @error('motivo')
                 <span class="invalid_feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -157,7 +157,7 @@
                 He leído y acepto los <a href="" data-toggle="modal" data-target="#condicion" >Términos y Condiciones</a> de solicitud
                 @error('condiciones')
                    <span class="invalid_feedback d-block" role="alert">
-                       <strong>Debes aceptar los términos y condiciones</strong>
+                       <strong class="text-danger">Debes aceptar los términos y condiciones</strong>
                    </span>
                    @enderror 
             </div>

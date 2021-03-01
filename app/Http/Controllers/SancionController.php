@@ -8,6 +8,8 @@ use App\EstadoSancion;
 use App\Prestamo;
 use App\Solicitud;
 use App\User;
+use App\Existencia;
+use App\Equipo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,12 +36,86 @@ class SancionController extends Controller
         // $usuario =auth()->user();
         // $id_solicitud = DB::table('solicituds')->where('user_id',Auth::id());
         $cont = 0;
-        $usuario = Auth::id();
-        if($usuario == '1'){
-            $data['sanciones']= Sancion::paginate(10);
-            return view('encargado.sanciones.index',$data);
+        $cantidadsancion=0;
+        $usuario = Auth::user();
+        $encargado = Auth::user()->where('role_id',1);
+        $encargado_id = $encargado->pluck('id');
+        $id =$encargado_id[0];
+        $role_id = $usuario->role_id;
+        if($role_id == 1){
 
-        }else{
+            $terminarCiclo = 1;
+            while($terminarCiclo ==1){        
+                //cantidad de prestamos que posee el encargado en base a los generados por los alumnos   
+                //elimine esto ->where('user_id',$id) 
+                $cantidadPrestamos=DB::table('prestamos')->pluck('id');
+                $cantidadPrestamoss = count($cantidadPrestamos);  
+
+                if($cantidadPrestamoss == 0){
+                    $terminarCiclo='2';
+                    return view('encargado.sanciones.indexVacio');
+                }
+
+                for ($i=0; $i < $cantidadPrestamoss; $i++) { 
+                    //obtener los prestamos que posee
+                    $idprestamo=$cantidadPrestamos[$i]; 
+
+                    $infoPrestamo=Prestamo::find($idprestamo);
+                    $idSancion = DB::table('sancions')->where('prestamo_id',$infoPrestamo->id);
+
+                    $idSancionn=$idSancion->pluck('id');
+
+                    if(empty($idSancionn['0'])){
+                        //dd('no tiene un prestamo asociado a esta solicitud');
+                            //continua con ciclo for en i++
+                    }else{
+                        $cantidadsancion++;
+
+                        $id_sancion=$idSancionn[0]; 
+                        $infoSancion = Sancion::find($id_sancion);   
+                        $id_sancione = $infoSancion->id;
+
+                        $idSolicitud = DB::table('solicituds')->where('id',$infoPrestamo->solicitud_id)->pluck('id');
+                        $infoSolicitud = Solicitud::find($idSolicitud);
+                        // $id_estud = $infoSolicitud->user_id;
+
+                        $idEstudiante = DB::table('users')->where('id',$infoSolicitud[0]->user_id)->pluck('id');
+                        $infoEstudiante = User::find($idEstudiante);
+                        $infoEstudiante = $infoEstudiante[0];
+
+                        $nombreEstudiante = $infoEstudiante->name;
+                        $apellidoEstudiante = $infoEstudiante->lastname;
+                        
+                        $correo = DB::table('sancions');
+                    
+                        for($j=$i;$j<$cantidadPrestamoss;$j++){
+                            // $posNombre = DB::table('sancions')->where('id',$id_sancione);
+                            $data['sanciones']= Sancion::orderBy('estado_id','ASC')->paginate(10);
+                            // $posNombre->infoSancion = $infoSancion;
+                            $h=$i+1;
+                            $id=$id_sancione;
+                            // $data['id'] = [$h];
+                            $data[''.$id]= $nombreEstudiante.$apellidoEstudiante;
+                            // $data['pos'.$h] = ;
+
+                            
+                        }
+                    }
+                }
+                $terminarCiclo='2';
+            }
+            // $count = $h;
+            // dd($data);
+            if($cantidadsancion == 0){
+                return view('encargado.sanciones.indexVacio');
+            }else{
+                return view('encargado.sanciones.index',$data);
+            }
+            
+
+        }
+        if($role_id == 2){
+            //sección para alumno
             $terminarCiclo = 1;
             while($terminarCiclo ==1){
                 //recuperamos los id de las solicitudes que ha generado ese alumno                
@@ -66,10 +142,10 @@ class SancionController extends Controller
                         $idPrestamooo=$idPrestamo[0]; 
                         $infoPrestamo = Prestamo::find($idPrestamooo);   
                         $id_prestamo = $infoPrestamo->id;
-                        
-                        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
-                        $idSancion=$sancionTable->pluck('id');
 
+                        $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo)->get();
+                        $idSancion=$sancionTable->pluck('id');
+                        
                         if(empty($idSancion['0'])){
                             //dd('no tiene una sancion asociado a este prestamo');
                                 //continua con ciclo for en i++
@@ -77,13 +153,16 @@ class SancionController extends Controller
                             //->where('prestamo_id',$id_prestamo);
                             
                             $idSancionn=$idSancion[0]; 
-                            $sancion= Sancion::find($idSancionn);
-                            $estadoSancion=$sancion->estado_id;
-                            if($estadoSancion == '1'){
-                                $data['sanciones']=  Sancion::find($id_prestamo);
+                            $sanciones= Sancion::orderBy('estado_id','asc')->paginate(15);
+                            $solicitudes=Solicitud::Where('estado_id',5)->get();
                             
-                                return view('alumno.sancions.index',$data);
-                            }
+                            //  $estadoSancion=$sanciones[0];
+                            // // dd($estadoSancion);
+                            // if($estadoSancion == '1' && $estadoSancion == '2'){
+                            //     $data['sanciones']=  Sancion::all();
+
+                                return view('alumno.sancions.index',compact('sanciones','solicitudes'));
+                         //   }
                         }
                     }
                 }
@@ -101,14 +180,104 @@ class SancionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Prestamo $prestamo)
+    public function create(Request $request)
     {
-        //Esta funcion no se esta ocupando, se pasa directamente de prestamocontroller -> sancionar
         $categorias = CategoriaSancion::all(['id','nombre']);
-        $hoySancion= Carbon::today()->format('Y-m-d');
-        //$categorias=DB::table('categoria_sancions')->get()->pluck('nombre','id');
+        $hoySancion= Carbon::today();
+        // dd($request);
+        $idSolicitud = $request->prestamo;
+        $infoSolicitud = Solicitud::find($idSolicitud);
+        $idPrestamo = DB::table('prestamos')->where('solicitud_id',$idSolicitud)->pluck('id');
+        $id_prestamo = $idPrestamo[0];
+        $prestamo= Prestamo::find($id_prestamo);
+
         
-        return view('sanciones.create',compact('categorias','hoySancion','prestamo'));
+        $id_user = Solicitud::find($idSolicitud)->user_id;
+        $nombreEstudiante = User::find($id_user)->name;
+        $apellidoEstudiante = User::find($id_user)->lastname;
+        $rut = User::find($id_user)->run;
+        $prestamo['nombre'] = $nombreEstudiante;
+        $prestamo['apellido'] = $apellidoEstudiante;
+        $prestamo['rut'] = $rut;
+    
+        $id_existencia = Solicitud::find($prestamo->solicitud_id)->existencia_id;
+        $id_equipo = Existencia::find($id_existencia)->equipo_id;
+        $nombre_equipo=Equipo::find($id_equipo)->nombre;
+        $prestamo['nombre_equipo'] = $nombre_equipo;
+        
+
+        //verificar cuantas sanciones tiene por cada categoria
+        $cont1=0;
+        $cont2=0;
+        $cont3=0;
+        $cont4=0;
+        $prestamo->fueraPlazo =  $cont1;
+        $prestamo->danio =  $cont2;
+        $prestamo->entregadoTercero =  $cont3;
+        $prestamo->robado =  $cont4;
+
+        $terminarCiclo = 1;
+        while($terminarCiclo ==1){
+            //recuperamos los id de las solicitudes que ha generado ese alumno                
+            $cantidadSolicitud=DB::table('solicituds')->where('user_id',$id_user)->pluck('id');
+            $cantidadSolicitudd = count($cantidadSolicitud);  
+
+            if($cantidadSolicitudd == 0){
+                $terminarCiclo='2';
+                return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
+            }
+            for ($i=0; $i < $cantidadSolicitudd; $i++) { 
+                //obtener los prestamos que posee
+                $numero_de_solicitud=$cantidadSolicitud[$i]; 
+               
+                $id_prestamos=DB::table('prestamos')->where('solicitud_id',$numero_de_solicitud);
+                $idPrestamo=$id_prestamos->pluck('id');
+
+                if(empty($idPrestamo['0'])){
+                    //dd('no tiene un prestamo asociado a esta solicitud');
+                        //continua con ciclo for en i++
+                }else{
+                    
+                    $idPrestamooo=$idPrestamo[0]; 
+                    $infoPrestamo = Prestamo::find($idPrestamooo);   
+                    $id_prestamo = $infoPrestamo->id;
+
+                    $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+                    $idSancion=$sancionTable->pluck('id');
+
+                    if(empty($idSancion['0'])){
+                        //dd('no tiene una sancion asociado a este prestamo');
+                            //continua con ciclo for en i++
+                    }else{
+                        //->where('prestamo_id',$id_prestamo);
+                        
+                        $idSancionn=$idSancion[0]; 
+                        $sancion= Sancion::find($idSancionn);
+                        $categoriaSancion=$sancion->categoria_id;
+
+                        if($categoriaSancion == '1'){
+                            $cont1 = $cont1 + 1;
+                            $prestamo->fueraPlazo =  $cont1;
+                        }elseif ($categoriaSancion == '2') {
+                                $cont2 = $cont2 + 1;
+                                $prestamo->danio =  $cont2;
+                            }elseif ($categoriaSancion == '3') {
+                                    $cont3 = $cont3 + 1;
+                                    $prestamo->entregadoTercero =  $cont3;
+                                }elseif ($categoriaSancion == '4') {
+                                    $cont4 = $cont4 + 1;
+                                    $prestamo->robado =  $cont4;
+                                    }
+
+                        }
+                    }
+                }
+                $terminarCiclo='2';
+            }
+
+        
+
+        return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
     }
 
     /**
@@ -126,9 +295,97 @@ class SancionController extends Controller
         $datosSancion= request()->validate([
             'descripcion'=>'required',
             'fecha_inicio_sancion'=>'required|date',
-            'fecha_fin_sancion'=>'required|date',
+            // 'fecha_fin_sancion'=>'required|date',
             'categoria'=>'required',
         ]);
+        //verificar cuantas sanciones tiene por cada categoria
+        $cont=0;
+        $rut= $request->rut;
+        $iduser = DB::table('users')->where('run',$rut)->pluck('id');
+        $i=0;
+        $id_user=$iduser[$i]; 
+
+        $terminarCiclo = 1;
+        while($terminarCiclo ==1){
+            //recuperamos los id de las solicitudes que ha generado ese alumno                
+            $cantidadSolicitud=DB::table('solicituds')->where('user_id',$id_user)->pluck('id');
+            $cantidadSolicitudd = count($cantidadSolicitud);  
+
+            if($cantidadSolicitudd == 0){
+                $terminarCiclo='2';
+                return view('encargado.sanciones.create',compact('categorias','hoySancion','prestamo'));
+            }
+            for ($i=0; $i < $cantidadSolicitudd; $i++) { 
+                //obtener los prestamos que posee
+                $numero_de_solicitud=$cantidadSolicitud[$i]; 
+               
+                $id_prestamos=DB::table('prestamos')->where('solicitud_id',$numero_de_solicitud);
+                $idPrestamo=$id_prestamos->pluck('id');
+
+                if(empty($idPrestamo['0'])){
+                    //dd('no tiene un prestamo asociado a esta solicitud');
+                        //continua con ciclo for en i++
+                }else{
+                    
+                    $idPrestamooo=$idPrestamo[0]; 
+                    $infoPrestamo = Prestamo::find($idPrestamooo);   
+                    $id_prestamo = $infoPrestamo->id;
+
+                    $sancionTable=DB::table('sancions')->where('prestamo_id',$id_prestamo);
+                    $idSancion=$sancionTable->pluck('id');
+
+                    if(empty($idSancion['0'])){
+                        //dd('no tiene una sancion asociado a este prestamo');
+                            //continua con ciclo for en i++
+                    }else{
+                        //->where('prestamo_id',$id_prestamo);
+                        
+                        $idSancionn=$idSancion[0]; 
+                        $sancion= Sancion::find($idSancionn);
+                        $categoriaSancion=$sancion->categoria_id;
+
+                        if($categoriaSancion == $datosSancion['categoria']){
+                            //guarda en variable cont, la cantidad de sanciones que tiene en esa misma categoria
+                            $cont = $cont + 1;
+                        }
+
+                        }
+                    }
+                }
+                $terminarCiclo='2';
+            }
+
+            $fecha = date('Y-m-d');
+
+            for ($j=0; $j < 4 ; $j++) { 
+                if($datosSancion['categoria'] == 1){
+                    //si no tiene sanciones en esta categoria
+                    if($cont == 0){
+                        //agregamos su primera sancion, equivalente a 1 mes
+                        $nuevafecha = strtotime ( '+1 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+                        
+                    }elseif ($cont == 1){
+                        //agregamos su segunda sancion, equivalente a 5 mes
+                        $nuevafecha = strtotime ( '+5 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                        
+                    }elseif ($cont >= 2){
+                        //agregamos su tercera sancion, equivalente a 10 mes
+                        $nuevafecha = strtotime ( '+10 month' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                    }
+                }elseif($datosSancion['categoria'] == 2 || $datosSancion['categoria'] == 3){
+                    $nuevafecha = strtotime ( '+5 month' , strtotime ( $fecha ) ) ;
+                    $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+                }elseif($datosSancion['categoria'] == 4){
+                    $nuevafecha = strtotime ( '+3 month' , strtotime ( $fecha ) ) ;
+                    $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                }
+                
+            }
 
         $id_prestamo=Prestamo::find($request->prestamo)->id; 
            
@@ -136,7 +393,7 @@ class SancionController extends Controller
        $idSancion = DB::table('sancions')->insert([
              'descripcion'=>$datosSancion['descripcion'],
             'fecha_inicio'=>$datosSancion['fecha_inicio_sancion'],
-            'fecha_fin'=>$datosSancion['fecha_fin_sancion'],
+            'fecha_fin'=>$nuevafecha,
             'prestamo_id'=>$id_prestamo,
             'categoria_id'=>$datosSancion['categoria'],
             'estado_id' =>'1',
@@ -184,7 +441,7 @@ class SancionController extends Controller
         // $id_prestamo=Prestamo::findOrFail($request->prestamo); 
         // DB::table('prestamos')->where('id',$id_prestamo)->update(['sancion_id' => ]);
         //return
-        return redirect()->action('AdminController@index')->with('exito','Se ha concluido su prestamo! y se ha sancionado');
+        return redirect()->action('AdminController@index')->with('mensaje','Se ha concluido su prestamo! y se ha sancionado');
     }
 
     /**
@@ -195,7 +452,10 @@ class SancionController extends Controller
      */
     public function show(Sancion $sancion)
     {
-        $usuario = Auth::id();
+        $usuario = Auth::user();
+
+        // $usuario = Auth::user();
+        
         $prestamoid = $sancion->prestamo_id;
         $infoPrestamo= Prestamo::find($prestamoid);
 
@@ -208,7 +468,11 @@ class SancionController extends Controller
         $sancion->alumnoApellido = $infoAlumno->lastname;
         $sancion->rutAlumno = $infoAlumno->run;
 
-        if($usuario == '1'){
+        if($usuario->role_id == 1){
+        
+        // $role_id = $usuario->pluck('role_id');
+        // $role =$role_id[0];
+        // if($role == 1){
             return view('encargado.sanciones.show')->with('sancion',$sancion);
         }else{
             return view('alumno.sancions.show')->with('sancion',$sancion);

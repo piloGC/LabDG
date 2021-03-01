@@ -29,7 +29,7 @@ export default {
 
           //enviar la peticion al servidor
           axios
-            .post(`/sanciones/${this.sancionId}`, { params, _method: "delete" })
+            .post("sanciones/"+this.sancionId, { params, _method: "delete" })
             .then((respuesta) => {
               // console.log(respuesta);
               this.$swal(

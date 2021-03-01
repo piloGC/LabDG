@@ -1,5 +1,7 @@
 <?php
 
+use App\ReservaEstado;
+use App\TipoReserva;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,12 +21,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ExistenciaEstadoSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(AsignaturaSeeder::class);
         $this->call(SolicitudEstadoSeeder::class);
         $this->call(SalaSeeder::class);
         $this->call(EquipoSeeder::class);
         $this->call(ExistenciaSeeder::class);
         $this->call(PrestamoEstadoSeeder::class);
+        $this->call(ReservaEstadoSeeder::class);
         // $this->call(UsersTableSeeder::class);
     }
 }

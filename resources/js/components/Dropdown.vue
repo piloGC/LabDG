@@ -19,6 +19,7 @@
           {{data.nombre}}
         </option>
       </select>
+      
     <div class="error" v-if="!equipo">Primero debes seleccionar una categoria.</div>  
     </div>
     <div class="form-group col-md-4 mt-3">
@@ -35,14 +36,15 @@
           {{ data.codigo }}
         </option>
       </select>
+      
       <div class="error" role="error" v-if="!existencia">Primero debes seleccionar un equipo.</div>  
     </div>
   </div>
 </template>
+
 <script>
 import {required} from 'vuelidate/lib/validators'
 export default {
-  props: ["oldData"],
   data() {
     return {
       categoria: 0,
@@ -53,9 +55,10 @@ export default {
       existencias: [],
     };
   },
+  props: ["rutaCat","rutaEquipo","rutaExistencia"],
   methods: {
     getCategorias: function () {
-      axios.get("/getCategorias").then(
+      axios.get(this.rutaCat).then(
         function (response) {
           this.categorias = response.data;
         }.bind(this)
@@ -63,7 +66,7 @@ export default {
     },
     getEquipos: function () {
       axios
-        .get("/getEquipos", {
+        .get(this.rutaEquipo, {
           params: {
             categoria_id: this.categoria,
           },
@@ -76,7 +79,7 @@ export default {
     },
     getExistencias: function () {
       axios
-        .get("/getExistencias", {
+        .get(this.rutaExistencia, {
           params: {
             equipo_id: this.equipo,
           },

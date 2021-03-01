@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background-image:url('../images/fondo10.png') ">
-<div class="container py-4">
+<body style="background-image:url({{ asset('/images/fondo10.png') }}) ">
+<div class="container py-4" id="app">
 <h1 class="text-center mb-3 titulos">Mis solicitudes</h1>
 <hr>
 <div class="row justify-content-center mt-4">
@@ -23,7 +23,7 @@
             @foreach ($solicitudes as $solicitud)
             <tr>
                 <td>{{$solicitud->id}}</td>
-                <td>{{$solicitud->existencia->codigo}}</td>
+                <td>{{$solicitud->existencia->equipo->nombre}}</td>
                 <td><fecha-index fecha="{{$solicitud->fecha_inicio}}">-</fecha-index></td>
                 <td><fecha-index fecha="{{$solicitud->fecha_fin}}">-</fecha-index></td>
                 <td>

@@ -17,7 +17,7 @@
            <tr class="table-active">
                     <th scole="col">#</th>
                     <th scole="col">Prestamo ID</th>
-                    <th scole="col">Descripción</th>
+                    <th scole="col">Categoría</th>
                     <th scole="col">Desde</th>
                     <th scole="col">Hasta</th>
                     <th scole="col">Estado</th>

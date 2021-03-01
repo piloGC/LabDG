@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title titulos" id="condicion">Término y condiciones</h5>
+          <h5 class="modal-title titulos" id="condicion">Términos y condiciones</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -49,13 +49,12 @@
             <div data-toggle="collapse" href="#pregunta1" role="button" aria-expanded="false" aria-controls="pregunta1">
 
             <h6 class="text-uppercase"> 
-              <b>Seleccioné la categoría y equipo, 
-                ¿Por qué no aparece un número de equipo?<i class="fas fa-caret-down ml-2"></i></b> 
+              <b>¿En que horario debo devolver, o retirar el equipo solicitado?<i class="fas fa-caret-down ml-2"></i></b> 
             </h6>
             </div>
             <div class="collapse" id="pregunta1">
-            <p>Cuando todos los equipos han sido prestados ya no habrán números de equipos disponibles para seleccionar,
-              por lo tanto tendrás que seleccionar otro equipo y luego un número de equipo. </p>
+            <p>El equipo, debe ser devuelto al laboratorio a mas tardar, al medio día del dia estipulado en la solicitud generada.</p>
+              <p>Del mismo modo, el equipo estara disponible para su retiro, despues del medio día, estipulado en su solicitud.</p>
             </div>
           </div>
           <hr>

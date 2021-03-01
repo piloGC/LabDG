@@ -6,7 +6,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<body style="background-image:url('../images/fondo11.png')">
+<body style="background-image:url({{ asset('/images/fondo11.png') }})">
     <div class="container login-container">
       <div class="row ">
         <div class="col-md-6 ads">
@@ -24,7 +24,7 @@
                 
                 <div class="col-md-6">
                     <input id="run" type="text" 
-                     placeholder="Ingrese con puntos y guión"
+                     placeholder="Ingrese con puntos y guion" 
                     class="form-control @error('run') is-invalid @enderror" 
                     name="run" value="{{ old('run') }}" required autocomplete="run" autofocus>
                    

@@ -245,6 +245,7 @@ return [
         [
             'text'        => 'Inicio',
             'url'         => '/admin',
+            'active' => ['/admin','admin/buscar*', 'regex:@^content/[0-9]+$@'],
             'icon'        => 'fas fa-fw fa-home',
         ],
         //   ['header' => 'account_settings'],
@@ -263,26 +264,31 @@ return [
           [
             'text'    => 'Solicitudes entrantes',
             'url'     => '/listarSolicitud/entrantes',
+            'active' => ['listarSolicitud/entrantes', 'listarSolicitud/entrantes/buscar?solicitud=*', 'regex:@^content/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         [
             'text' => 'Solicitudes aprobadas',
             'url'  => 'listarSolicitud/aprobadas',
+            'active' => ['listarSolicitud/aprobadas', 'listarSolicitud/aprobadas/buscar?solicitud=*', 'regex:@^content/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         [
             'text'    => 'Solicitudes en curso',
             'url'     => 'listarSolicitud/encursos',
+            'active' => ['listarSolicitud/encursos', 'listarSolicitud/encursos/buscar?solicitud=*', 'regex:@^content/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         [
             'text'    => 'Solicitudes rechazadas',
             'url'     => 'listarSolicitud/rechazadas',
+            'active' => ['listarSolicitud/rechazadas', 'listarSolicitud/rechazadas/buscar?solicitud=*', 'regex:@^content/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         [
             'text'    => 'Solicitudes canceladas',
             'url'     => 'listarSolicitud/canceladas',
+            'active' => ['listarSolicitud/canceladas', 'listarSolicitud/canceladas/buscar?solicitud=*', 'regex:@^content/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-angle-right'
         ],
         // [
@@ -327,29 +333,43 @@ return [
                     'icon' => 'fas fa-fw fa-angle-right'
                 ],
                 [
-                    'text' => 'Equipos',
-                    'url'  => 'equipos',
-                    'icon' => 'fas fa-fw fa-angle-right'
+                    'text' => 'Control equipos',
+                    'icon' => 'fas fa-fw fa-angle-right',
+                    'submenu'=>[
+                        [
+                            'text' => 'Equipos',
+                            'url'  => 'equipos',
+                            'icon' => 'fas fa-fw fa-genderless'
+                        ],
+                        [   
+                            'text' => 'Existencias',
+                            'url'  => 'existencias',
+                            'active' => ['existencias','existencias/buscar*', 'regex:@^content/[0-9]+$@'],
+                            'icon' => 'fas fa-fw fa-genderless'
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'Salas',
-                    'url'  => 'salas',
-                    'icon' => 'fas fa-fw fa-angle-right'
+                    'text' => 'Control salas',
+                    'icon' => 'fas fa-fw fa-angle-right',
+                    'submenu' =>[
+                        [
+                            'text' => 'Salas',
+                            'url'  => 'salas',
+                            'icon' => 'fas fa-fw fa-genderless'
+                        ],
+                        [
+                            'text' => 'Reservas',
+                            'url'  => 'reservas',
+                            'active' => ['reservas','reservas/buscar*', 'regex:@^content/[0-9]+$@'],
+                            'icon' => 'fas fa-fw fa-genderless'
+                        ],
+                        
+                    ],
                 ],
                 
-                [
-                    'text' => 'Items',
-                    'url'  => 'existencias',
-                    'icon' => 'fas fa-fw fa-angle-right'
-                ],
             ],
         ],
-        
-        // [
-        //     'text'       => 'Sanciones',
-        //     'icon'    => 'fas fa-fw fa-times',
-        //     'url'        => 'sanciones',
-        // ],
     ],
 
     /*

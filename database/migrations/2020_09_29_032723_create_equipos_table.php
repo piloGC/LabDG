@@ -16,7 +16,6 @@ class CreateEquiposTable extends Migration
         Schema::create('categoria_equipos', function (Blueprint $table) {
             $table->id();
             $table->string ('nombre');
-            $table->string ('descripcion');
             $table->timestamps();
         });
 
@@ -37,6 +36,7 @@ class CreateEquiposTable extends Migration
             $table->string ('imagen');
             $table->foreignId('categoria_id')->references('id')->on('categoria_equipos')->onDelete('cascade');
             $table->foreignId('en_catalogo')->references('id')->on('catalogo_equipos')->onDelete('cascade')->comment('Si esta disponible para estar en sistema');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
